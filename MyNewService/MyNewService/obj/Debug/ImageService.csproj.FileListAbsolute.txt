@@ -1,0 +1,9 @@
+C:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.ImageService.resources
+C:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.ProjectInstaller.resources
+C:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.csproj.GenerateResource.cache
+C:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.csproj.CoreCompileInputs.cache
+C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe.config
+C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
+C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.pdb
+C:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.exe
+C:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.pdb
