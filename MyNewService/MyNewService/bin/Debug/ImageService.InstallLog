@@ -11,3 +11,16 @@ Affected parameters are:
    logtoconsole = 
    logfile = C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
    assemblypath = C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
+Installing assembly 'D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
+   assemblypath = D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\bin\Debug\ImageService.exe
+Installing service ImageService...
+Service ImageService has been successfully installed.
+Creating EventLog source ImageService in log Application...
+Committing assembly 'D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
+   assemblypath = D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\bin\Debug\ImageService.exe

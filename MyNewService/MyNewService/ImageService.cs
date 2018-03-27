@@ -37,6 +37,7 @@ namespace ImageService
             }
             eventLog1.Source = eventSourceName;
             eventLog1.Log = logName;
+            eventLog1.WriteEntry("Start Pending");
 
         }
 
@@ -60,11 +61,13 @@ namespace ImageService
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+
         }
 
         protected override void OnStop()
         {
-            eventLog1.WriteEntry("OnStop");
+            eventLog1.WriteEntry("On Stop");
         }
 
         protected override void OnContinue()
