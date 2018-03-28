@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Logging;
+using Logging.Modal;
 
-namespace ImageService
+namespace ImageService.Modal
 {
     class ImageModal:IImageModal
     {
-        //private Ilogger logger;
+        private ILoggingService logger;
         private string outPutDir;
         private int thumbnailSize;
 
@@ -19,10 +21,11 @@ namespace ImageService
             thumbnailSize = size;
         }
 
-        /*public setUpLogger(ILogger log)
+        public void SetUpLogger(ILoggingService log)
         {
-            logger = log;
-        }*/
+            this.logger = log;
+        }
+
         public string AddFile(string[] args, out bool result)
         {
             // args[0] = DirectoryPath to the image
@@ -35,37 +38,39 @@ namespace ImageService
             if (File.Exists(imagePath)) {
                 if (!Directory.Exists(yearPath))
                 {
-                    result = createFolder(outPutDir + args[2].ToString());
-                    
-                    if (result && !Directory.Exists(yearPath + @"\" + args[3].ToString()))
-                    {
-                        result = createFolder(yearPath + args[3].ToString());
-                    }
+                    result = CreateFolder(outPutDir + args[2].ToString());
+                }
+                if (result && !Directory.Exists(yearPath + @"\" + args[3].ToString()))
+                {
+                    result = CreateFolder(yearPath + args[3].ToString());
                 }
                 if (!result)
-                    // logger.newMsg("unable to create folder")
-                    // return 
+                    this.logger.Log("unable to create folder", MessageTypeEnum.FAIL);
+                    // return !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
                 try
                 {
                     File.Move(imagePath, yearPath + @"\" + args[3].ToString());
+                    this.logger.Log("file movement finished succefully", MessageTypeEnum.INFO); // write info about the file!!!!!!!!!!!!!!!!!!!!!!
                 } catch (Exception e) { result = false;
-                        // logger.newMsg("unable to move file")
-                    }
+                    this.logger.Log("unable to move file", MessageTypeEnum.FAIL); // write info about the file!!!!!!!!!!!!!!!!!!!!!!!!!
+                }
             }
             else
             {
                 result = false;
-                // logger.newMsg("No such file")
+                this.logger.Log("No such file", MessageTypeEnum.FAIL); // write more info about the file!!!!!!!!!!!!!!
 
             }
+
             //return
         }
 
-        public bool createFolder(string path)
+        private bool CreateFolder(string path)
         {   try {
                 Directory.CreateDirectory(path);
             } catch  (Exception e)  { return false; }
             return true;
-        }        
+        }
+
     }
 }

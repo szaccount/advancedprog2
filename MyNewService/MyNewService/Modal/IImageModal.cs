@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService
+namespace ImageService.Modal
 {
     interface IImageModal
     {
@@ -14,6 +14,6 @@ namespace ImageService
         /// <param name="path">The Path of the Image from the file</param>
         /// <returns>Indication if the Addition Was Successful</returns>
         string AddFile(string[] args, out bool result);
-        bool createFolder(string path);
+
     }
 }

@@ -8,7 +8,8 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-
+using Logging;
+using Logging.Modal;
 
 namespace ImageService
 {
@@ -41,6 +42,27 @@ namespace ImageService
 
         }
 
+        private void WriteToEventLogger(object sender, MessageRecievedEventArgs messageArgs)
+        {
+            string messageOpenning = "";
+            switch (messageArgs.Status)
+            {
+                case MessageTypeEnum.FAIL:
+                    messageOpenning += "FAILED: ";
+                    break;
+                case MessageTypeEnum.INFO:
+                    messageOpenning += "INFO: ";
+                    break;
+                case MessageTypeEnum.WARNING:
+                    messageOpenning += "WARNING: ";
+                    break;
+                default:
+                    messageOpenning += "UNKNOWN MESSAGE TYPE: ";
+                    break;
+            }
+            this.eventLog1.WriteEntry(messageOpenning += messageArgs.Message);
+        }
+
         protected override void OnStart(string[] args)
         {
 
@@ -62,7 +84,9 @@ namespace ImageService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-
+            //creating the Logger!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            ILoggingService logger = new LoggingService();
+            logger.MessageRecieved += this.WriteToEventLogger;
         }
 
         protected override void OnStop()

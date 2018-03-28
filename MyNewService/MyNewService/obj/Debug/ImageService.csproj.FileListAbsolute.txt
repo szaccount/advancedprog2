@@ -7,12 +7,13 @@ C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
 C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.pdb
 C:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.exe
 C:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.pdb
-D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\bin\Debug\ImageService.exe.config
-D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\obj\Debug\ImageService.exe
-D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\obj\Debug\ImageService.pdb
-D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\bin\Debug\ImageService.exe
-D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\bin\Debug\ImageService.pdb
-D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache
-D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\obj\Debug\ImageService.ImageService.resources
-D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\obj\Debug\ImageService.ProjectInstaller.resources
-D:\User\Documents\Visual Studio 2015\Projects\MyNewService\MyNewService\obj\Debug\ImageService.csproj.GenerateResource.Cache
+D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe.config
+D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
+D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.pdb
+D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.ImageService.resources
+D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.ProjectInstaller.resources
+D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.csproj.GenerateResource.cache
+D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.csproj.CoreCompileInputs.cache
+D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.exe
+D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.pdb
+D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache
