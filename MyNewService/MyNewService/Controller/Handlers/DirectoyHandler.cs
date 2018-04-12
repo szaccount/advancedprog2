@@ -66,7 +66,8 @@ namespace ImageService.Controller.Handlers
                 args[2] = date.Year.ToString();
                 args[3] = date.Month.ToString();
                 this.m_logging.Log("new file in directory of path: " + this.m_path, MessageTypeEnum.INFO);
-                this.m_controller.ExecuteCommand(CommandEnum.NewFileCommand, args, out bool result); // !!!!! maybe declare the bool variable outside if I want to do something with it !!!!!!!!!!!!!! 
+                bool result;
+                this.m_controller.ExecuteCommand(CommandEnum.NewFileCommand, args, out result); // !!!!! maybe declare the bool variable outside if I want to do something with it !!!!!!!!!!!!!! 
             });
         }
 

@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Logging;
 using Logging.Modal;
+using ImageService.Controller;
+using ImageService.Controller.Handlers;
+using ImageService.Modal;
+using ImageService.Server;
 
 namespace ImageService
 {
@@ -87,6 +91,14 @@ namespace ImageService
             //creating the Logger!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             ILoggingService logger = new LoggingService();
             logger.MessageRecieved += this.WriteToEventLogger;
+
+            //creating the modal with app config paramaters
+            /* IImageModal modal = new ImageModal();
+             * 
+             * IController controller = new Controller(modal);
+             *                          
+             * ImageServer server = new ImageServer(controller, logger);
+             * */
         }
 
         protected override void OnStop()
