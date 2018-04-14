@@ -31,6 +31,7 @@ namespace ImageService.Server
         {
             this.m_controller = controller;
             this.m_logging = logger;
+            m_logging.Log("in server constructor starting creating directory handlers", MessageTypeEnum.INFO);
 
             IDirectoryHandler directoryHandler1 = new DirectoyHandler(controller, logger);
             directoryHandler1.StartHandleDirectory(firstPathToWatch);
@@ -41,6 +42,7 @@ namespace ImageService.Server
             directoryHandler2.StartHandleDirectory(secondPathToWatch);
             this.CommandRecieved += directoryHandler2.OnCommandRecieved;
             directoryHandler2.DirectoryClose += this.RemoveDirectoryHandler;
+            m_logging.Log("in server constructor finished creating directory handlers", MessageTypeEnum.INFO);
         }
 
         public void CloseServer()

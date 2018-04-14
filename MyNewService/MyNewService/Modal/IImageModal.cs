@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Logging;
 namespace ImageService.Modal
 {
-    interface IImageModal
+    public interface IImageModal
     {
         /// <summary>
         /// The Function Addes A file to the system
@@ -14,6 +14,11 @@ namespace ImageService.Modal
         /// <param name="path">The Path of the Image from the file</param>
         /// <returns>Indication if the Addition Was Successful</returns>
         string AddFile(string[] args, out bool result);
+
+        /// <summary>
+        /// Setter function to set up the logger object for the IImageModal
+        /// </summary>
+        void SetUpLogger(ILoggingService log);
 
     }
 }

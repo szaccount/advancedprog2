@@ -93,12 +93,17 @@ namespace ImageService
             logger.MessageRecieved += this.WriteToEventLogger;
 
             //creating the modal with app config paramaters
-            /* IImageModal modal = new ImageModal();
-             * 
-             * IController controller = new Controller(modal);
-             *                          
-             * ImageServer server = new ImageServer(controller, logger);
-             * */
+            //!!!!!!!!!!!!!!!!! 13.4.18 initializing the objects with default values !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            logger.Log("In ImageService starting to create the Modal, Controller and Server", MessageTypeEnum.INFO);
+            IImageModal modal = new ImageModal(logger, @"D:\Users\seanz\Desktop\AdvancedProg2Work\SaveGallery", 120);
+              
+             IController controller = new Controller.Controller(modal, logger);
+                                       
+             ImageServer server = new ImageServer(controller, logger, @"D:\Users\seanz\Desktop\AdvancedProg2Work\listening1",
+                 @"D:\Users\seanz\Desktop\AdvancedProg2Work\listening2");
+            logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);
+            //!!!!!!!!!!!!!!!!! 13.4.18 initializing the objects with default values !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         }
 
         protected override void OnStop()

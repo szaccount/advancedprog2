@@ -16,15 +16,17 @@ namespace ImageService.Modal
         private string outPutDir, outPutDirThumbnail;
         private int thumbnailSize;
 
-        ImageModal(string path, int size)
+        public ImageModal(ILoggingService log, string path, int size)
         {
+            logger = log;
             outPutDir = path;
-            outPutDirThumbnail = path + @"Thumbnail";
+            outPutDirThumbnail = outPutDir + @"\Thumbnail";
             thumbnailSize = size;
-            if (!(CreateFolder(outPutDir + @"Thumbnail")))
+            if (!(CreateFolder(outPutDirThumbnail)))
             {
-                this.logger.Log("unable to create folder", MessageTypeEnum.FAIL);
+                this.logger.Log("In ImageModal, unable to create folder", MessageTypeEnum.FAIL);
             }
+            logger.Log("In ImageModal, finished ImageModal constructor", MessageTypeEnum.INFO);
         }
 
         public void SetUpLogger(ILoggingService log)
@@ -38,44 +40,76 @@ namespace ImageService.Modal
             // args[1] = picture name
             // args[2] = year number
             // args[3] = month number 
+
+            logger.Log("In imageModal, received request to add new file: " + args[1] + " from path: " + args[0] + " taken at " + args[3] + "." + args[2], MessageTypeEnum.INFO);
+
             result = true;
+            bool tmp = true;
             string imagePath = args[0] + @"\" + args[1].ToString();
             string yearPath = this.outPutDir + @"\" + args[2].ToString();
+            string monthPath = yearPath + @"\" + args[3].ToString();
+            string newFilePath = monthPath + @"\" + args[1].ToString();
+            string yearPathThumbnail = this.outPutDirThumbnail + @"\" + args[2].ToString();
+            string monthPathThumbnail = yearPathThumbnail + @"\" + args[3].ToString();
+            string newFilePathThumbnail = monthPathThumbnail + @"\" + args[1].ToString();
             if (File.Exists(imagePath)) {
                 if (!Directory.Exists(yearPath))
                 {
-                    result = CreateFolder(outPutDir + args[2].ToString());
-                    result = CreateFolder(outPutDirThumbnail + args[2].ToString());
+                    result = CreateFolder(yearPath);
+                    tmp = CreateFolder(yearPathThumbnail);
+                    if (!tmp && result)
+                        result = false;
 
                 }
-                if (result && !Directory.Exists(yearPath + @"\" + args[3].ToString()))
+                if (result && !Directory.Exists(monthPath))
                 {
-                    result = CreateFolder(yearPath + args[3].ToString());
-                    result = CreateFolder(this.outPutDirThumbnail + @"\" + args[2].ToString() + args[3].ToString());
+                    result = CreateFolder(monthPath);
+                    tmp = CreateFolder(monthPathThumbnail);
+                    if (!tmp && result)
+                        result = false;
 
                 }
                 if (!result)
                 {
-                    this.logger.Log("unable to create folder", MessageTypeEnum.FAIL);
-                    return ("Faild");
+                    this.logger.Log("In ImageModal, unable to create folder", MessageTypeEnum.FAIL);
+                    return ("Failed");
                 }
                 try
                 {
-                    File.Move(imagePath, yearPath + @"\" + args[3].ToString());
-                    Image image = Image.FromFile(imagePath);
-                    Image thumb = image.GetThumbnailImage(thumbnailSize, thumbnailSize, ()=>false , IntPtr.Zero);
-                    thumb.Save(Path.ChangeExtension(this.outPutDirThumbnail + @"\" + args[2].ToString() + args[3].ToString(), "thumb"));
-                    this.logger.Log("file movement finished succefully", MessageTypeEnum.INFO); // write info about the file!!!!!!!!!!!!!!!!!!!!!!
+                    File.Move(imagePath, newFilePath);
+                    this.logger.Log("In ImageModal, file movement finished succefully", MessageTypeEnum.INFO); // write info about the file!!!!!!!!!!!!!!!!!!!!!!
+                }
+                catch (Exception e)
+                {
+                    result = false;
+                    this.logger.Log("In ImageModal, unable to move file, reason: " + e.Message + ",,,,,,,," + e.StackTrace + ",,,,,,,,," + e.ToString(), MessageTypeEnum.FAIL); // write info about the file!!!!!!!!!!!!!!!!!!!!!!!!!
+                    return ("failed");
+                }
+                try
+                {
+                    Image image = Image.FromFile(newFilePath);
+                    Image thumb = image.GetThumbnailImage(thumbnailSize, thumbnailSize, () => false, IntPtr.Zero);
+                    thumb.Save(Path.ChangeExtension(newFilePathThumbnail, "thumb"));
+                    image.Dispose();
+                    thumb.Dispose();
+                    this.logger.Log("In ImageModal, thumbnail creation finished succefully", MessageTypeEnum.INFO); // write info about the file!!!!!!!!!!!!!!!!!!!!!!
                     return ("success");
-                } catch (Exception e) { result = false;
-                    this.logger.Log("unable to move file", MessageTypeEnum.FAIL); // write info about the file!!!!!!!!!!!!!!!!!!!!!!!!!
+                }
+                catch (FileNotFoundException fnfe) {
+                    logger.Log("In ImageModal failed creating the thumbnail, file not fount exception has been thrown", MessageTypeEnum.FAIL);
+                    return "failed";
+                }
+                catch (Exception e)
+                {
+                    result = false;
+                    this.logger.Log("In ImageModal, unable create thumbnail, reason: " + e.Message + "       " + e.StackTrace + "         " + e.Source, MessageTypeEnum.FAIL); // write info about the file!!!!!!!!!!!!!!!!!!!!!!!!!
                     return ("failed");
                 }
             }
             else
             {
                 result = false;
-                this.logger.Log("No such file", MessageTypeEnum.FAIL); // write more info about the file!!!!!!!!!!!!!!
+                this.logger.Log("In ImageModal, problem with add file request, there is No such file", MessageTypeEnum.FAIL); // write more info about the file!!!!!!!!!!!!!!
                 return ("failed");
             }
         }
