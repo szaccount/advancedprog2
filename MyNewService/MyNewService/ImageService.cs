@@ -14,6 +14,7 @@ using ImageService.Controller;
 using ImageService.Controller.Handlers;
 using ImageService.Modal;
 using ImageService.Server;
+using System.Configuration;
 
 namespace ImageService
 {
@@ -21,20 +22,17 @@ namespace ImageService
     public partial class ImageService : ServiceBase
     {
         private int eventId = 1;
+        private ImageServer server = null;
         
         public ImageService(string[]args)
         {
             InitializeComponent();
-            string eventSourceName = "MySource";
-            string logName = "MyNewLog";
-            if (args.Count() > 0)
-            {
-                eventSourceName = args[0];
-            }
-            if (args.Count() > 1)
-            {
-                logName = args[1];
-            }
+
+            var appSettings = ConfigurationManager.AppSettings;
+            //after ?? are the default values if there is no reference for them in the app config file
+            string eventSourceName = appSettings["SourceName"] ?? "MySource";
+            string logName = appSettings["LogName"] ?? "MyNewLoggger";
+ 
             eventLog1 = new System.Diagnostics.EventLog();
             if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
             {
@@ -42,7 +40,7 @@ namespace ImageService
             }
             eventLog1.Source = eventSourceName;
             eventLog1.Log = logName;
-            eventLog1.WriteEntry("Start Pending");
+            eventLog1.WriteEntry("Service Created");
 
         }
 
@@ -91,16 +89,24 @@ namespace ImageService
             //creating the Logger!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             ILoggingService logger = new LoggingService();
             logger.MessageRecieved += this.WriteToEventLogger;
+            logger.Log("In ImageService created the logging service", MessageTypeEnum.INFO);
 
             //creating the modal with app config paramaters
             //!!!!!!!!!!!!!!!!! 13.4.18 initializing the objects with default values !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             logger.Log("In ImageService starting to create the Modal, Controller and Server", MessageTypeEnum.INFO);
-            IImageModal modal = new ImageModal(logger, @"D:\Users\seanz\Desktop\AdvancedProg2Work\SaveGallery", 120);
+            var appSettings = ConfigurationManager.AppSettings;
+            string outputDir = appSettings["OutputDir"];
+            string[] dirsToBeHandled = appSettings["Handler"].Split(';');
+            int thumbnailSize;
+            //if conversion failed, put default value
+            if (!Int32.TryParse(appSettings["ThumbnailSize"], out thumbnailSize))
+                thumbnailSize = 500; //!!!!!!!!!!!!!!!!#!$!@#@!%#%@$%@#!$!@$! change to 120 !!!!!!!!!!!!!!!!!@#!#@#@!#!#
+
+            IImageModal modal = new ImageModal(logger, outputDir, thumbnailSize);
               
              IController controller = new Controller.Controller(modal, logger);
                                        
-             ImageServer server = new ImageServer(controller, logger, @"D:\Users\seanz\Desktop\AdvancedProg2Work\listening1",
-                 @"D:\Users\seanz\Desktop\AdvancedProg2Work\listening2");
+             server = new ImageServer(controller, logger, dirsToBeHandled);
             logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);
             //!!!!!!!!!!!!!!!!! 13.4.18 initializing the objects with default values !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -108,12 +114,22 @@ namespace ImageService
 
         protected override void OnStop()
         {
-            eventLog1.WriteEntry("On Stop");
+            eventLog1.WriteEntry("In On Stop");
+            ServiceStatus serviceStatus = new ServiceStatus();
+            serviceStatus.dwCurrentState = ServiceState.SERVICE_STOP_PENDING;
+            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+            server.CloseServer();
+
+            eventLog1.WriteEntry("Service stoppes");
+            serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
+            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
         }
 
         protected override void OnContinue()
         {
-            eventLog1.WriteEntry("In OnContinue.");
+            eventLog1.WriteEntry("Service In OnContinue.");
         }
 
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)

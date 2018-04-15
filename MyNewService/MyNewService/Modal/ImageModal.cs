@@ -15,16 +15,34 @@ namespace ImageService.Modal
         private ILoggingService logger;
         private string outPutDir, outPutDirThumbnail;
         private int thumbnailSize;
+        private bool outPutDirExist;
+        private bool outPutDirThumbnailExist;
 
         public ImageModal(ILoggingService log, string path, int size)
         {
+            outPutDirExist = true;
+            outPutDirThumbnailExist = true;
             logger = log;
             outPutDir = path;
             outPutDirThumbnail = outPutDir + @"\Thumbnail";
             thumbnailSize = size;
-            if (!(CreateFolder(outPutDirThumbnail)))
+
+            try
             {
-                this.logger.Log("In ImageModal, unable to create folder", MessageTypeEnum.FAIL);
+                DirectoryInfo dI = Directory.CreateDirectory(outPutDir);
+                dI.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            }
+            catch (Exception exc)
+            {
+                this.logger.Log("In ImageModal, unable to create\\locate output folder or make it hidden", MessageTypeEnum.FAIL);
+                outPutDirExist = false;
+            }
+
+
+            if (!outPutDirExist || !(CreateFolder(outPutDirThumbnail)))
+            {
+                this.logger.Log("In ImageModal, unable to create thumbnail folder", MessageTypeEnum.FAIL);
+                outPutDirThumbnailExist = false;
             }
             logger.Log("In ImageModal, finished ImageModal constructor", MessageTypeEnum.INFO);
         }
@@ -42,7 +60,12 @@ namespace ImageService.Modal
             // args[3] = month number 
 
             logger.Log("In imageModal, received request to add new file: " + args[1] + " from path: " + args[0] + " taken at " + args[3] + "." + args[2], MessageTypeEnum.INFO);
-
+            if (!outPutDirExist)
+            {
+                logger.Log("In imageModal, unable to procees received file to handle beacuse output dir doesn't exist", MessageTypeEnum.FAIL);
+                result = false;
+                return "failed";
+            }
             result = true;
             bool tmp = true;
             string imagePath = args[0] + @"\" + args[1].ToString();
@@ -52,6 +75,8 @@ namespace ImageService.Modal
             string yearPathThumbnail = this.outPutDirThumbnail + @"\" + args[2].ToString();
             string monthPathThumbnail = yearPathThumbnail + @"\" + args[3].ToString();
             string newFilePathThumbnail = monthPathThumbnail + @"\" + args[1].ToString();
+            string newRenamedFilePath = null;
+            string newRenamedFileThumbnailPath = null;
             if (File.Exists(imagePath)) {
                 if (!Directory.Exists(yearPath))
                 {
@@ -71,29 +96,51 @@ namespace ImageService.Modal
                 }
                 if (!result)
                 {
-                    this.logger.Log("In ImageModal, unable to create folder", MessageTypeEnum.FAIL);
-                    return ("Failed");
+                    this.logger.Log("In ImageModal, unable to create needed folder, cannot finish action", MessageTypeEnum.FAIL);
+                    return "Failed";
                 }
                 try
                 {
-                    File.Move(imagePath, newFilePath);
+                    //try to move the file, if a file of the same name already exists at the detination try saving with different name
+                    if (!File.Exists(newFilePath))
+                        File.Move(imagePath, newFilePath);
+                    else
+                    {
+                        int index = 1;
+                        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(imagePath);
+                        string fileExtension = Path.GetExtension(imagePath);
+                        newRenamedFilePath = monthPath + @"\" + fileNameWithoutExtension + "Renamed" + index.ToString() + fileExtension;
+                        while (File.Exists(newRenamedFilePath))
+                        {
+                            index++;
+                            newRenamedFilePath = monthPath + @"\" + fileNameWithoutExtension + "Renamed" + index.ToString() + fileExtension;
+                        }
+                        File.Move(imagePath, newRenamedFilePath);
+                        newRenamedFileThumbnailPath = monthPathThumbnail + @"\" + fileNameWithoutExtension + "Renamed" + index.ToString() + fileExtension;
+
+                    }
                     this.logger.Log("In ImageModal, file movement finished succefully", MessageTypeEnum.INFO); // write info about the file!!!!!!!!!!!!!!!!!!!!!!
                 }
                 catch (Exception e)
                 {
                     result = false;
                     this.logger.Log("In ImageModal, unable to move file, reason: " + e.Message + ",,,,,,,," + e.StackTrace + ",,,,,,,,," + e.ToString(), MessageTypeEnum.FAIL); // write info about the file!!!!!!!!!!!!!!!!!!!!!!!!!
-                    return ("failed");
+                    return "failed";
                 }
+                Image image = null; Image thumb = null;
                 try
                 {
-                    Image image = Image.FromFile(newFilePath);
-                    Image thumb = image.GetThumbnailImage(thumbnailSize, thumbnailSize, () => false, IntPtr.Zero);
-                    thumb.Save(Path.ChangeExtension(newFilePathThumbnail, "thumb"));
-                    image.Dispose();
-                    thumb.Dispose();
+                    if (!outPutDirThumbnailExist)
+                    {
+                        logger.Log("In imageModal, unable to create thumbnail file beacuse thumbnail directory doesn't exist", MessageTypeEnum.FAIL);
+                        result = false;
+                        return "failed";
+                    }
+                    image = Image.FromFile(newRenamedFilePath ?? newFilePath);
+                    thumb = image.GetThumbnailImage(thumbnailSize, thumbnailSize, () => false, IntPtr.Zero);
+                    thumb.Save(Path.ChangeExtension(newRenamedFileThumbnailPath ?? newFilePathThumbnail, "thumb")); // !!!#@!#!@#@!# maybe leave the same extension? 15.4 #!@#@!$@#!@@!@!#!#!!
                     this.logger.Log("In ImageModal, thumbnail creation finished succefully", MessageTypeEnum.INFO); // write info about the file!!!!!!!!!!!!!!!!!!!!!!
-                    return ("success");
+                    return "success";
                 }
                 catch (FileNotFoundException fnfe) {
                     logger.Log("In ImageModal failed creating the thumbnail, file not fount exception has been thrown", MessageTypeEnum.FAIL);
@@ -103,7 +150,12 @@ namespace ImageService.Modal
                 {
                     result = false;
                     this.logger.Log("In ImageModal, unable create thumbnail, reason: " + e.Message + "       " + e.StackTrace + "         " + e.Source, MessageTypeEnum.FAIL); // write info about the file!!!!!!!!!!!!!!!!!!!!!!!!!
-                    return ("failed");
+                    return "failed";
+                }
+                finally
+                {
+                    image?.Dispose();
+                    thumb?.Dispose();
                 }
             }
             else
