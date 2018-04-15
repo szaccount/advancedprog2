@@ -1,0 +1,59 @@
+commit 70247cd3ce44d76fc8af268015e0b9e263b22195
+Author: SZ <seanzaretzky23@gmail.com>
+Date:   Mon Apr 16 01:12:54 2018 +0300
+
+    after documentation
+
+commit c558c9fe96013a4be07618d90d801a59fec8d883
+Author: SZ <seanzaretzky23@gmail.com>
+Date:   Sun Apr 15 21:33:01 2018 +0300
+
+    commit
+
+commit 79db82d3aca4b1151251e9668ee32ced6bd42453
+Author: SZ <seanzaretzky23@gmail.com>
+Date:   Sun Apr 15 19:58:58 2018 +0300
+
+    before documentation
+
+commit f2cf6c9a2fc1203339a2fd9a17d95ee52767c8d9
+Author: SZ <seanzaretzky23@gmail.com>
+Date:   Sat Apr 14 21:40:26 2018 +0300
+
+    commit after fix to adding files
+
+commit 6f77a030c129181fcb7dba9e242de1b07af75de1
+Author: Yoel Jasner <yjasner@gmail.com>
+Date:   Thu Apr 12 16:45:22 2018 +0300
+
+    add server cons
+
+commit 92ef8dcdb82c45f7d74521bb136cd0158aeaeac1
+Author: SZ <seanzaretzky23@gmail.com>
+Date:   Thu Mar 29 01:21:53 2018 +0300
+
+    commit after system build
+
+commit 488bd5247c0c12c05c1732f2ba28d673806dd8d7
+Author: Yoel Jasner <yjasner@gmail.com>
+Date:   Tue Mar 27 22:21:36 2018 +0300
+
+    Controller class build
+
+commit 80dfdd7df60bfeb2f313e3c4f41b3cf977686d89
+Author: Yoel Jasner <yjasner@gmail.com>
+Date:   Tue Mar 27 20:16:07 2018 +0300
+
+    ImageModal class build
+
+commit a0448c3e565e62777f5e2f054e766db5c0188ad6
+Author: SZ <seanzaretzky23@gmail.com>
+Date:   Mon Mar 26 22:24:39 2018 +0300
+
+    commit of service
+
+commit a6e003be059737143312c365598a48c64311bcaf
+Author: SZ <seanzaretzky23@gmail.com>
+Date:   Mon Mar 26 16:57:37 2018 +0300
+
+    first commit
