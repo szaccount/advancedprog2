@@ -10,14 +10,25 @@ using System.Drawing;
 
 namespace ImageService.Modal
 {
-    class ImageModal:IImageModal
+    /// <summary>
+    /// class implementing the IImageModal interface
+    /// </summary>
+    class ImageModal :IImageModal
     {
+        #region Members
         private ILoggingService logger;
         private string outPutDir, outPutDirThumbnail;
         private int thumbnailSize;
         private bool outPutDirExist;
         private bool outPutDirThumbnailExist;
+        #endregion
 
+        /// <summary>
+        /// ImageModal class constructor
+        /// </summary>
+        /// <param name="log">object implementing the ILoggingService interface (logger)</param>
+        /// <param name="path">path to the output directory</param>
+        /// <param name="size">size of the thumbnail files to be created</param>
         public ImageModal(ILoggingService log, string path, int size)
         {
             outPutDirExist = true;
@@ -47,18 +58,29 @@ namespace ImageService.Modal
             logger.Log("In ImageModal, finished ImageModal constructor", MessageTypeEnum.INFO);
         }
 
+        /// <summary>
+        /// setter for the logger object, to be used by this class object
+        /// </summary>
+        /// <param name="log">object implementing the ILoggingService interface (logger)</param>
         public void SetUpLogger(ILoggingService log)
         {
             this.logger = log;
         }
 
+        /// <summary>
+        /// The Function Addes A file to the system (moves from the source to the needed destination),
+        /// based on the received args
+        /// args[0] = DirectoryPath to the image
+        /// args[1] = picture name
+        /// args[2] = year number
+        /// args[3] = month number 
+        /// </summary>
+        /// <param name="args">The argumens (info about the file) for the transfer</param>
+        /// <param name="result">the result of the function (true for success, false for error)</param>
+        /// <returns>Indication if the Addition Was Successful ("success\failed")</returns>
         public string AddFile(string[] args, out bool result)
         {
-            // args[0] = DirectoryPath to the image
-            // args[1] = picture name
-            // args[2] = year number
-            // args[3] = month number 
-
+            
             logger.Log("In imageModal, received request to add new file: " + args[1] + " from path: " + args[0] + " taken at " + args[3] + "." + args[2], MessageTypeEnum.INFO);
             if (!outPutDirExist)
             {
@@ -119,12 +141,12 @@ namespace ImageService.Modal
                         newRenamedFileThumbnailPath = monthPathThumbnail + @"\" + fileNameWithoutExtension + "Renamed" + index.ToString() + fileExtension;
 
                     }
-                    this.logger.Log("In ImageModal, file movement finished succefully", MessageTypeEnum.INFO); // write info about the file!!!!!!!!!!!!!!!!!!!!!!
+                    this.logger.Log("In ImageModal, file movement finished succefully", MessageTypeEnum.INFO);
                 }
                 catch (Exception e)
                 {
                     result = false;
-                    this.logger.Log("In ImageModal, unable to move file, reason: " + e.Message + ",,,,,,,," + e.StackTrace + ",,,,,,,,," + e.ToString(), MessageTypeEnum.FAIL); // write info about the file!!!!!!!!!!!!!!!!!!!!!!!!!
+                    this.logger.Log("In ImageModal, unable to move file, reason: " + e.Message + "   " + e.StackTrace + "   " + e.ToString(), MessageTypeEnum.FAIL);
                     return "failed";
                 }
                 Image image = null; Image thumb = null;
@@ -139,7 +161,7 @@ namespace ImageService.Modal
                     image = Image.FromFile(newRenamedFilePath ?? newFilePath);
                     thumb = image.GetThumbnailImage(thumbnailSize, thumbnailSize, () => false, IntPtr.Zero);
                     thumb.Save(Path.ChangeExtension(newRenamedFileThumbnailPath ?? newFilePathThumbnail, "thumb")); // !!!#@!#!@#@!# maybe leave the same extension? 15.4 #!@#@!$@#!@@!@!#!#!!
-                    this.logger.Log("In ImageModal, thumbnail creation finished succefully", MessageTypeEnum.INFO); // write info about the file!!!!!!!!!!!!!!!!!!!!!!
+                    this.logger.Log("In ImageModal, thumbnail creation finished succefully", MessageTypeEnum.INFO);
                     return "success";
                 }
                 catch (FileNotFoundException fnfe) {
@@ -149,7 +171,7 @@ namespace ImageService.Modal
                 catch (Exception e)
                 {
                     result = false;
-                    this.logger.Log("In ImageModal, unable create thumbnail, reason: " + e.Message + "       " + e.StackTrace + "         " + e.Source, MessageTypeEnum.FAIL); // write info about the file!!!!!!!!!!!!!!!!!!!!!!!!!
+                    this.logger.Log("In ImageModal, unable create thumbnail, reason: " + e.Message + "  " + e.StackTrace + "  " + e.Source, MessageTypeEnum.FAIL);
                     return "failed";
                 }
                 finally
@@ -161,11 +183,17 @@ namespace ImageService.Modal
             else
             {
                 result = false;
-                this.logger.Log("In ImageModal, problem with add file request, there is No such file", MessageTypeEnum.FAIL); // write more info about the file!!!!!!!!!!!!!!
+                this.logger.Log("In ImageModal, problem with add file request, there is No such file", MessageTypeEnum.FAIL);
                 return ("failed");
             }
         }
 
+        /// <summary>
+        /// This method tries to create a directory at the specified path.
+        /// </summary>
+        /// <param name="log">object implementing the ILoggingService interface (logger)</param>
+        /// <param name="path">path to the directory needed to be created</param>
+        /// <return>true if creation successful or the directory already exists at that path, and false otherwise</return>
         private bool CreateFolder(string path)
         {   try {
                 Directory.CreateDirectory(path);

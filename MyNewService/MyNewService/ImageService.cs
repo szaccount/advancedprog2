@@ -22,12 +22,18 @@ namespace ImageService
     public partial class ImageService : ServiceBase
     {
         private int eventId = 1;
+        //the server created by this service. saved for notifying the system of service shutdown
         private ImageServer server = null;
         
+        /// <summary>
+        /// ImageService constructor
+        /// </summary>
+        /// <param name="args">arguments to the service</param>
         public ImageService(string[]args)
         {
             InitializeComponent();
 
+            //reading from the configuration file
             var appSettings = ConfigurationManager.AppSettings;
             //after ?? are the default values if there is no reference for them in the app config file
             string eventSourceName = appSettings["SourceName"] ?? "MySource";
@@ -44,6 +50,11 @@ namespace ImageService
 
         }
 
+        /// <summary>
+        /// method to write to the event logger of the service
+        /// </summary>
+        /// <param name="sender">message sender</param>
+        /// <param name="messageArgs">info about the message sent</param>
         private void WriteToEventLogger(object sender, MessageRecievedEventArgs messageArgs)
         {
             string messageOpenning = "";
@@ -86,13 +97,12 @@ namespace ImageService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            //creating the Logger!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //creating the Logger object used in the system
             ILoggingService logger = new LoggingService();
             logger.MessageRecieved += this.WriteToEventLogger;
             logger.Log("In ImageService created the logging service", MessageTypeEnum.INFO);
 
             //creating the modal with app config paramaters
-            //!!!!!!!!!!!!!!!!! 13.4.18 initializing the objects with default values !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             logger.Log("In ImageService starting to create the Modal, Controller and Server", MessageTypeEnum.INFO);
             var appSettings = ConfigurationManager.AppSettings;
             string outputDir = appSettings["OutputDir"];
@@ -100,16 +110,12 @@ namespace ImageService
             int thumbnailSize;
             //if conversion failed, put default value
             if (!Int32.TryParse(appSettings["ThumbnailSize"], out thumbnailSize))
-                thumbnailSize = 500; //!!!!!!!!!!!!!!!!#!$!@#@!%#%@$%@#!$!@$! change to 120 !!!!!!!!!!!!!!!!!@#!#@#@!#!#
+                thumbnailSize = 120;
 
             IImageModal modal = new ImageModal(logger, outputDir, thumbnailSize);
-              
-             IController controller = new Controller.Controller(modal, logger);
-                                       
-             server = new ImageServer(controller, logger, dirsToBeHandled);
+            IController controller = new Controller.Controller(modal, logger);
+            server = new ImageServer(controller, logger, dirsToBeHandled);
             logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);
-            //!!!!!!!!!!!!!!!!! 13.4.18 initializing the objects with default values !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         }
 
         protected override void OnStop()
@@ -119,6 +125,7 @@ namespace ImageService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOP_PENDING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
+            //notifying the system of service shutdown
             server.CloseServer();
 
             eventLog1.WriteEntry("Service stoppes");

@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Logging.Modal
 { 
-    //#####################################################################################################################
+    /// <summary>
+    /// class representing the message arguments in the system
+    /// </summary>
     public class MessageRecievedEventArgs : EventArgs
     {
+        //the type of message
         public MessageTypeEnum Status { get; set; }
+        //the message itself
         public string Message { get; set; }
     }
 }

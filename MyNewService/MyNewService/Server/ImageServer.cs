@@ -13,20 +13,28 @@ using Logging.Modal;
 
 namespace ImageService.Server
 {
-    //###############################################################################################################
+    /// <summary>
+    /// class defining the server object of the system
+    /// </summary>
     public class ImageServer
     {
         #region Members
         private IController m_controller;
+        //the logger service of the server
         private ILoggingService m_logging;
         #endregion
 
         #region Properties
-        // ???? (original description for this event:) The event that notifies about a new Command being recieved ????
-        // !!!!!!!!!!!!!!!!!! shouldn't it be only for closing the Directory Handlers? what other commands can there be? !!!!!!!!!!!!!!!!!!!!!!!
-        public event EventHandler<CommandRecievedEventArgs> CommandRecieved; // !!!!!!!! change it to close args specific and not just some command
+        // The event that notifies about a new Command being recieved
+        public event EventHandler<CommandRecievedEventArgs> CommandRecieved;
         #endregion
 
+        /// <summary>
+        /// the server class constructor
+        /// </summary>
+        /// <param name="controller">object implementing the IController interface</param>
+        /// <param name="logger">object implementing the ILoggingService interface (logger service)</param>
+        /// <param name="pathsToWatch">strings describing the paths of directories needed to be monitored by the system</param>
         public ImageServer(IController controller, ILoggingService logger, string[] pathsToWatch)
         {
             this.m_controller = controller;
@@ -39,18 +47,12 @@ namespace ImageService.Server
                 this.CommandRecieved += directoryHandler.OnCommandRecieved;
                 directoryHandler.DirectoryClose += this.RemoveDirectoryHandler;
             }
-            /*IDirectoryHandler directoryHandler1 = new DirectoyHandler(controller, logger);
-            directoryHandler1.StartHandleDirectory(firstPathToWatch);
-            this.CommandRecieved += directoryHandler1.OnCommandRecieved;
-            directoryHandler1.DirectoryClose += this.RemoveDirectoryHandler;
-
-            IDirectoryHandler directoryHandler2 = new DirectoyHandler(controller, logger);
-            directoryHandler2.StartHandleDirectory(secondPathToWatch);
-            this.CommandRecieved += directoryHandler2.OnCommandRecieved;
-            directoryHandler2.DirectoryClose += this.RemoveDirectoryHandler;*/
             m_logging.Log("In server constructor finished creating directory handlers", MessageTypeEnum.INFO);
         }
 
+        /// <summary>
+        /// method for notifying the server of closing
+        /// </summary>
         public void CloseServer()
         {
             this.m_logging.Log("starting closing server", MessageTypeEnum.INFO);
@@ -58,6 +60,12 @@ namespace ImageService.Server
             this.CommandRecieved?.Invoke(this, commandRecievedEventArgs);
         }
 
+        /// <summary>
+        /// method for removing directory handler's method subscriber to the CommandRecieved event.
+        /// When the event has no subscribers the server terminates
+        /// </summary>
+        /// <param name="sender">sender object</param>
+        /// <param name="messageArgs">message rguments and info</param>
         private void RemoveDirectoryHandler(object sender, DirectoryCloseEventArgs messageArgs)
         {
             IDirectoryHandler sendingDirectoryHandler = sender as IDirectoryHandler;
@@ -75,7 +83,9 @@ namespace ImageService.Server
                 this.StopServerFinal();
         }
 
-        //activates after all the Directory Handlers terminate
+        /// <summary>
+        /// activates after all the Directory Handlers terminate(unsubscribe to the server command event)
+        /// </summary>
         private void StopServerFinal()
         {
             this.m_logging.Log("closing server finally", MessageTypeEnum.INFO);
