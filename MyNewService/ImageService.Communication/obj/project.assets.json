@@ -28,11 +28,24 @@
       },
       "ImageService/1.0.0": {
         "type": "project",
+        "dependencies": {
+          "ImageService.Infrustracture": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/ImageService.dll": {}
         },
         "runtime": {
           "bin/placeholder/ImageService.dll": {}
+        }
+      },
+      "ImageService.Infrustracture/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/ImageService.Infrustracture.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ImageService.Infrustracture.dll": {}
         }
       }
     }
@@ -183,6 +196,11 @@
       "type": "project",
       "path": "../MyNewService/ImageService.csproj",
       "msbuildProject": "../MyNewService/ImageService.csproj"
+    },
+    "ImageService.Infrustracture/1.0.0": {
+      "type": "project",
+      "path": "../ImageService.Infrustracture/ImageService.Infrustracture.csproj",
+      "msbuildProject": "../ImageService.Infrustracture/ImageService.Infrustracture.csproj"
     }
   },
   "projectFileDependencyGroups": {

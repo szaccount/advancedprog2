@@ -1,0 +1,4 @@
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.csprojResolveAssemblyReference.cache
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.csproj.CoreCompileInputs.cache
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.AssemblyInfoInputs.cache
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.AssemblyInfo.cs

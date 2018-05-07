@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "MyNewServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServiceGUI", "wpfex2\ImageServiceGUI.csproj", "{7F43A02E-6313-4C59-81FA-9D9E891C3884}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Infrustracture", "ImageService.Infrustracture\ImageService.Infrustracture.csproj", "{410A442C-C8B8-422B-8483-124D3FA45BD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageService.Infrustracture", "ImageService.Infrustracture\ImageService.Infrustracture.csproj", "{410A442C-C8B8-422B-8483-124D3FA45BD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Communication", "ImageService.Communication\ImageService.Communication.csproj", "{A216ED61-4C66-4EEB-A0FC-9A86D0ECF0EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageService.Communication", "ImageService.Communication\ImageService.Communication.csproj", "{A216ED61-4C66-4EEB-A0FC-9A86D0ECF0EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
