@@ -4,21 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Infrastructure.Enums;
+using ImageService.Infrastructure;
+using ImageService.Controller.Handlers;
 
 namespace ImageService.Controller
 {
     /// <summary>
     /// interface specifying the properties of controller class
     /// </summary>
-    public interface IController
+    public interface IController: ICommandExecuter
     {
-        /// <summary>
-        /// Method for requesting the controller object to execute specific command
-        /// </summary>
-        /// <param name="commandID">the id of the command</param>
-        /// <param name="args">arguments for the command execution request</param>
-        /// <param name="result">the result of the execution</param>
-        /// <returns>string indicating of success/failure</returns>
-        string ExecuteCommand(CommandEnum commandID, string[] args, out bool result);
+        void SetDHManager(IDirectoryHandlersManager dhManager);
     }
 }

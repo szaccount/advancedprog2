@@ -4,9 +4,9 @@ D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\ne
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.AssemblyInfo.cs
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.Communication.deps.json
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.Communication.dll
-D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.exe
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.Infrustracture.dll
-D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.pdb
-D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.exe.config
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.Infrustracture.pdb
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.csproj.CopyComplete
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.Communication.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.pdb

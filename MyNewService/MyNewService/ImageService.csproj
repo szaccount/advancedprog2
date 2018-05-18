@@ -53,12 +53,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CloseDHandlerCommand.cs" />
+    <Compile Include="Commands\GetConfigCommand.cs" />
     <Compile Include="Commands\GetLoggsCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\NewFileCommand.cs" />
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Controller\Handlers\DirectoyHandler.cs" />
     <Compile Include="Controller\Handlers\IDirectoryHandler.cs" />
+    <Compile Include="Controller\Handlers\IDirectoryHandlersManager.cs" />
     <Compile Include="Controller\IController.cs" />
     <Compile Include="ImageService.cs">
       <SubType>Component</SubType>

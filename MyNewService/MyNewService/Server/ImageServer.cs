@@ -11,13 +11,14 @@ using System.Threading.Tasks;
 using ImageService.Modal.Event;
 using Logging.Modal;
 using ImageService.Communication;
+using ImageService.Infrastructure;
 
 namespace ImageService.Server
 {
     /// <summary>
     /// class defining the server object of the system
     /// </summary>
-    public class ImageServer
+    public class ImageServer: IDirectoryHandlersManager
     {
         #region Members
         private IController m_controller;
@@ -50,11 +51,11 @@ namespace ImageService.Server
             this.m_controller = controller;
             this.m_logging = logger;
             m_logging.Log("in server constructor starting creating directory handlers", MessageTypeEnum.INFO);
-            
+            this.InitDirectoryHandlers(pathsToWatch);
             m_logging.Log("In server constructor finished creating directory handlers", MessageTypeEnum.INFO);
         }
 
-        private void InitInitialDirectoryHandlers(string[] pathsToWatch)
+        public void InitDirectoryHandlers(string[] pathsToWatch)
         {
             for (int i = 0; i < pathsToWatch.Length; i++)
             {
@@ -68,7 +69,7 @@ namespace ImageService.Server
         }
 
         //returns true if directory stopped being handled and false otherwise
-        public bool StopHandelingDorectory(string directoryPath)
+        public bool StopHandelingDirectory(string directoryPath)
         {
             if (this.m_deirectoryPathsToHandlers.ContainsKey(directoryPath))
             {

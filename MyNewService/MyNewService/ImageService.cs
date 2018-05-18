@@ -16,6 +16,7 @@ using ImageService.Modal;
 using ImageService.Server;
 using System.Configuration;
 using ImageService.Communication;
+using ImageService.Infrastructure;
 
 namespace ImageService
 {
@@ -115,8 +116,9 @@ namespace ImageService
 
             IImageModal modal = new ImageModal(logger, outputDir, thumbnailSize);
             IController controller = new Controller.Controller(modal, logger);
-            IServerChannel serverChannel = new TcpServerChannel(8080, new ClientHandler());
+            IServerChannel serverChannel = new TcpServerChannel(8080, new ClientHandler(controller));
             server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);
+            controller.SetDHManager(server);
             logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);
         }
 

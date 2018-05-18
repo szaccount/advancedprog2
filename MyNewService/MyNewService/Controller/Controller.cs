@@ -8,6 +8,7 @@ using ImageService.Modal;
 using ImageService.Infrastructure.Enums;
 using Logging;
 using Logging.Modal;
+using ImageService.Controller.Handlers;
 
 namespace ImageService.Controller
 {
@@ -19,6 +20,7 @@ namespace ImageService.Controller
         private IImageModal imageModal;  // The Modal Object
         private Dictionary<CommandEnum, ICommand> commands;  //dictionary of the command objects this controller can handle
         private ILoggsRecorder logger;  //logger service object
+        private IDirectoryHandlersManager directoryHandlersManager;
 
         /// <summary>
         /// Controller class constructor
@@ -29,10 +31,12 @@ namespace ImageService.Controller
         {
             imageModal = newModal;
             logger = log;
+            directoryHandlersManager = null;
             commands = new Dictionary<CommandEnum, ICommand>() { };
-            commands[CommandEnum.NewFileCommand] = new NewFileCommand(newModal);
-            commands[CommandEnum.LogCommand] = new GetLoggsCommand(logger);
-            commands[CommandEnum.]
+            commands[CommandEnum.NewFileCommand] = new NewFileCommand(this.imageModal);
+            commands[CommandEnum.LogCommand] = new GetLoggsCommand(this.logger);
+            commands[CommandEnum.CloseCommand] = new CloseDHandlerCommand(this.directoryHandlersManager);
+            commands[CommandEnum.GetConfigCommand] = new GetConfigCommand();
             logger.Log("In Controller, finished constructor", MessageTypeEnum.INFO);
         }
 
@@ -46,8 +50,22 @@ namespace ImageService.Controller
         public string ExecuteCommand(CommandEnum commandID, string[] args, out bool result)
         {
             logger.Log("In controller, received command execution request with id: " + commandID, MessageTypeEnum.INFO);
-            return commands[commandID].Execute(args, out result);
+            //return commands[commandID].Execute(args, out result);
+            ICommand command;
+            if (commands.TryGetValue(commandID, out command))
+            {
+                return command.Execute(args, out result);
+            }
+            else
+            {
+                result = false;
+                return "";
+            }
         }
 
+        public void SetDHManager(IDirectoryHandlersManager dhManager)
+        {
+            this.directoryHandlersManager = dhManager;
+        }
     }
 }

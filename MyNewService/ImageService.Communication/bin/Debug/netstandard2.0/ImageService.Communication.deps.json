@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "2468f8819b4e290b1a8667020137de51bd83af19"
+    "signature": "8a850716c650ab7983f1467550967ef3f487ee19"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,8 +9,9 @@
     ".NETStandard,Version=v2.0/": {
       "ImageService.Communication/1.0.0": {
         "dependencies": {
-          "ImageService": "1.0.0",
-          "NETStandard.Library": "2.0.1"
+          "ImageService.Infrustracture": "1.0.0",
+          "NETStandard.Library": "2.0.1",
+          "Newtonsoft.Json": "11.0.2"
         },
         "runtime": {
           "ImageService.Communication.dll": {}
@@ -22,15 +23,15 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
-      "ImageService/1.0.0": {
-        "dependencies": {
-          "ImageService.Infrustracture": "1.0.0"
-        },
+      "Newtonsoft.Json/11.0.2": {
         "runtime": {
-          "ImageService.exe": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "ImageService.Infrustracture/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
         "runtime": {
           "ImageService.Infrustracture.dll": {}
         }
@@ -57,10 +58,12 @@
       "path": "netstandard.library/2.0.1",
       "hashPath": "netstandard.library.2.0.1.nupkg.sha512"
     },
-    "ImageService/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
+    "Newtonsoft.Json/11.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+      "path": "newtonsoft.json/11.0.2",
+      "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
     },
     "ImageService.Infrustracture/1.0.0": {
       "type": "project",

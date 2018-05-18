@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Infrastructure;
+using ImageService.Infrastructure.Enums;
 
 namespace ImageService.Communication
 {
@@ -13,12 +14,13 @@ namespace ImageService.Communication
 
         private Dictionary<TcpClient, NetworkStream> clientsAndStreams;
         private bool running;
-        private ICommandHandler;
+        private ICommandExecuter commandExecuter;
 
-        public ClientHandler()
+        public ClientHandler(ICommandExecuter controller)
         {
             this.clientsAndStreams = new Dictionary<TcpClient, NetworkStream>();
             this.running = true;
+            this.commandExecuter = controller;
         }
 
         public void HandleClient(TcpClient client)
@@ -39,19 +41,29 @@ namespace ImageService.Communication
                         {
                             receivedString = reader.ReadLine();
                             ServerClientCommunicationCommand commCommand = ServerClientCommunicationCommand.FromJson(receivedString);
+                            switch (commCommand.CommId)
+                            {
+                                case CommandEnum.CloseGuiClient:
+                                    this.CloseClient(client);
+                                    break;
+                                case CommandEnum.GetConfigCommand:
+                                case CommandEnum.LogCommand:
+                                    string result = this.commandExecuter.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag);
+                                    //writing back the answer to the client request
+                                    writer.Write(result);
+                                    break;
+                                default:
+                                    writer.Write("Invalid command Id");
+                                    break;
+
+                            }
                         }
                     }
                 }
                 catch (Exception)
                 {
                     //if communication didn't succedd erase client #########################
-                    if (this.running)
-                    {
-                        //if the handler isn't running anymore the client will be already closed in the handler closing method
-                        client.Close();
-                        if (this.clientsAndStreams.ContainsKey(client))
-                            this.clientsAndStreams.Remove(client);
-                    }
+                    this.CloseClient(client);
 
                 }
             }).Start();
@@ -90,6 +102,17 @@ namespace ImageService.Communication
                 entry.Key.Close();
             }
             clientsAndStreams.Clear();
+        }
+
+        private void CloseClient(TcpClient client)
+        {
+            if (this.running)
+            {
+                //if the handler isn't running anymore the client will be already closed in the handler closing method
+                client.Close();
+                if (this.clientsAndStreams.ContainsKey(client))
+                    this.clientsAndStreams.Remove(client);
+            }
         }
     }
 }

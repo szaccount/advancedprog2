@@ -12,6 +12,7 @@ namespace ImageService.Infrastructure.Enums
     public enum CommandEnum : int
     {
         NewFileCommand,
+        //for closing directory handler
         CloseCommand,
         CloseGuiClient,
         LogCommand,
