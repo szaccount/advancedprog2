@@ -18,19 +18,21 @@ namespace ImageService.Controller
     {
         private IImageModal imageModal;  // The Modal Object
         private Dictionary<CommandEnum, ICommand> commands;  //dictionary of the command objects this controller can handle
-        private ILoggingService logger;  //logger service object
+        private ILoggsRecorder logger;  //logger service object
 
         /// <summary>
         /// Controller class constructor
         /// </summary>
         /// <param name="newModal">object implementing the IImageModal interface</param>
         /// <param name="log">object implementing the ILoggingService interface (logger service)</param>
-        public Controller(IImageModal newModal, ILoggingService log)
+        public Controller(IImageModal newModal, ILoggsRecorder log)
         {
             imageModal = newModal;
             logger = log;
             commands = new Dictionary<CommandEnum, ICommand>() { };
             commands[CommandEnum.NewFileCommand] = new NewFileCommand(newModal);
+            commands[CommandEnum.LogCommand] = new GetLoggsCommand(logger);
+            commands[CommandEnum.]
             logger.Log("In Controller, finished constructor", MessageTypeEnum.INFO);
         }
 

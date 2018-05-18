@@ -11,8 +11,15 @@ namespace Logging
     /// <summary>
     /// class implementing the ILoggingService interface
     /// </summary>
-    public class LoggingService : ILoggingService
+    public class LoggingService : ILoggsRecorder
     {
+        private List<MessageRecievedEventArgs> m_receivedLoggsList;
+
+        public LoggingService()
+        {
+            this.m_receivedLoggsList = new List<MessageRecievedEventArgs>();
+        }
+
         //message distributing event
         public event EventHandler<MessageRecievedEventArgs> MessageRecieved;
 
@@ -28,8 +35,19 @@ namespace Logging
                 Message = message,
                 Status = type
             };
+            MessageRecievedEventArgs messageRecord = new MessageRecievedEventArgs
+            {
+                Message = message,
+                Status = type
+            };
             //if there are subscribers send them the message
             this.MessageRecieved?.Invoke(this, messageRecievedEventArgs);
+            this.m_receivedLoggsList.Add(messageRecord);
+        }
+
+        public List<MessageRecievedEventArgs> GetLoggsRecord()
+        {
+            return new List<MessageRecievedEventArgs>(this.m_receivedLoggsList);
         }
 
     }

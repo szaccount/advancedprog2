@@ -15,6 +15,7 @@ using ImageService.Controller.Handlers;
 using ImageService.Modal;
 using ImageService.Server;
 using System.Configuration;
+using ImageService.Communication;
 
 namespace ImageService
 {
@@ -98,7 +99,7 @@ namespace ImageService
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
             //creating the Logger object used in the system
-            ILoggingService logger = new LoggingService();
+            ILoggsRecorder logger = new LoggingService();
             logger.MessageRecieved += this.WriteToEventLogger;
             logger.Log("In ImageService created the logging service", MessageTypeEnum.INFO);
 
@@ -114,7 +115,8 @@ namespace ImageService
 
             IImageModal modal = new ImageModal(logger, outputDir, thumbnailSize);
             IController controller = new Controller.Controller(modal, logger);
-            server = new ImageServer(controller, logger, dirsToBeHandled);
+            IServerChannel serverChannel = new TcpServerChannel(8080, new ClientHandler());
+            server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);
             logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);
         }
 

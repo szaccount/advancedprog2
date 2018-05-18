@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageService.Modal.Event;
 using Logging.Modal;
+using ImageService.Communication;
 
 namespace ImageService.Server
 {
@@ -22,6 +23,11 @@ namespace ImageService.Server
         private IController m_controller;
         //the logger service of the server
         private ILoggingService m_logging;
+
+        //the server itself
+        private IServerChannel m_serverChannel;
+        //map between directory paths and the handlers handeling them
+        private Dictionary<string, IDirectoryHandler> m_deirectoryPathsToHandlers;
         #endregion
 
         #region Properties
@@ -35,19 +41,47 @@ namespace ImageService.Server
         /// <param name="controller">object implementing the IController interface</param>
         /// <param name="logger">object implementing the ILoggingService interface (logger service)</param>
         /// <param name="pathsToWatch">strings describing the paths of directories needed to be monitored by the system</param>
-        public ImageServer(IController controller, ILoggingService logger, string[] pathsToWatch)
+        public ImageServer(IController controller, ILoggingService logger, IServerChannel serverChannel, string[] pathsToWatch)
         {
+            this.m_deirectoryPathsToHandlers = new Dictionary<string, IDirectoryHandler>();
+            this.m_serverChannel = serverChannel;
+            this.m_serverChannel.Start();
+
             this.m_controller = controller;
             this.m_logging = logger;
             m_logging.Log("in server constructor starting creating directory handlers", MessageTypeEnum.INFO);
+            
+            m_logging.Log("In server constructor finished creating directory handlers", MessageTypeEnum.INFO);
+        }
+
+        private void InitInitialDirectoryHandlers(string[] pathsToWatch)
+        {
             for (int i = 0; i < pathsToWatch.Length; i++)
             {
-                IDirectoryHandler directoryHandler = new DirectoyHandler(controller, logger);
+                IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_controller, this.m_logging);
                 directoryHandler.StartHandleDirectory(pathsToWatch[i]);
+                //adding handler and path to directory into dictionary
+                this.m_deirectoryPathsToHandlers.Add(pathsToWatch[i], directoryHandler);
                 this.CommandRecieved += directoryHandler.OnCommandRecieved;
                 directoryHandler.DirectoryClose += this.RemoveDirectoryHandler;
             }
-            m_logging.Log("In server constructor finished creating directory handlers", MessageTypeEnum.INFO);
+        }
+
+        //returns true if directory stopped being handled and false otherwise
+        public bool StopHandelingDorectory(string directoryPath)
+        {
+            if (this.m_deirectoryPathsToHandlers.ContainsKey(directoryPath))
+            {
+                IDirectoryHandler handlerToBeStopped = this.m_deirectoryPathsToHandlers[directoryPath];
+                CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs(CommandEnum.CloseCommand, null, "");
+                handlerToBeStopped.OnCommandRecieved(this, commandRecievedEventArgs);
+                this.m_deirectoryPathsToHandlers.Remove(directoryPath);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -58,6 +92,7 @@ namespace ImageService.Server
             this.m_logging.Log("starting closing server", MessageTypeEnum.INFO);
             CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs(CommandEnum.CloseCommand, null, "");
             this.CommandRecieved?.Invoke(this, commandRecievedEventArgs);
+            this.m_serverChannel.Stop();
         }
 
         /// <summary>

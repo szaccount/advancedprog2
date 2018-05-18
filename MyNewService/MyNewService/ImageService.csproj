@@ -35,6 +35,9 @@
     <StartupObject>ImageService.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -50,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\GetLoggsCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\NewFileCommand.cs" />
     <Compile Include="Controller\Controller.cs" />
@@ -64,6 +68,7 @@
     </Compile>
     <Compile Include="Logging\ILoggingService.cs" />
     <Compile Include="Logging\LoggingService.cs" />
+    <Compile Include="Logging\ILoggsRecorder.cs" />
     <Compile Include="Logging\Modal\MessageRecievedEventArgs.cs" />
     <Compile Include="Logging\Modal\MessageTypeEnum.cs" />
     <Compile Include="Modal\Event\CommandRecievedEventArgs.cs" />
@@ -84,6 +89,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImageService.resx">
@@ -94,6 +100,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageService.Communication\ImageService.Communication.csproj">
+      <Project>{a216ed61-4c66-4eeb-a0fc-9a86d0ecf0eb}</Project>
+      <Name>ImageService.Communication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageService.Infrustracture\ImageService.Infrustracture.csproj">
       <Project>{410a442c-c8b8-422b-8483-124d3fa45bd2}</Project>
       <Name>ImageService.Infrustracture</Name>

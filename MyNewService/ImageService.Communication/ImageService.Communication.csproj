@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyNewService\ImageService.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ImageService.Infrustracture\ImageService.Infrustracture.csproj" />
   </ItemGroup>
 
 </Project>

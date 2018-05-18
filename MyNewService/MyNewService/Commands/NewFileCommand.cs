@@ -10,7 +10,7 @@ namespace ImageService.Commands
     /// <summary>
     /// class implementing the ICommand interface (command class)
     /// </summary>
-    class NewFileCommand :ICommand
+    class NewFileCommand: ICommand
     {
         //object of class implementing the IImageModal interface, for executing the command
         private IImageModal modal;

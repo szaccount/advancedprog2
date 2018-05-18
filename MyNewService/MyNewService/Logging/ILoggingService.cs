@@ -20,6 +20,6 @@ namespace Logging
         /// </summary>
         /// <param name="message">the message itself</param>
         /// <param name="type">message's type</param>
-        void Log(string message, MessageTypeEnum type);           
+        void Log(string message, MessageTypeEnum type);
     }
 }
