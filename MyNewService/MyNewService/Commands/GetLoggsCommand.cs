@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Logging;
-using Logging.Modal;
+using ImageService.Logging;
+using ImageService.Logging.Modal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

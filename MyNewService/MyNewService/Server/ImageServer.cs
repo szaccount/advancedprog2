@@ -1,7 +1,7 @@
 ﻿using ImageService.Controller;
 using ImageService.Controller.Handlers;
 using ImageService.Infrastructure.Enums;
-using Logging;
+using ImageService.Logging;
 using ImageService.Modal;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Modal.Event;
-using Logging.Modal;
+using ImageService.Logging.Modal;
 using ImageService.Communication;
 using ImageService.Infrastructure;
 

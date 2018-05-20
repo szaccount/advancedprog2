@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageService.Communication"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServiceGUI", "ImageServiceGUI\ImageServiceGUI.csproj", "{EB4DF3EB-4BD2-4F64-B984-97D3AED8CCE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Logging", "ImageService.Logging\ImageService.Logging.csproj", "{A8F23150-FE73-45D8-99F0-83D8354F22D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EB4DF3EB-4BD2-4F64-B984-97D3AED8CCE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB4DF3EB-4BD2-4F64-B984-97D3AED8CCE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB4DF3EB-4BD2-4F64-B984-97D3AED8CCE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8F23150-FE73-45D8-99F0-83D8354F22D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8F23150-FE73-45D8-99F0-83D8354F22D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8F23150-FE73-45D8-99F0-83D8354F22D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8F23150-FE73-45D8-99F0-83D8354F22D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

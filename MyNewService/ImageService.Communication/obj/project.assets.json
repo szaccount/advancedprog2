@@ -47,6 +47,15 @@
         "runtime": {
           "bin/placeholder/ImageService.Infrustracture.dll": {}
         }
+      },
+      "ImageService.Logging/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/ImageService.Logging.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ImageService.Logging.dll": {}
+        }
       }
     }
   },
@@ -224,11 +233,17 @@
       "type": "project",
       "path": "../ImageService.Infrustracture/ImageService.Infrustracture.csproj",
       "msbuildProject": "../ImageService.Infrustracture/ImageService.Infrustracture.csproj"
+    },
+    "ImageService.Logging/1.0.0": {
+      "type": "project",
+      "path": "../ImageService.Logging/ImageService.Logging.csproj",
+      "msbuildProject": "../ImageService.Logging/ImageService.Logging.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "ImageService.Infrustracture >= 1.0.0",
+      "ImageService.Logging >= 1.0.0",
       "NETStandard.Library >= 2.0.1",
       "Newtonsoft.Json >= 11.0.2"
     ]
@@ -265,6 +280,9 @@
           "projectReferences": {
             "D:\\Users\\seanz\\source\\repos\\MyNewService\\ImageService.Infrustracture\\ImageService.Infrustracture.csproj": {
               "projectPath": "D:\\Users\\seanz\\source\\repos\\MyNewService\\ImageService.Infrustracture\\ImageService.Infrustracture.csproj"
+            },
+            "D:\\Users\\seanz\\source\\repos\\MyNewService\\ImageService.Logging\\ImageService.Logging.csproj": {
+              "projectPath": "D:\\Users\\seanz\\source\\repos\\MyNewService\\ImageService.Logging\\ImageService.Logging.csproj"
             }
           }
         }

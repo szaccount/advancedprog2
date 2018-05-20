@@ -69,11 +69,6 @@
     <Compile Include="ImageService.Designer.cs">
       <DependentUpon>ImageService.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logging\ILoggingService.cs" />
-    <Compile Include="Logging\LoggingService.cs" />
-    <Compile Include="Logging\ILoggsRecorder.cs" />
-    <Compile Include="Logging\Modal\MessageRecievedEventArgs.cs" />
-    <Compile Include="Logging\Modal\MessageTypeEnum.cs" />
     <Compile Include="Modal\Event\CommandRecievedEventArgs.cs" />
     <Compile Include="Modal\Event\DirectoryCloseEventArgs.cs" />
     <Compile Include="Modal\IImageModal.cs" />
@@ -110,6 +105,10 @@
     <ProjectReference Include="..\ImageService.Infrustracture\ImageService.Infrustracture.csproj">
       <Project>{410a442c-c8b8-422b-8483-124d3fa45bd2}</Project>
       <Name>ImageService.Infrustracture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageService.Logging\ImageService.Logging.csproj">
+      <Project>{a8f23150-fe73-45d8-99f0-83d8354f22d7}</Project>
+      <Name>ImageService.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

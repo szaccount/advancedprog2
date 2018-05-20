@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using ImageService.Commands;
 using ImageService.Modal;
 using ImageService.Infrastructure.Enums;
-using Logging;
-using Logging.Modal;
+using ImageService.Logging;
+using ImageService.Logging.Modal;
 using ImageService.Controller.Handlers;
 
 namespace ImageService.Controller

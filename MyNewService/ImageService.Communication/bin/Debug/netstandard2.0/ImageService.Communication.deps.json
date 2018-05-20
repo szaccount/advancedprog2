@@ -10,6 +10,7 @@
       "ImageService.Communication/1.0.0": {
         "dependencies": {
           "ImageService.Infrustracture": "1.0.0",
+          "ImageService.Logging": "1.0.0",
           "NETStandard.Library": "2.0.1",
           "Newtonsoft.Json": "11.0.2"
         },
@@ -34,6 +35,11 @@
         },
         "runtime": {
           "ImageService.Infrustracture.dll": {}
+        }
+      },
+      "ImageService.Logging/1.0.0": {
+        "runtime": {
+          "ImageService.Logging.dll": {}
         }
       }
     }
@@ -66,6 +72,11 @@
       "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
     },
     "ImageService.Infrustracture/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ImageService.Logging/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

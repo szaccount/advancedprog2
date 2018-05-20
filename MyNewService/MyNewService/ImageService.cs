@@ -8,8 +8,8 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-using Logging;
-using Logging.Modal;
+using ImageService.Logging;
+using ImageService.Logging.Modal;
 using ImageService.Controller;
 using ImageService.Controller.Handlers;
 using ImageService.Modal;
@@ -116,7 +116,10 @@ namespace ImageService
 
             IImageModal modal = new ImageModal(logger, outputDir, thumbnailSize);
             IController controller = new Controller.Controller(modal, logger);
+           
             IServerChannel serverChannel = new TcpServerChannel(8080, new ClientHandler(controller));
+            //!!!!!!!!!!!!!!!!!!!! subscribing to the: new log notifying event, so that the server can be notified of new logs !!!!!!!!!!!!!!!!!!!!!!!! also possible to connect the event to the imageServer or to the clientHandler, think whats better !!!!!!!!!!!!!!!!!!!!!!!!!!
+            logger.MessageRecieved += serverChannel.NotifyServerOfMessage;
             server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);
             controller.SetDHManager(server);
             logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);

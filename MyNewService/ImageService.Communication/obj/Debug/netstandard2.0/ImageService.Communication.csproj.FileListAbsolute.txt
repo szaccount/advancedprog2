@@ -10,3 +10,5 @@ D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\ne
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.Communication.pdb
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.dll
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\netstandard2.0\ImageService.Communication.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.Logging.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Debug\netstandard2.0\ImageService.Logging.pdb

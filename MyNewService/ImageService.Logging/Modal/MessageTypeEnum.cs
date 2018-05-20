@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logging.Modal
+namespace ImageService.Logging.Modal
 {
     /// <summary>
     /// enum for message types to the logger service (ILoggingService object)

@@ -1,11 +1,11 @@
-﻿using Logging.Modal;
+﻿using ImageService.Logging.Modal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logging
+namespace ImageService.Logging
 {
     /// <summary>
     /// interface for a loggs recorder class which can return a list of the past loggs in the system

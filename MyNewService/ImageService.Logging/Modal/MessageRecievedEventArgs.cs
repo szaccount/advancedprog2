@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logging.Modal
+namespace ImageService.Logging.Modal
 { 
     /// <summary>
     /// class representing the message arguments in the system

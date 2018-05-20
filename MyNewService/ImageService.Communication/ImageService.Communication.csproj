@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ImageService.Infrustracture\ImageService.Infrustracture.csproj" />
+    <ProjectReference Include="..\ImageService.Logging\ImageService.Logging.csproj" />
   </ItemGroup>
 
 </Project>

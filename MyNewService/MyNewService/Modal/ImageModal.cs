@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using Logging;
-using Logging.Modal;
+using ImageService.Logging;
+using ImageService.Logging.Modal;
 using System.Drawing;
 
 namespace ImageService.Modal

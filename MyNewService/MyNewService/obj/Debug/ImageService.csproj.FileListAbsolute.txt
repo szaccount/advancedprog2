@@ -117,3 +117,9 @@ D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.Inf
 D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache
 D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.exe.config
 D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.csproj.CopyComplete
+D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.Communication.dll
+D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.Logging.dll
+D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\Newtonsoft.Json.dll
+D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.Communication.pdb
+D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.Logging.pdb
+D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\Newtonsoft.Json.xml
