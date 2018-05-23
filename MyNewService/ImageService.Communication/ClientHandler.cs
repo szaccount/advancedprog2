@@ -12,36 +12,39 @@ namespace ImageService.Communication
     public class ClientHandler : IClientHandler
     {
 
-        private Dictionary<TcpClient, NetworkStream> clientsAndStreams;
+        
         private bool running;
-        private ICommandExecuter commandExecuter;
+        private NetworkStream stream;
+        private TcpClient client;
 
-        public ClientHandler(ICommandExecuter controller)
+        public event EventHandler<MessageCommunicationEventArgs> MessageReceived;
+
+        public ClientHandler(TcpClient client)
         {
-            this.clientsAndStreams = new Dictionary<TcpClient, NetworkStream>();
+            //this.clientsAndStreams = new Dictionary<TcpClient, NetworkStream>();
+            this.client = client;
+            this.stream = this.client.GetStream();
             this.running = true;
-            this.commandExecuter = controller;
         }
 
-        public void HandleClient(TcpClient client)
+        public void Start()
         {
 
             new Task(() =>
             {
-                try
-                {
-                    NetworkStream stream = client.GetStream();
-                    this.clientsAndStreams.Add(client, stream);
+            try
+            {
+                //this.clientsAndStreams.Add(client, stream);
 
-                    string receivedString;
-                    using (StreamReader reader = new StreamReader(stream))
-                    using (StreamWriter writer = new StreamWriter(stream))
+                string receivedString;
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    while (this.running)
                     {
-                        while (this.running)
-                        {
-                            receivedString = reader.ReadLine();
-                            ServerClientCommunicationCommand commCommand = ServerClientCommunicationCommand.FromJson(receivedString);
-                            switch (commCommand.CommId) //!!!!!!!!!!!!!!!!!! check on the command if they failed (using the out bool variable) and if so send back informative message !!!!!!!!!!!!!
+                        receivedString = reader.ReadLine();
+                        MessageReceived?.Invoke(this, new MessageCommunicationEventArgs { Message = receivedString });
+                            //!!!!!!ServerClientCommunicationCommand commCommand = ServerClientCommunicationCommand.FromJson(receivedString);
+                            /*switch (commCommand.CommId) //!!!!!!!!!!!!!!!!!! check on the command if they failed (using the out bool variable) and if so send back informative message !!!!!!!!!!!!!
                             {
                                 case CommandEnum.CloseGuiClient:
                                     this.CloseClient(client);
@@ -69,62 +72,39 @@ namespace ImageService.Communication
                                     writer.Write("Invalid command Id");
                                     break;
 
-                            }
+                            }*/
                         }
                     }
                 }
                 catch (Exception)
                 {
                     //if communication didn't succedd erase client #########################
-                    this.CloseClient(client);
+                    this.CloseHandler();
 
                 }
             }).Start();
 
-        }
-
-        public void BroadcastToClients(ServerClientCommunicationCommand command)
-        {
-            new Task(() =>
-            {
-                string commandJson = command.ToJson();
-                foreach (KeyValuePair<TcpClient, NetworkStream> entry in clientsAndStreams)
-                {
-                    try
-                    {
-                        NetworkStream stream = entry.Value;
-                        using (StreamWriter writer = new StreamWriter(stream))
-                        {
-                            writer.Write(commandJson);
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        //if communication didn't succedd erase client from communication clients list ##########################
-                        this.CloseClient(entry.Key);
-                    }
-                }
-            }).Start();
         }
 
         public void CloseHandler()
         {
-            this.running = false;
-            foreach (KeyValuePair<TcpClient, NetworkStream> entry in clientsAndStreams)
-            {
-                entry.Key.Close();
-            }
-            clientsAndStreams.Clear();
-        }
-
-        private void CloseClient(TcpClient client)
-        {
             if (this.running)
             {
                 //if the handler isn't running anymore the client will be already closed in the handler closing method
+                this.stream.Close();
                 client.Close();
-                if (this.clientsAndStreams.ContainsKey(client))
-                    this.clientsAndStreams.Remove(client);
+                this.running = false;
+            }
+        }
+
+        public void WriteMessage(string message)
+        {
+            if (running)
+            {
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    writer.Write(message);
+                }
             }
         }
     }

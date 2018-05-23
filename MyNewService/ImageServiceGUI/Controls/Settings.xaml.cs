@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace wpfex2.Controls
+namespace ImageServiceGUI.Controls
 {
     /// <summary>
     /// Interaction logic for Settings.xaml

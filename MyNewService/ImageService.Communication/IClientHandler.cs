@@ -10,8 +10,10 @@ namespace ImageService.Communication
     /// </summary>
     public interface IClientHandler
     {
-        void HandleClient(TcpClient client);
-        void BroadcastToClients(ServerClientCommunicationCommand command);
+        void Start();
+        //void BroadcastToClients(ServerClientCommunicationCommand command); //erase !!!!! put into server !!!!!!!!!!!
+        void WriteMessage(string message);
         void CloseHandler();
+        event EventHandler<MessageCommunicationEventArgs> MessageReceived;
     }
 }

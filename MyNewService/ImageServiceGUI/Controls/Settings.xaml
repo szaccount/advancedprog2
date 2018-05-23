@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:wpfex2.Controls"
+             xmlns:local="clr-namespace:ImageServiceGUI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
@@ -28,8 +28,8 @@
             <TextBlock x:Name="ThumbnailSizeTxt" Grid.Row="3" Grid.Column="1" Padding="3" Margin="3"></TextBlock>
         </Grid>
 
-        <ListBox Margin="5" SelectionMode="Single" Name="lst"  SelectionChanged="lst_SelectionChanged" HorizontalContentAlignment="Stretch">
-            <Button Click="" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">Delete</Button>
+        <Button Click="" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">Delete</Button>
+        <ListBox Height="Auto" SelectionMode="Single" Name="lst"  SelectionChanged="lst_SelectionChanged" HorizontalContentAlignment="Stretch">
         </ListBox>
     </StackPanel>
 </UserControl>

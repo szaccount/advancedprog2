@@ -47,7 +47,7 @@ namespace ImageService.Server
             this.m_deirectoryPathsToHandlers = new Dictionary<string, IDirectoryHandler>();
             this.m_serverChannel = serverChannel;
             this.m_serverChannel.Start();
-
+            this.m_serverChannel.MessageReceived += this.HandleMessageFromServer;
             this.m_controller = controller;
             this.m_logging = logger;
             m_logging.Log("in server constructor starting creating directory handlers", MessageTypeEnum.INFO);
@@ -126,6 +126,41 @@ namespace ImageService.Server
         {
             this.m_logging.Log("closing server finally", MessageTypeEnum.INFO);
         }
-       
+
+        private void HandleMessageFromServer(object sender, MessageCommunicationEventArgs message)
+        {
+            IClientHandler clientHandler = sender as IClientHandler;
+            ServerClientCommunicationCommand commCommand = ServerClientCommunicationCommand.FromJson(message.Message);
+            switch (commCommand.CommId) //!!!!!!!!!!!!!!!!!! check on the command if they failed (using the out bool variable) and if so send back informative message !!!!!!!!!!!!!
+            {
+                /*case CommandEnum.CloseGuiClient:
+                    this.CloseClient(client); !!!!!!!!!!!!!!!!!! tell server channel to remove
+                    break;*/
+                case CommandEnum.GetConfigCommand:
+                    //asking for logs list
+                case CommandEnum.LogCommand:
+                    string result = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag1);
+                    string[] responseArr1 = new string[1];
+                    responseArr1[0] = result;
+                    ServerClientCommunicationCommand responseCommand = new ServerClientCommunicationCommand(commCommand.CommId, responseArr1);
+                    string responseJson = responseCommand.ToJson();
+                    //writing back the answer to the client request
+                    clientHandler.WriteMessage(responseJson);
+                    break;
+                    //closing a directory handler request
+                case CommandEnum.CloseCommand:
+                    string pathRemoved = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag2);
+                    //writing to all of the connected clients the path of directory which's handler closed
+                    string[] responseArr2 = new string[1];
+                    responseArr2[0] = pathRemoved;
+                    this.m_serverChannel.BroadcastToClients(new ServerClientCommunicationCommand(CommandEnum.CloseCommand, responseArr2));
+                    break;
+                default:
+                    clientHandler.WriteMessage("Invalid command Id");
+                    break;
+
+            }
+        }
+
     }
 }

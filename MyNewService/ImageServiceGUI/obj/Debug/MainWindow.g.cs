@@ -30,7 +30,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Shell;
 using wpfex2;
-using wpfex2.Controls;
 
 
 namespace ImageServiceGUI {

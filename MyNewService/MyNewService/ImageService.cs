@@ -117,7 +117,7 @@ namespace ImageService
             IImageModal modal = new ImageModal(logger, outputDir, thumbnailSize);
             IController controller = new Controller.Controller(modal, logger);
            
-            IServerChannel serverChannel = new TcpServerChannel(8080, new ClientHandler(controller));
+            IServerChannel serverChannel = new TcpServerChannel(8080, new ClientHandler());
             //!!!!!!!!!!!!!!!!!!!! subscribing to the: new log notifying event, so that the server can be notified of new logs !!!!!!!!!!!!!!!!!!!!!!!! also possible to connect the event to the imageServer or to the clientHandler, think whats better !!!!!!!!!!!!!!!!!!!!!!!!!!
             logger.MessageRecieved += serverChannel.NotifyServerOfMessage;
             server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);

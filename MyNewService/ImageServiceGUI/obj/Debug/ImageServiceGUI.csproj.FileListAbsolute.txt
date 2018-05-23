@@ -4,3 +4,4 @@ D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\MainWindow.g.
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\App.g.cs
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\ImageServiceGUI_MarkupCompile.cache
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\ImageServiceGUI_MarkupCompile.lref
+D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\UserControl1.g.cs

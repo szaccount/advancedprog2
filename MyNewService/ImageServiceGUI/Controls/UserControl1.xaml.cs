@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ImageServiceGUI.Controls
 {
     /// <summary>
-    /// Interaction logic for Logs.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class Logs : UserControl
+    public partial class UserControl1 : UserControl
     {
-        public Logs()
+        public UserControl1()
         {
             InitializeComponent();
         }
