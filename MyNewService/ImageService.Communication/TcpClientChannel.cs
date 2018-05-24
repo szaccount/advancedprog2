@@ -11,75 +11,60 @@ namespace ImageService.Communication
 {
     public class TcpClientChannel
     {
-        private bool stopped = false;
+        //private bool stopped = false;
         private static TcpClientChannel instance;
-        private NetworkStream stream;
-        private TcpClient client;
+        //private NetworkStream stream;
+        //private TcpClient client;
         private string ip;
         private int port;
         public event EventHandler<MessageCommunicationEventArgs> MessageReceived;
-        private IClientHandler handler;
-        private TcpClientChannel() {}
+        private IClientHandler clientHandler;
+        private TcpClientChannel()
+        {
+            //read ip and port from app config !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            ip = "127.0.0.1";
+            port = 8000;
+        }
 
         public void Start()
         {
-            connectToServer();
-            Task task = new Task(() => {
-                while (!stopped)
-                {
-                    try
-                    {
-                        using (BinaryReader reader = new BinaryReader(stream))
-                        {
-                            MessageCommunicationEventArgs messageReceived = new MessageCommunicationEventArgs {
-                                Message = reader.ReadString()
-                            };
-                            this.MessageReceived?.Invoke(this, messageReceived);
-                        }
-                    }
-                    catch (Exception)
-                    {   
-                        Stop();
-                    }
-                }
-            });
+            ConnectToServer();
+            this.clientHandler.Start();
         }
 
         public void Write(string message)
         {
-            using (BinaryWriter writer = new BinaryWriter(stream))
-            {
-                try
-                {
-                    writer.Write(message);
-                }
-                catch (Exception)
-                {
-                    Stop();
-                } 
-            }
+            clientHandler.WriteMessage(message);
         }
 
         public void Stop()
         {
-            this.stopped = true;
-            this.stream.Close();
-            this.client.Close();
+            //this.stopped = true;
+            //this.stream.Close();
+            this.clientHandler.CloseHandler();
+            //this.client.Close();
         }
 
-        public void connectToServer () {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
-            this.client = new TcpClient();
+        private void ConnectToServer () {
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(this.ip), this.port);
+            TcpClient client = new TcpClient();
             client.Connect(ep);
-            this.stream = client.GetStream();
+            //this.stream = client.GetStream();
+            this.clientHandler = new ClientHandler(client); // factory ??????????????????????????????
+            this.clientHandler.MessageReceived += this.HandleRecivedMessage;
         }
 
-        public static TcpClientChannel GetInstacnce() {
+        public static TcpClientChannel GetInstance() {
             if (instance == null)
             {
                 instance = new TcpClientChannel();
             }
             return instance;
+        }
+
+        private void HandleRecivedMessage(object sender, MessageCommunicationEventArgs messageArgs)
+        {
+            this.MessageReceived?.Invoke(this, messageArgs);
         }
     }
 }

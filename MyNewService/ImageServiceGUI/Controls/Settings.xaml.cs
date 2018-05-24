@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageServiceGUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,14 @@ namespace ImageServiceGUI.Controls
     /// </summary>
     public partial class Settings : UserControl
     {
+        private SettingsViewModel vm;
+
         public Settings()
         {
             InitializeComponent();
+            vm = new SettingsViewModel();
+            DataContext = vm;
+            
         }
     }
 }

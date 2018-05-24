@@ -19,17 +19,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Padding="3" Margin="3"><Bold>Output Directory:</Bold></TextBlock>
-            <TextBlock x:Name="OutPutDirectoryTxt" Grid.Column="1" Padding="3" Margin="3"></TextBlock>
+            <TextBlock x:Name="OutPutDirectoryTxt" Grid.Column="1" Padding="3" Margin="3" Text="{Binding VM_OutputDirectory}"></TextBlock>
             <TextBlock Grid.Row="1" Padding="3" Margin="3"><Bold>Source Name:</Bold></TextBlock>
-            <TextBlock x:Name="SourceNameTxt" Grid.Row="1" Grid.Column="1" Padding="3" Margin="3" ></TextBlock>
+            <TextBlock x:Name="SourceNameTxt" Grid.Row="1" Grid.Column="1" Padding="3" Margin="3" Text="{Binding VM_SourceName}"></TextBlock>
             <TextBlock Padding="3" Margin="3" Grid.Row="2"><Bold>Log Name:</Bold></TextBlock>
-            <TextBlock x:Name="LogNameTxt" Grid.Row="2" Grid.Column="1" Padding="3" Margin="3"></TextBlock>
+            <TextBlock x:Name="LogNameTxt" Grid.Row="2" Grid.Column="1" Padding="3" Margin="3" Text="{Binding VM_LogName}"></TextBlock>
             <TextBlock Padding="3" Margin="3" Grid.Row="3"><Bold>Thumbnail Size:</Bold></TextBlock>
-            <TextBlock x:Name="ThumbnailSizeTxt" Grid.Row="3" Grid.Column="1" Padding="3" Margin="3"></TextBlock>
+            <TextBlock x:Name="ThumbnailSizeTxt" Grid.Row="3" Grid.Column="1" Padding="3" Margin="3" Text="{Binding VM_ThumbnailSize}"></TextBlock>
         </Grid>
 
-        <Button Click="" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">Delete</Button>
-        <ListBox Height="Auto" SelectionMode="Single" Name="lst"  SelectionChanged="lst_SelectionChanged" HorizontalContentAlignment="Stretch">
+        <Button HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">Delete</Button>
+        <ListBox Height="Auto" SelectionMode="Single" Name="pathsList"  HorizontalContentAlignment="Stretch" ItemsSource="{Binding VM_DirectoryHandlerPsths}">
         </ListBox>
     </StackPanel>
 </UserControl>

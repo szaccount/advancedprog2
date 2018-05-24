@@ -69,7 +69,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\Author.cs" />
     <Compile Include="Controls\Logs.xaml.cs">
       <DependentUpon>Logs.xaml</DependentUpon>
     </Compile>
@@ -124,11 +123,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImageService.Communication\ImageService.Communication.csproj">
-      <Project>{a216ed61-4c66-4eeb-a0fc-9a86d0ecf0eb}</Project>
+      <Project>{ff225ef0-e3e6-464b-9cb4-d461413cfbc5}</Project>
       <Name>ImageService.Communication</Name>
     </ProjectReference>
     <ProjectReference Include="..\ImageService.Infrustracture\ImageService.Infrustracture.csproj">
-      <Project>{410a442c-c8b8-422b-8483-124d3fa45bd2}</Project>
+      <Project>{e95c4b0a-682b-4bb9-b151-85d2196782b0}</Project>
       <Name>ImageService.Infrustracture</Name>
     </ProjectReference>
     <ProjectReference Include="..\ImageService.Logging\ImageService.Logging.csproj">

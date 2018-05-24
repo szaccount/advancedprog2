@@ -1,0 +1,8 @@
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\bin\Debug\ImageService.Infrustracture.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\bin\Debug\ImageService.Infrustracture.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Debug\ImageService.Infrustracture.csproj.CoreCompileInputs.cache
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Debug\ImageService.Infrustracture.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Debug\ImageService.Infrustracture.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\bin\Debug\Newtonsoft.Json.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\bin\Debug\Newtonsoft.Json.xml
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Debug\ImageService.Infrustracture.csproj.CopyComplete

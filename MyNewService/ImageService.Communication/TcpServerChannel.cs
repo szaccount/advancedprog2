@@ -20,6 +20,7 @@ namespace ImageService.Communication
         public TcpServerChannel(int port)
         {
             this.port = port;
+            clients = new List<IClientHandler>();
         }
 
         public void NotifyServerOfMessage(object sender, MessageRecievedEventArgs messageArgs)
@@ -43,22 +44,25 @@ namespace ImageService.Communication
 
         public void BroadcastToClients(ServerClientCommunicationCommand command)
         {
-            new Task(() =>
+            if (running)
             {
-                string commandJson = command.ToJson();
-                foreach (IClientHandler clientHandler in clients)
+                new Task(() =>
                 {
-                    try
+                    string commandJson = command.ToJson();
+                    foreach (IClientHandler clientHandler in clients)
                     {
-                        clientHandler.WriteMessage(commandJson);
-                    }
-                    catch (Exception)
-                    {
+                        try
+                        {
+                            clientHandler.WriteMessage(commandJson);
+                        }
+                        catch (Exception)
+                        {
                         //if communication didn't succedd erase client from communication clients list ##########################
                         clientHandler.CloseHandler();
+                        }
                     }
-                }
-            }).Start();
+                }).Start();
+            }
         }
 
         public void Start()

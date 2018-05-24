@@ -6,12 +6,21 @@ using ImageService.Infrastructure.Enums;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace ImageServiceGUI.Models
 {
-    public class SettingsModel
+    public class SettingsModel: INotifyPropertyChanged
     {
         private TcpClientChannel commChannel;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public string OutputDirectory { get; set; }
         public string SourceName { get; set; }
         public string LogName { get; set; }
@@ -21,16 +30,13 @@ namespace ImageServiceGUI.Models
         public SettingsModel()
         {
             commChannel = TcpClientChannel.GetInstance();
+            commChannel.MessageReceived += ReadRecivedMessage;
         }
 
-        public JObject GetConfig()
+        public void GetConfig()
         {
-
-        }
-
-        public List<string> GetPathsToDirectoryHandlers()
-        {
-
+            ServerClientCommunicationCommand commCommand = new ServerClientCommunicationCommand(CommandEnum.GetConfigCommand, null);
+            this.commChannel.Write(commCommand.ToJson());
         }
 
         private void ReadRecivedMessage(object sender, MessageCommunicationEventArgs messageArgs)

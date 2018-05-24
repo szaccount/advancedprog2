@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "MyNewService\ImageService.csproj", "{981D250B-750B-4CC8-9E9A-67A2969C7724}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageService.Infrustracture", "ImageService.Infrustracture\ImageService.Infrustracture.csproj", "{410A442C-C8B8-422B-8483-124D3FA45BD2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageService.Communication", "ImageService.Communication\ImageService.Communication.csproj", "{A216ED61-4C66-4EEB-A0FC-9A86D0ECF0EB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServiceGUI", "ImageServiceGUI\ImageServiceGUI.csproj", "{EB4DF3EB-4BD2-4F64-B984-97D3AED8CCE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Logging", "ImageService.Logging\ImageService.Logging.csproj", "{A8F23150-FE73-45D8-99F0-83D8354F22D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Communication", "ImageService.Communication\ImageService.Communication.csproj", "{FF225EF0-E3E6-464B-9CB4-D461413CFBC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Infrustracture", "ImageService.Infrustracture\ImageService.Infrustracture.csproj", "{E95C4B0A-682B-4BB9-B151-85D2196782B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,6 @@ Global
 		{981D250B-750B-4CC8-9E9A-67A2969C7724}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{981D250B-750B-4CC8-9E9A-67A2969C7724}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{981D250B-750B-4CC8-9E9A-67A2969C7724}.Release|Any CPU.Build.0 = Release|Any CPU
-		{410A442C-C8B8-422B-8483-124D3FA45BD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{410A442C-C8B8-422B-8483-124D3FA45BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{410A442C-C8B8-422B-8483-124D3FA45BD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{410A442C-C8B8-422B-8483-124D3FA45BD2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A216ED61-4C66-4EEB-A0FC-9A86D0ECF0EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A216ED61-4C66-4EEB-A0FC-9A86D0ECF0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A216ED61-4C66-4EEB-A0FC-9A86D0ECF0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A216ED61-4C66-4EEB-A0FC-9A86D0ECF0EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB4DF3EB-4BD2-4F64-B984-97D3AED8CCE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB4DF3EB-4BD2-4F64-B984-97D3AED8CCE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB4DF3EB-4BD2-4F64-B984-97D3AED8CCE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +31,14 @@ Global
 		{A8F23150-FE73-45D8-99F0-83D8354F22D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8F23150-FE73-45D8-99F0-83D8354F22D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8F23150-FE73-45D8-99F0-83D8354F22D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF225EF0-E3E6-464B-9CB4-D461413CFBC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF225EF0-E3E6-464B-9CB4-D461413CFBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF225EF0-E3E6-464B-9CB4-D461413CFBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF225EF0-E3E6-464B-9CB4-D461413CFBC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E95C4B0A-682B-4BB9-B151-85D2196782B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E95C4B0A-682B-4BB9-B151-85D2196782B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E95C4B0A-682B-4BB9-B151-85D2196782B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E95C4B0A-682B-4BB9-B151-85D2196782B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

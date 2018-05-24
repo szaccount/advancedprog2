@@ -50,21 +50,30 @@ namespace ImageService.Server
             this.m_serverChannel.MessageReceived += this.HandleMessageFromServer;
             this.m_controller = controller;
             this.m_logging = logger;
+            logger.Log("jgnmdfjkgnfjgng!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             m_logging.Log("in server constructor starting creating directory handlers", MessageTypeEnum.INFO);
+            m_logging.Log("GOT HERE 1!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             this.InitDirectoryHandlers(pathsToWatch);
             m_logging.Log("In server constructor finished creating directory handlers", MessageTypeEnum.INFO);
         }
 
         public void InitDirectoryHandlers(string[] pathsToWatch)
         {
+            m_logging.Log("GOT HERE 0!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             for (int i = 0; i < pathsToWatch.Length; i++)
             {
+                m_logging.Log("GOT HERE 1!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
                 IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_controller, this.m_logging);
+                m_logging.Log("GOT HERE 2!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
                 directoryHandler.StartHandleDirectory(pathsToWatch[i]);
+                m_logging.Log("GOT HERE 3!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
                 //adding handler and path to directory into dictionary
                 this.m_deirectoryPathsToHandlers.Add(pathsToWatch[i], directoryHandler);
+                m_logging.Log("GOT HERE 4!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
                 this.CommandRecieved += directoryHandler.OnCommandRecieved;
+                m_logging.Log("GOT HERE 5!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
                 directoryHandler.DirectoryClose += this.RemoveDirectoryHandler;
+                m_logging.Log("GOT HERE 6!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageServiceGUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace ImageServiceGUI.Controls
     /// </summary>
     public partial class Logs : UserControl
     {
+        private LogsViewModel vm;
+
         public Logs()
         {
             InitializeComponent();
+            vm = new LogsViewModel();
+            DataContext = vm;
         }
     }
 }

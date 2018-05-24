@@ -37,11 +37,11 @@ namespace ImageService.Communication
                 //this.clientsAndStreams.Add(client, stream);
 
                 string receivedString;
-                using (StreamReader reader = new StreamReader(stream))
+                using (BinaryReader reader = new BinaryReader(stream))
                 {
                     while (this.running)
                     {
-                        receivedString = reader.ReadLine();
+                        receivedString = reader.ReadString();
                         MessageReceived?.Invoke(this, new MessageCommunicationEventArgs { Message = receivedString });
                             //!!!!!!ServerClientCommunicationCommand commCommand = ServerClientCommunicationCommand.FromJson(receivedString);
                             /*switch (commCommand.CommId) //!!!!!!!!!!!!!!!!!! check on the command if they failed (using the out bool variable) and if so send back informative message !!!!!!!!!!!!!
@@ -101,7 +101,7 @@ namespace ImageService.Communication
         {
             if (running)
             {
-                using (StreamWriter writer = new StreamWriter(stream))
+                using (BinaryWriter writer = new BinaryWriter(stream))
                 {
                     writer.Write(message);
                 }
