@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using ImageService.Logging.Modal;
 using ImageService.Infrastructure.Enums;
 using System.IO;
+using ImageService.Infrustracture.ToFile;
+using Newtonsoft.Json;
 
 namespace ImageService.Communication
 {
@@ -19,26 +21,35 @@ namespace ImageService.Communication
         public event EventHandler<MessageCommunicationEventArgs> MessageReceived;
         public TcpServerChannel(int port)
         {
+            this.running = false;
             this.port = port;
             clients = new List<IClientHandler>();
         }
 
         public void NotifyServerOfMessage(object sender, MessageRecievedEventArgs messageArgs)
         {
+            //LoggerToFile.Logm("break1");
             if (messageArgs != null)
             {
+                //LoggerToFile.Logm("break2");
                 string[] messageArr = new string[1];
+                List<MessageRecievedEventArgs> messageList = new List<MessageRecievedEventArgs>();
+                messageList.Add(messageArgs);
+                //LoggerToFile.Logm("break3");
                 //saving the message
-                messageArr[0] = messageArgs.Message;
+                messageArr[0] = JsonConvert.SerializeObject(messageList, Formatting.Indented); // !!!!!!!! maybe create an object of list of logs serializer and also use it in GetLoggsCommand 26.5 !!!!!!!!!!!!!!!!!!!!
+                //LoggerToFile.Logm("break4");
                 //saving the status
-                int statusIntValue = (int) messageArgs.Status;
-                messageArr[1] = statusIntValue.ToString();
+                //LoggerToFile.Logm("break5");
+                //LoggerToFile.Logm("break6");
                 BroadcastToClients(new ServerClientCommunicationCommand(CommandEnum.LogCommand, messageArr));
+                //LoggerToFile.Logm("breakEnd");
             }
         }
 
         private void HandleMessage(object sender, MessageCommunicationEventArgs message)
         {
+            //LoggerToFile.Logm("In tcpServerChannel received string to handle passing higher");
             this.MessageReceived?.Invoke(sender, message);
         }
 
@@ -46,49 +57,65 @@ namespace ImageService.Communication
         {
             if (running)
             {
+                //LoggerToFile.Logm("break8");
                 new Task(() =>
                 {
-                    string commandJson = command.ToJson();
-                    foreach (IClientHandler clientHandler in clients)
+                    if (running)
                     {
-                        try
+                        string commandJson = command.ToJson();
+                        //LoggerToFile.Logm("break9");
+                        foreach (IClientHandler clientHandler in clients)
                         {
-                            clientHandler.WriteMessage(commandJson);
-                        }
-                        catch (Exception)
-                        {
-                        //if communication didn't succedd erase client from communication clients list ##########################
-                        clientHandler.CloseHandler();
+                            //LoggerToFile.Logm("break10");
+                            try
+                            {
+                                //LoggerToFile.Logm("break11");
+                                clientHandler.WriteMessage(commandJson);
+                                //LoggerToFile.Logm("break12");
+                            }
+                            catch (Exception)
+                            {
+                                //LoggerToFile.Logm("break13");
+                                //if communication didn't succedd erase client from communication clients list ##########################
+                                clientHandler.CloseHandler();
+                                //LoggerToFile.Logm("break14");
+                            }
                         }
                     }
                 }).Start();
+                //LoggerToFile.Logm("break8.5");
             }
         }
 
         public void Start()
         {
-            this.running = true;
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port); //לבדוק אם צריך לקבל את ה ip של המחשב
-            listener = new TcpListener(ep);
-            listener.Start();
-            //!!!!!!!!!!! logger.Log("Waiting for client connections... in tcp server", Logging.Modal.MessageTypeEnum.INFO);
-            Task task = new Task(() => {
-                while (running)
+            if (!this.running)
+            {
+                this.running = true;
+                IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port); //לבדוק אם צריך לקבל את ה ip של המחשב
+                listener = new TcpListener(ep);
+                listener.Start();
+                //!!!!!!!!!!! logger.Log("Waiting for client connections... in tcp server", Logging.Modal.MessageTypeEnum.INFO);
+                Task task = new Task(() =>
                 {
-                    try
+                    while (running)
                     {
-                        TcpClient client = listener.AcceptTcpClient();
-                        IClientHandler ch = new ClientHandler(client);///"Factory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-                        ch.MessageReceived += this.HandleMessage;
-                        clients.Add(ch);
+                        try
+                        {
+                            TcpClient client = listener.AcceptTcpClient();
+                            IClientHandler ch = new ClientHandler(client);///"Factory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                            ch.Start();
+                            ch.MessageReceived += this.HandleMessage;
+                            clients.Add(ch);
+                        }
+                        catch (SocketException)
+                        {
+                            break;
+                        }
                     }
-                    catch (SocketException)
-                    {
-                        break;
-                    }
-                }
-            });
-            task.Start();
+                });
+                task.Start();
+            }
         }
 
         public void Stop()

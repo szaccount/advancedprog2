@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ImageService.Logging.Modal;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace ImageServiceGUI.Models
 {
@@ -22,12 +23,30 @@ namespace ImageServiceGUI.Models
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public List<MessageRecievedEventArgs> Logs { get; set; }
+        private ObservableCollection<MessageRecievedEventArgs> logs;
+        public ObservableCollection<MessageRecievedEventArgs> Logs
+        {
+            get
+            {
+                return this.logs;
+            }
+            set
+            {
+                if (this.logs != value)
+                {
+                    this.logs = value;
+                    NotifyPropertyChanged("Logs");
+                }
+            }
+        }
 
         public LogsModel()
         {
             commChannel = TcpClientChannel.GetInstance();
             commChannel.MessageReceived += ReadRecivedMessage;
+            this.Logs = new ObservableCollection<MessageRecievedEventArgs>();
+            Thread.Sleep(1000); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            this.GetLogs();
         }
 
         public void GetLogs()
@@ -44,7 +63,23 @@ namespace ImageServiceGUI.Models
             {
                 case CommandEnum.LogCommand:
                     string jsonLogs = commCommand.Args[0];
-                    this.Logs.AddRange(JsonConvert.DeserializeObject<List<MessageRecievedEventArgs>>(jsonLogs));
+                    List<MessageRecievedEventArgs> tmpList = JsonConvert.DeserializeObject<List<MessageRecievedEventArgs>>(jsonLogs);
+                    foreach (MessageRecievedEventArgs entry in tmpList)
+                    {
+                        try //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        {
+                            //moving the action to be handled in the UI thread
+                            App.Current.Dispatcher.Invoke((Action)delegate
+                            {
+                                this.Logs.Insert(0, entry);
+                            });
+                        }
+                        catch (Exception exc)
+                        {
+                            string msg = exc.Message;
+                        }
+                    }
+                    //this.Logs.AddRange(tmpList); !!!!!!!!!!!!!!!!! was before the foreach !!!!!!!!!!!!!!!!!!!!!!
                     break;
                 default:
                     break;

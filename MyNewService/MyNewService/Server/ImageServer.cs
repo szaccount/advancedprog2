@@ -12,18 +12,22 @@ using ImageService.Modal.Event;
 using ImageService.Logging.Modal;
 using ImageService.Communication;
 using ImageService.Infrastructure;
+using ImageService.Infrustracture.ToFile;
 
 namespace ImageService.Server
 {
     /// <summary>
     /// class defining the server object of the system
     /// </summary>
-    public class ImageServer: IDirectoryHandlersManager
+    public class ImageServer : IDirectoryHandlersManager
     {
         #region Members
         private IController m_controller;
         //the logger service of the server
         private ILoggingService m_logging;
+
+        //used to indicate closing request from the service, and distinguish from just empty directory handlers list
+        private bool running;
 
         //the server itself
         private IServerChannel m_serverChannel;
@@ -44,12 +48,20 @@ namespace ImageService.Server
         /// <param name="pathsToWatch">strings describing the paths of directories needed to be monitored by the system</param>
         public ImageServer(IController controller, ILoggingService logger, IServerChannel serverChannel, string[] pathsToWatch)
         {
+            this.running = true;
+            logger.Log("ImageServerHELLO1!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             this.m_deirectoryPathsToHandlers = new Dictionary<string, IDirectoryHandler>();
+            logger.Log("ImageServer2!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             this.m_serverChannel = serverChannel;
+            logger.Log("ImageServer3!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             this.m_serverChannel.Start();
+            logger.Log("ImageServer1!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             this.m_serverChannel.MessageReceived += this.HandleMessageFromServer;
+            logger.Log("ImageServer4!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             this.m_controller = controller;
+            logger.Log("ImageServer5!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             this.m_logging = logger;
+            logger.Log("ImageServer6!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             logger.Log("jgnmdfjkgnfjgng!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             m_logging.Log("in server constructor starting creating directory handlers", MessageTypeEnum.INFO);
             m_logging.Log("GOT HERE 1!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
@@ -94,15 +106,27 @@ namespace ImageService.Server
             }
         }
 
+        public List<string> GetDirectoryHandlersPaths()
+        {
+            if (this.m_deirectoryPathsToHandlers.Count == 0)
+            {
+                //dictionary is empty
+                return new List<string>();
+            }
+            return new List<string>(this.m_deirectoryPathsToHandlers.Keys);
+        }
+
         /// <summary>
         /// method for notifying the server of closing
         /// </summary>
         public void CloseServer()
         {
+            this.running = false;
             this.m_logging.Log("starting closing server", MessageTypeEnum.INFO);
             CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs(CommandEnum.CloseCommand, null, "");
             this.CommandRecieved?.Invoke(this, commandRecievedEventArgs);
-            this.m_serverChannel.Stop();
+            if (this.CommandRecieved == null)
+                this.StopServerFinal();
         }
 
         /// <summary>
@@ -123,7 +147,7 @@ namespace ImageService.Server
             this.m_logging.Log("In server, Closed Directory Handler of Directory in: " + messageArgs.DirectoryPath + @" with message: " + messageArgs.Message, MessageTypeEnum.INFO);
             //unsubscribing of the DirectoryHandler from the server message feed
             this.CommandRecieved -= sendingDirectoryHandler.OnCommandRecieved;
-            if (this.CommandRecieved == null)
+            if (this.CommandRecieved == null && !this.running)
                 //if all the Directory Handlers closed succefully the server itself can finally close
                 this.StopServerFinal();
         }
@@ -134,12 +158,16 @@ namespace ImageService.Server
         private void StopServerFinal()
         {
             this.m_logging.Log("closing server finally", MessageTypeEnum.INFO);
+            this.m_serverChannel.Stop();
         }
 
         private void HandleMessageFromServer(object sender, MessageCommunicationEventArgs message)
         {
+            //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 1");
             IClientHandler clientHandler = sender as IClientHandler;
+            //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 2");
             ServerClientCommunicationCommand commCommand = ServerClientCommunicationCommand.FromJson(message.Message);
+            //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 3");
             switch (commCommand.CommId) //!!!!!!!!!!!!!!!!!! check on the command if they failed (using the out bool variable) and if so send back informative message !!!!!!!!!!!!!
             {
                 /*case CommandEnum.CloseGuiClient:
@@ -148,13 +176,20 @@ namespace ImageService.Server
                 case CommandEnum.GetConfigCommand:
                     //asking for logs list
                 case CommandEnum.LogCommand:
+                    //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 4");
                     string result = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag1);
+                    //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 5");
                     string[] responseArr1 = new string[1];
+                    //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 6");
                     responseArr1[0] = result;
+                    //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 7");
                     ServerClientCommunicationCommand responseCommand = new ServerClientCommunicationCommand(commCommand.CommId, responseArr1);
+                    //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 8");
                     string responseJson = responseCommand.ToJson();
+                    //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 9");
                     //writing back the answer to the client request
-                    clientHandler.WriteMessage(responseJson);
+                    clientHandler?.WriteMessage(responseJson);
+                    //LoggerToFile.Logm("In ImageServer received message from server channel, procceeding to handle it 10");
                     break;
                     //closing a directory handler request
                 case CommandEnum.CloseCommand:
@@ -165,7 +200,7 @@ namespace ImageService.Server
                     this.m_serverChannel.BroadcastToClients(new ServerClientCommunicationCommand(CommandEnum.CloseCommand, responseArr2));
                     break;
                 default:
-                    clientHandler.WriteMessage("Invalid command Id");
+                    clientHandler?.WriteMessage("Invalid command Id");
                     break;
 
             }

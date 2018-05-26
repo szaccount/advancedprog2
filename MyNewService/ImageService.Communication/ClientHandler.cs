@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageService.Infrastructure;
 using ImageService.Infrastructure.Enums;
+using ImageService.Infrustracture.ToFile;
 
 namespace ImageService.Communication
 {
@@ -15,6 +16,8 @@ namespace ImageService.Communication
         
         private bool running;
         private NetworkStream stream;
+        private BinaryReader reader;
+        private BinaryWriter writer;
         private TcpClient client;
 
         public event EventHandler<MessageCommunicationEventArgs> MessageReceived;
@@ -24,25 +27,30 @@ namespace ImageService.Communication
             //this.clientsAndStreams = new Dictionary<TcpClient, NetworkStream>();
             this.client = client;
             this.stream = this.client.GetStream();
+            this.reader = new BinaryReader(this.stream);
+            this.writer = new BinaryWriter(this.stream);
             this.running = true;
         }
 
         public void Start()
         {
-
-            new Task(() =>
+            if (running)
             {
-            try
-            {
-                //this.clientsAndStreams.Add(client, stream);
-
-                string receivedString;
-                using (BinaryReader reader = new BinaryReader(stream))
+                new Task(() =>
                 {
-                    while (this.running)
+                    try
                     {
-                        receivedString = reader.ReadString();
-                        MessageReceived?.Invoke(this, new MessageCommunicationEventArgs { Message = receivedString });
+                        //this.clientsAndStreams.Add(client, stream);
+
+                        string receivedString;
+                        while (this.running)
+                        {
+                            lock (reader)
+                            {
+                                receivedString = reader.ReadString();
+                                LoggerToFile.Logm("in clientHandler received string:   " + receivedString);
+                                MessageReceived?.Invoke(this, new MessageCommunicationEventArgs { Message = receivedString });
+                            }
                             //!!!!!!ServerClientCommunicationCommand commCommand = ServerClientCommunicationCommand.FromJson(receivedString);
                             /*switch (commCommand.CommId) //!!!!!!!!!!!!!!!!!! check on the command if they failed (using the out bool variable) and if so send back informative message !!!!!!!!!!!!!
                             {
@@ -74,15 +82,16 @@ namespace ImageService.Communication
 
                             }*/
                         }
-                    }
-                }
-                catch (Exception)
-                {
-                    //if communication didn't succedd erase client #########################
-                    this.CloseHandler();
 
-                }
-            }).Start();
+                    }
+                    catch (Exception exc)
+                    {
+                        //if communication didn't succedd erase client #########################
+                        this.CloseHandler();
+
+                    }
+                }).Start();
+            }
 
         }
 
@@ -91,20 +100,35 @@ namespace ImageService.Communication
             if (this.running)
             {
                 //if the handler isn't running anymore the client will be already closed in the handler closing method
-                this.stream.Close();
-                client.Close();
                 this.running = false;
+                this.stream.Close();
+                this.reader.Close();
+                this.writer.Close();
+                client.Close();
             }
         }
 
         public void WriteMessage(string message)
         {
+            //LoggerToFile.Logm("In ClientHandler in WriteMessage, in proccess 1");
             if (running)
             {
-                using (BinaryWriter writer = new BinaryWriter(stream))
+                lock (this.writer)
                 {
-                    writer.Write(message);
+                    try
+                    {
+                        LoggerToFile.Logm("in clientHandler received string in WriteMessage:  " + message);
+                        //LoggerToFile.Logm("In ClientHandler in WriteMessage, in proccess 2");
+                        //LoggerToFile.Logm("In ClientHandler in WriteMessage, in proccess 3");
+                        writer.Write(message);
+                        //LoggerToFile.Logm("In ClientHandler in WriteMessage, in proccess 4");
+                    }
+                    catch
+                    {
+                        this.CloseHandler();
+                    }
                 }
+
             }
         }
     }

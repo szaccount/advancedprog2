@@ -1,0 +1,8 @@
+D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\bin\Release\ImageService.Logging.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\bin\Release\ImageService.Logging.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\bin\Release\Newtonsoft.Json.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\bin\Release\Newtonsoft.Json.xml
+D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Release\ImageService.Logging.csproj.CoreCompileInputs.cache
+D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Release\ImageService.Logging.csproj.CopyComplete
+D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Release\ImageService.Logging.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Release\ImageService.Logging.pdb

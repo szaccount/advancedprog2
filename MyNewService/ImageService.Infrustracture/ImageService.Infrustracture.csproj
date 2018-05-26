@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CommandEnum.cs" />
     <Compile Include="ICommandExecuter.cs" />
+    <Compile Include="LoggerToFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

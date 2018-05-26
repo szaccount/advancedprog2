@@ -17,6 +17,7 @@ using ImageService.Server;
 using System.Configuration;
 using ImageService.Communication;
 using ImageService.Infrastructure;
+using ImageService.Infrustracture.ToFile;
 
 namespace ImageService
 {
@@ -118,10 +119,14 @@ namespace ImageService
             IController controller = new Controller.Controller(modal, logger);
 
             IServerChannel serverChannel = new TcpServerChannel(8080);
+            //LoggerToFile.Logm("In ImageService between creation and activation of tcpServerChannel"); !!!!!!!!!!!!!!!!!!!!!!
+            serverChannel.Start();
             //!!!!!!!!!!!!!!!!!!!! subscribing to the: new log notifying event, so that the server can be notified of new logs !!!!!!!!!!!!!!!!!!!!!!!! also possible to connect the event to the imageServer or to the clientHandler, think whats better !!!!!!!!!!!!!!!!!!!!!!!!!!
-            logger.MessageRecieved += serverChannel.NotifyServerOfMessage;
             server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);
+            logger.MessageRecieved += serverChannel.NotifyServerOfMessage;
+            //server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);
             controller.SetDHManager(server);
+            logger.Log("ImageService!!!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
             logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);
         }
 

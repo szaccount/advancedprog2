@@ -1,0 +1,13 @@
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Release\ImageService.Communication.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Release\ImageService.Communication.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Release\ImageService.Infrustracture.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Release\ImageService.Logging.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Release\Newtonsoft.Json.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Release\ImageService.Infrustracture.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Release\ImageService.Logging.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\bin\Release\Newtonsoft.Json.xml
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Release\ImageService.Communication.csprojResolveAssemblyReference.cache
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Release\ImageService.Communication.csproj.CoreCompileInputs.cache
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Release\ImageService.Communication.csproj.CopyComplete
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Release\ImageService.Communication.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Release\ImageService.Communication.pdb

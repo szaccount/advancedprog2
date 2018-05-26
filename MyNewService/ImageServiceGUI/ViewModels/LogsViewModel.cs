@@ -2,6 +2,7 @@
 using ImageServiceGUI.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,13 @@ namespace ImageServiceGUI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<MessageRecievedEventArgs> VM_Logs { get; set; }
+        public ObservableCollection<MessageRecievedEventArgs> VM_Logs
+        {
+            get
+            {
+                return this.model.Logs;
+            }
+        }
 
         private LogsModel model;
 
@@ -23,12 +30,12 @@ namespace ImageServiceGUI.ViewModels
             this.model.PropertyChanged +=
                 delegate (object sender, PropertyChangedEventArgs e)
                 {
-                    NotifyPropertyChanged("VM_" + e.PropertyName);// to it without saving the info in the vm !!!!!!!!!!!!!!!!!!!!!!!
+                    NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
 
-            VM_Logs = new List<MessageRecievedEventArgs>();
+            /*VM_Logs = new List<MessageRecievedEventArgs>();
             VM_Logs.Add(new MessageRecievedEventArgs { Status = MessageTypeEnum.INFO, Message = "hellofdnjsdjfn"});
-            VM_Logs.Add(new MessageRecievedEventArgs { Status = MessageTypeEnum.WARNING, Message = "jbdnbfjkdsfn" });
+            VM_Logs.Add(new MessageRecievedEventArgs { Status = MessageTypeEnum.WARNING, Message = "jbdnbfjkdsfn" }); !!!!!!!!!!!!!!!!!!!!*/
 
         }
 

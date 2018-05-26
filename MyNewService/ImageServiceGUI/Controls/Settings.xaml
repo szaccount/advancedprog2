@@ -28,8 +28,8 @@
             <TextBlock x:Name="ThumbnailSizeTxt" Grid.Row="3" Grid.Column="1" Padding="3" Margin="3" Text="{Binding VM_ThumbnailSize}"></TextBlock>
         </Grid>
 
-        <Button HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">Delete</Button>
-        <ListBox Height="Auto" SelectionMode="Single" Name="pathsList"  HorizontalContentAlignment="Stretch" ItemsSource="{Binding VM_DirectoryHandlerPsths}">
+        <Button Padding="3" Margin="3" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Command="{Binding SubRemove}">Remove</Button>
+        <ListBox Margin="3" Height="Auto" SelectionMode="Single" Name="pathsList" HorizontalContentAlignment="Stretch" ItemsSource="{Binding VM_DirectoryHandlerPaths}" SelectedItem="{Binding VM_SelectedDirectoryPath}">
         </ListBox>
     </StackPanel>
 </UserControl>

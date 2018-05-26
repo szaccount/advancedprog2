@@ -10,5 +10,6 @@ namespace ImageService.Controller.Handlers
     {
         void InitDirectoryHandlers(string[] pathsToWatch);
         bool StopHandelingDirectory(string directoryPath);
+        List<string> GetDirectoryHandlersPaths();
     }
 }

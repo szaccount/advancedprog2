@@ -36,7 +36,7 @@ namespace ImageService.Controller
             commands[CommandEnum.NewFileCommand] = new NewFileCommand(this.imageModal);
             commands[CommandEnum.LogCommand] = new GetLoggsCommand(this.logger);
             commands[CommandEnum.CloseCommand] = new CloseDHandlerCommand(this.directoryHandlersManager);
-            commands[CommandEnum.GetConfigCommand] = new GetConfigCommand();
+            commands[CommandEnum.GetConfigCommand] = new GetConfigCommand(this.directoryHandlersManager);
             logger.Log("In Controller, finished constructor", MessageTypeEnum.INFO);
         }
 
@@ -49,7 +49,7 @@ namespace ImageService.Controller
         /// <returns>string indicating of success/failure</returns>
         public string ExecuteCommand(CommandEnum commandID, string[] args, out bool result)
         {
-            logger.Log("In controller, received command execution request with id: " + commandID, MessageTypeEnum.INFO);
+            //logger.Log("In controller, received command execution request with id: " + commandID, MessageTypeEnum.INFO); 26.5 !!!!!!!!!!!!!!!!!!!!!!!
             //return commands[commandID].Execute(args, out result);
             ICommand command;
             if (commands.TryGetValue(commandID, out command))
@@ -66,6 +66,10 @@ namespace ImageService.Controller
         public void SetDHManager(IDirectoryHandlersManager dhManager)
         {
             this.directoryHandlersManager = dhManager;
+            CloseDHandlerCommand command1 = this.commands[CommandEnum.CloseCommand] as CloseDHandlerCommand;
+            command1?.SetDirectoryHandlersManager(this.directoryHandlersManager);
+            GetConfigCommand command2 = this.commands[CommandEnum.GetConfigCommand] as GetConfigCommand;
+            command2?.SetDirectoryHandlersManager(this.directoryHandlersManager);
         }
     }
 }

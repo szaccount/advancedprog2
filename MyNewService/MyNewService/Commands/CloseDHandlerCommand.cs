@@ -24,5 +24,10 @@ namespace ImageService.Commands
             result = directoryHandlersManager.StopHandelingDirectory(directoryPath);
             return directoryPath;
         }
+
+        public void SetDirectoryHandlersManager(IDirectoryHandlersManager manager)
+        {
+            this.directoryHandlersManager = manager;
+        }
     }
 }
