@@ -10,7 +10,7 @@
         <ColorConvert:StatusColorConverter x:Key="StatColorConverter"/>
     </UserControl.Resources>
     <DockPanel ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="-1,0,0,10">
-        <Label FontSize="24" HorizontalAlignment="Center" DockPanel.Dock="Top">Logs</Label>
+        <Label HorizontalAlignment="Center" DockPanel.Dock="Top">Logs</Label>
         <DataGrid x:Name="logsList" 
                   ItemsSource="{Binding VM_Logs}" IsReadOnly="True" CanUserAddRows="False" HorizontalAlignment="Stretch" AutoGenerateColumns="False">
             <DataGrid.Columns>

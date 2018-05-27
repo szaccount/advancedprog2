@@ -20,6 +20,9 @@ namespace ImageService.Communication
         private int port;
         public event EventHandler<MessageCommunicationEventArgs> MessageReceived;
         private IClientHandler clientHandler;
+
+        public bool IsConnected { get; set; }
+
         private TcpClientChannel()
         {
             //read ip and port from app config !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -38,9 +41,8 @@ namespace ImageService.Communication
 
         public void Write(string message)
         {
-            LoggerToFile.Logm("In TcpClientChannel writing client channel");
-            clientHandler.WriteMessage(message);
-            LoggerToFile.Logm("In TcpClientChannel writed client channel");
+            if (IsConnected)
+                clientHandler.WriteMessage(message);
         }
 
         public void Stop()
@@ -64,11 +66,13 @@ namespace ImageService.Communication
                 //LoggerToFile.Logm("starting client handler");
                 this.clientHandler.Start();
                 this.clientHandler.MessageReceived += this.HandleRecivedMessage;
+                //checking the state of the connection
+                this.IsConnected = client.Connected;
                 //LoggerToFile.Logm("connected to server in client channel");
             }
             catch (Exception exc)
             {
-                //put here the code to make the background grey and never contuct the server again !!!!!!!!! also in logs !!!!!!!!!!!!!!!!!!!
+                this.IsConnected = false;
             }
         }
 

@@ -7,12 +7,33 @@
         xmlns:local="clr-namespace:ImageServiceGUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <TabControl Margin="5">
-        <TabItem Header="Settings" Margin="0,0,0.4,0">
-            <Controls:Settings/>
-        </TabItem>
-        <TabItem Header="Loggs">
-            <Controls:Logs/>
-        </TabItem>
-    </TabControl>
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <TextBox>
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                            <Setter Property="Background" Value="Gray"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <TabControl Margin="5">
+            <TabItem Header="Settings" Margin="0,0,0.4,0">
+                <Controls:Settings/>
+            </TabItem>
+            <TabItem Header="Logs">
+                <Controls:Logs/>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>

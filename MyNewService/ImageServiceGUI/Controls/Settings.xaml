@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
+        <Label HorizontalAlignment="Center" DockPanel.Dock="Top">Settings</Label>
         <Grid TextBlock.FontSize="14">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageServiceGUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace ImageServiceGUI.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel vm;
+
         public MainWindow()
         {
             InitializeComponent();
+            vm = new MainWindowViewModel();
+            this.DataContext = vm;
         }
     }
 }
