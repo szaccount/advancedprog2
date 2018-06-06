@@ -12,8 +12,12 @@ using System.Threading;
 
 namespace ImageServiceGUI.Models
 {
-    public class LogsModel : INotifyPropertyChanged
+    /// <summary>
+    /// model for settings MVVM
+    /// </summary>
+    public class LogsModel : ILogsModel, INotifyPropertyChanged
     {
+        //communication channel
         private TcpClientChannel commChannel;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -40,21 +44,31 @@ namespace ImageServiceGUI.Models
             }
         }
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public LogsModel()
         {
             commChannel = TcpClientChannel.GetInstance();
             commChannel.MessageReceived += ReadRecivedMessage;
             this.Logs = new ObservableCollection<MessageRecievedEventArgs>();
-            Thread.Sleep(1000); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            Thread.Sleep(1000);
             this.GetLogs();
         }
-
+        /// <summary>
+        /// method to request to get the logs
+        /// </summary>
         public void GetLogs()
         {
             ServerClientCommunicationCommand commCommand = new ServerClientCommunicationCommand(CommandEnum.LogCommand, null);
             this.commChannel.Write(commCommand.ToJson());
         }
 
+        /// <summary>
+        /// method to handle a received message
+        /// </summary>
+        /// <param name="sender">sender of the message</param>
+        /// <param name="messageArgs">the message arguments</param>
         private void ReadRecivedMessage(object sender, MessageCommunicationEventArgs messageArgs)
         {
             string message = messageArgs.Message;
@@ -66,7 +80,7 @@ namespace ImageServiceGUI.Models
                     List<MessageRecievedEventArgs> tmpList = JsonConvert.DeserializeObject<List<MessageRecievedEventArgs>>(jsonLogs);
                     foreach (MessageRecievedEventArgs entry in tmpList)
                     {
-                        try //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        try
                         {
                             //moving the action to be handled in the UI thread
                             App.Current.Dispatcher.Invoke((Action)delegate
@@ -79,7 +93,6 @@ namespace ImageServiceGUI.Models
                             string msg = exc.Message;
                         }
                     }
-                    //this.Logs.AddRange(tmpList); !!!!!!!!!!!!!!!!! was before the foreach !!!!!!!!!!!!!!!!!!!!!!
                     break;
                 default:
                     break;

@@ -11,9 +11,12 @@ using Microsoft.Practices.Prism.Commands;
 
 namespace ImageServiceGUI.ViewModels
 {
+    /// <summary>
+    /// view model for the settings MVVM
+    /// </summary>
     public class SettingsViewModel : INotifyPropertyChanged
     {
-        private SettingsModel model;
+        private ISettingsModel model;
         private string selectedDirectoryPath;
         public ICommand SubRemove { get; private set; }
 
@@ -70,32 +73,27 @@ namespace ImageServiceGUI.ViewModels
             }
         }
 
+        /// <summary>
+        /// default constructor for the class
+        /// </summary>
         public SettingsViewModel()
         {
             this.model = new SettingsModel();
             this.model.PropertyChanged +=
                 delegate (object sender, PropertyChangedEventArgs e)
                 {
-                    NotifyPropertyChanged("VM_" + e.PropertyName);// to it without saving the info in the vm !!!!!!!!!!!!!!!!!!!!!!!
+                    NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
-            this.SubRemove = new DelegateCommand<object>(this.OnSubmit, this.CanSubmit);
+            this.SubRemove = new DelegateCommand<object>(this.OnRemove, this.CanRemove);
             this.PropertyChanged += RemoveCommand;
-
-            /*VM_OutputDirectory = "OUTPUT DIRECTORY";
-            VM_SourceName = "source";
-            VM_LogName = "name";
-            VM_ThumbnailSize = "120";
-            VM_DirectoryHandlerPsths = new List<string>();
-            VM_DirectoryHandlerPsths.Add("hello.com");
-            VM_DirectoryHandlerPsths.Add("otherthing"); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
         }
 
         /// <summary>
-        /// The function rasing the execute only when it can be execute !!!!!!!!!!!!! change a bit !!!!!!!!!!!!!!!!!!
+        /// The function rasing the execute only when it can be executed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">the sender</param>
+        /// <param name="e">parameters matching for the request</param>
         private void RemoveCommand(object sender, PropertyChangedEventArgs e)
         {
             var command = SubRemove as DelegateCommand<object>;
@@ -103,21 +101,21 @@ namespace ImageServiceGUI.ViewModels
         }
 
         /// <summary>
-        /// The function do the removing from the list after notifying the tcp client // change !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /// The function for removing the object from the list
         /// </summary>
-        /// <param name="obj"></param>
-        private void OnSubmit(object obj)
+        /// <param name="obj">the object to remove</param>
+        private void OnRemove(object obj)
         {
             this.model.SendRequestRemoveDirectoryPath(VM_SelectedDirectoryPath);
             this.VM_SelectedDirectoryPath = null;
         }
 
         /// <summary>
-        /// The fucntion checks if the button can be clicked
+        /// The fucntion for checking if the object can be removed and therfore if the button can be clicked
         /// </summary>
-        /// <param name="obj"></param> // change !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        /// <returns> true for selected item, otherwise false </returns>
-        private bool CanSubmit(object obj)
+        /// <param name="obj">the object to remove</param>
+        /// <returns> true if there is a selected object, otherwise returns false </returns>
+        private bool CanRemove(object obj)
         {
             return !(string.IsNullOrEmpty(this.VM_SelectedDirectoryPath));
         }

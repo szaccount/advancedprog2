@@ -14,11 +14,21 @@ namespace ImageService.Commands
     {
         private IDirectoryHandlersManager directoryHandlersManager;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="manager">drectoryHandlers manager</param>
         public GetConfigCommand(IDirectoryHandlersManager manager)
         {
             this.directoryHandlersManager = manager;
         }
 
+        /// <summary>
+        /// executing the command
+        /// </summary>
+        /// <param name="args">command arguments</param>
+        /// <param name="result">indicating if action successful</param>
+        /// <returns></returns>
         public string Execute(string[] args, out bool result)
         {
             //variable for reading from the configuration file
@@ -29,18 +39,18 @@ namespace ImageService.Commands
             appConfigJson["SourceName"] = new JValue(appSettings["SourceName"]);
             appConfigJson["LogName"] = new JValue(appSettings["LogName"]);
             appConfigJson["ThumbnailSize"] = new JValue(appSettings["ThumbnailSize"]);
-            //string[] dirPaths = appSettings["Handler"]?.Split(';'); !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            List<string> dirPathsToManage = /*null !!!!!!!!!!!!!!!!!!!!!!!!*/this.directoryHandlersManager.GetDirectoryHandlersPaths();
-            /*if (dirPaths != null)
-            {
-                dirPathsToManage = new List<string>(dirPaths); !!!!!!!!!!!!!!!!!!!!!!
-            }*/
+            List<string> dirPathsToManage = this.directoryHandlersManager.GetDirectoryHandlersPaths();
+            
             string dirPathsToManageJson = JsonConvert.SerializeObject(dirPathsToManage, Formatting.Indented);
             appConfigJson["dirPathsToManageListString"] = new JValue(dirPathsToManageJson);
             result = true;
             return appConfigJson.ToString();
         }
 
+        /// <summary>
+        /// method for setting the directoryHandlers manager
+        /// </summary>
+        /// <param name="manager">the directoryHandlers manager</param>
         public void SetDirectoryHandlersManager(IDirectoryHandlersManager manager)
         {
             this.directoryHandlersManager = manager;

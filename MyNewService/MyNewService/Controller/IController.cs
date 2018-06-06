@@ -14,6 +14,10 @@ namespace ImageService.Controller
     /// </summary>
     public interface IController: ICommandExecuter
     {
+        /// <summary>
+        /// method for setting the directoryHandlers manager
+        /// </summary>
+        /// <param name="dhManager">the directoryHandlers manager</param>
         void SetDHManager(IDirectoryHandlersManager dhManager);
     }
 }

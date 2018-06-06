@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using ImageService.Logging.Modal;
 using ImageService.Infrastructure.Enums;
 using System.IO;
-using ImageService.Infrustracture.ToFile;
 using Newtonsoft.Json;
 
 namespace ImageService.Communication
 {
+    /// <summary>
+    /// implementing IServerChannel interface
+    /// </summary>
     public class TcpServerChannel: IServerChannel
     {
         private List<IClientHandler> clients;
@@ -19,6 +21,10 @@ namespace ImageService.Communication
         private TcpListener listener;
         private bool running;
         public event EventHandler<MessageCommunicationEventArgs> MessageReceived;
+
+        /// <summary>
+        /// class Constructor, init the clientHandler list and the port
+        /// </summary>
         public TcpServerChannel(int port)
         {
             this.running = false;
@@ -26,76 +32,92 @@ namespace ImageService.Communication
             clients = new List<IClientHandler>();
         }
 
+        /// <summary>
+        /// function to notify the server channel that a message was received
+        /// </summary>
+        /// <param name="sender">the sender of message</param>
+        /// <param name="messageArgs">object implementing the MessageRecievedEventArgs (a message)</param>
         public void NotifyServerOfMessage(object sender, MessageRecievedEventArgs messageArgs)
         {
-            //LoggerToFile.Logm("break1");
             if (messageArgs != null)
             {
-                //LoggerToFile.Logm("break2");
                 string[] messageArr = new string[1];
                 List<MessageRecievedEventArgs> messageList = new List<MessageRecievedEventArgs>();
                 messageList.Add(messageArgs);
-                //LoggerToFile.Logm("break3");
-                //saving the message
-                messageArr[0] = JsonConvert.SerializeObject(messageList, Formatting.Indented); // !!!!!!!! maybe create an object of list of logs serializer and also use it in GetLoggsCommand 26.5 !!!!!!!!!!!!!!!!!!!!
-                //LoggerToFile.Logm("break4");
-                //saving the status
-                //LoggerToFile.Logm("break5");
-                //LoggerToFile.Logm("break6");
+                messageArr[0] = JsonConvert.SerializeObject(messageList, Formatting.Indented);
                 BroadcastToClients(new ServerClientCommunicationCommand(CommandEnum.LogCommand, messageArr));
-                //LoggerToFile.Logm("breakEnd");
             }
         }
 
+        /// <summary>
+        /// forwrds the receoved message higher in the heirarchy
+        /// </summary>
+        /// <param name="sender">the sender of the message</param>
+        /// <param name="message">object implementing the  MessageRecievedEventArgs (a message)</param>
         private void HandleMessage(object sender, MessageCommunicationEventArgs message)
         {
-            //LoggerToFile.Logm("In tcpServerChannel received string to handle passing higher");
             this.MessageReceived?.Invoke(sender, message);
         }
 
+        /// <summary>
+        /// broadcasting the received message to all the clients on the channel
+        /// </summary>
+        /// <param name="command">the message to broadcast</param>
         public void BroadcastToClients(ServerClientCommunicationCommand command)
         {
             if (running)
             {
-                //LoggerToFile.Logm("break8");
                 new Task(() =>
                 {
                     if (running)
                     {
                         string commandJson = command.ToJson();
-                        //LoggerToFile.Logm("break9");
                         foreach (IClientHandler clientHandler in clients)
                         {
-                            //LoggerToFile.Logm("break10");
                             try
                             {
-                                //LoggerToFile.Logm("break11");
                                 clientHandler.WriteMessage(commandJson);
-                                //LoggerToFile.Logm("break12");
                             }
                             catch (Exception)
                             {
-                                //LoggerToFile.Logm("break13");
-                                //if communication didn't succedd erase client from communication clients list ##########################
+                                //if communication didn't succedd close clientHandler
                                 clientHandler.CloseHandler();
-                                //LoggerToFile.Logm("break14");
                             }
                         }
                     }
                 }).Start();
-                //LoggerToFile.Logm("break8.5");
             }
         }
 
+        /// <summary>
+        /// method to remove the IClientHandler object that notified of its closing
+        /// </summary>
+        /// <param name="sender">the closing IClientHandler</param>
+        /// <param name="args">closing arguments</param>
+        public void RemoveClosedIClientHandler(object sender, IClientHandlerCloseEventArgs args)
+        {
+            try
+            {
+                IClientHandler closingClientHandler = sender as IClientHandler;
+                if (closingClientHandler != null)
+                {
+                    if (this.clients.Contains(closingClientHandler))
+                        this.clients.Remove(closingClientHandler);
+                }
+            }
+            catch (Exception) { }
+        }
+        /// <summary>
+        /// starting the channel and listening for clients
+        /// </summary>
         public void Start()
         {
             if (!this.running)
             {
                 this.running = true;
-                IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port); //לבדוק אם צריך לקבל את ה ip של המחשב
+                IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
                 listener = new TcpListener(ep);
                 listener.Start();
-                //!!!!!!!!!!! logger.Log("Waiting for client connections... in tcp server", Logging.Modal.MessageTypeEnum.INFO);
                 Task task = new Task(() =>
                 {
                     while (running)
@@ -103,9 +125,10 @@ namespace ImageService.Communication
                         try
                         {
                             TcpClient client = listener.AcceptTcpClient();
-                            IClientHandler ch = new ClientHandler(client);///"Factory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                            IClientHandler ch = new ClientHandler(client);
                             ch.Start();
                             ch.MessageReceived += this.HandleMessage;
+                            ch.ClosingClientHandler += RemoveClosedIClientHandler;
                             clients.Add(ch);
                         }
                         catch (SocketException)
@@ -118,6 +141,9 @@ namespace ImageService.Communication
             }
         }
 
+        /// <summary>
+        /// stopping the channel, and closing the clients
+        /// </summary>
         public void Stop()
         {
             this.listener.Stop();

@@ -6,10 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageService.Infrastructure;
 using ImageService.Infrastructure.Enums;
-using ImageService.Infrustracture.ToFile;
 
 namespace ImageService.Communication
 {
+    /// <summary>
+    /// class implementing the IclientHandler interface
+    /// </summary>
     public class ClientHandler : IClientHandler
     {
 
@@ -22,6 +24,12 @@ namespace ImageService.Communication
 
         public event EventHandler<MessageCommunicationEventArgs> MessageReceived;
 
+        public event EventHandler<IClientHandlerCloseEventArgs> ClosingClientHandler;
+
+        /// <summary>
+        /// ClientHandler class constructor
+        /// </summary>
+        /// <param name="client">object implementing the TCPCient interface (client)</param>
         public ClientHandler(TcpClient client)
         {
             //this.clientsAndStreams = new Dictionary<TcpClient, NetworkStream>();
@@ -32,6 +40,9 @@ namespace ImageService.Communication
             this.running = true;
         }
 
+        /// <summary>
+        /// starting communication from client side with the server
+        /// </summary>
         public void Start()
         {
             if (running)
@@ -48,45 +59,14 @@ namespace ImageService.Communication
                             lock (reader)
                             {
                                 receivedString = reader.ReadString();
-                                LoggerToFile.Logm("in clientHandler received string:   " + receivedString);
                                 MessageReceived?.Invoke(this, new MessageCommunicationEventArgs { Message = receivedString });
                             }
-                            //!!!!!!ServerClientCommunicationCommand commCommand = ServerClientCommunicationCommand.FromJson(receivedString);
-                            /*switch (commCommand.CommId) //!!!!!!!!!!!!!!!!!! check on the command if they failed (using the out bool variable) and if so send back informative message !!!!!!!!!!!!!
-                            {
-                                case CommandEnum.CloseGuiClient:
-                                    this.CloseClient(client);
-                                    break;
-                                case CommandEnum.GetConfigCommand:
-                                    //asking for logs list
-                                case CommandEnum.LogCommand:
-                                    string result = this.commandExecuter.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag1);
-                                    string[] responseArr1 = new string[1];
-                                    responseArr1[0] = result;
-                                    ServerClientCommunicationCommand responseCommand = new ServerClientCommunicationCommand(commCommand.CommId, responseArr1);
-                                    string responseJson = responseCommand.ToJson();
-                                    //writing back the answer to the client request
-                                    writer.Write(responseJson);
-                                    break;
-                                    //closing a directory handler request
-                                case CommandEnum.CloseCommand:
-                                    string pathRemoved = this.commandExecuter.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag2);
-                                    //writing to all of the connected clients the path of directory which's handler closed
-                                    string[] responseArr2 = new string[1];
-                                    responseArr2[0] = pathRemoved;
-                                    this.BroadcastToClients(new ServerClientCommunicationCommand(CommandEnum.CloseCommand, responseArr2));
-                                    break;
-                                default:
-                                    writer.Write("Invalid command Id");
-                                    break;
-
-                            }*/
                         }
 
                     }
                     catch (Exception exc)
                     {
-                        //if communication didn't succedd erase client #########################
+                        //if communication didn't succedd close clientHandler
                         this.CloseHandler();
 
                     }
@@ -95,11 +75,14 @@ namespace ImageService.Communication
 
         }
 
+        /// <summary>
+        /// Close the handler
+        /// </summary>
         public void CloseHandler()
         {
             if (this.running)
             {
-                //if the handler isn't running anymore the client will be already closed in the handler closing method
+                this.ClosingClientHandler?.Invoke(this, new IClientHandlerCloseEventArgs { Message = "closing client handler" });
                 this.running = false;
                 this.stream.Close();
                 this.reader.Close();
@@ -108,20 +91,19 @@ namespace ImageService.Communication
             }
         }
 
+        /// <summary>
+        /// write message to client
+        /// </summary>
+        /// <param name="message">object implementing the TCPCient interface (message)</param>
         public void WriteMessage(string message)
         {
-            //LoggerToFile.Logm("In ClientHandler in WriteMessage, in proccess 1");
             if (running)
             {
                 lock (this.writer)
                 {
                     try
                     {
-                        LoggerToFile.Logm("in clientHandler received string in WriteMessage:  " + message);
-                        //LoggerToFile.Logm("In ClientHandler in WriteMessage, in proccess 2");
-                        //LoggerToFile.Logm("In ClientHandler in WriteMessage, in proccess 3");
                         writer.Write(message);
-                        //LoggerToFile.Logm("In ClientHandler in WriteMessage, in proccess 4");
                     }
                     catch
                     {

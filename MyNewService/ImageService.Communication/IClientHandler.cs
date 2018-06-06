@@ -6,14 +6,16 @@ using System.Text;
 namespace ImageService.Communication
 {
     /// <summary>
-    /// interface for a clientHandler wich saves in some way the clients it has communication with
+    /// interface for a clientHandler (handeling communication with client)
     /// </summary>
     public interface IClientHandler
     {
         void Start();
-        //void BroadcastToClients(ServerClientCommunicationCommand command); //erase !!!!! put into server !!!!!!!!!!!
         void WriteMessage(string message);
         void CloseHandler();
+        //notifying of new message arrival
         event EventHandler<MessageCommunicationEventArgs> MessageReceived;
+        //notifying of handler closing
+        event EventHandler<IClientHandlerCloseEventArgs> ClosingClientHandler;
     }
 }

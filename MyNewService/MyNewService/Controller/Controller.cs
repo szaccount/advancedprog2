@@ -49,8 +49,6 @@ namespace ImageService.Controller
         /// <returns>string indicating of success/failure</returns>
         public string ExecuteCommand(CommandEnum commandID, string[] args, out bool result)
         {
-            //logger.Log("In controller, received command execution request with id: " + commandID, MessageTypeEnum.INFO); 26.5 !!!!!!!!!!!!!!!!!!!!!!!
-            //return commands[commandID].Execute(args, out result);
             ICommand command;
             if (commands.TryGetValue(commandID, out command))
             {
@@ -63,6 +61,10 @@ namespace ImageService.Controller
             }
         }
 
+        /// <summary>
+        /// method for setting the directoryHandlers manager
+        /// </summary>
+        /// <param name="dhManager">the directoryHandlers manager</param>
         public void SetDHManager(IDirectoryHandlersManager dhManager)
         {
             this.directoryHandlersManager = dhManager;

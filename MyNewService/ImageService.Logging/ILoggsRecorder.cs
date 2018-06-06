@@ -12,6 +12,10 @@ namespace ImageService.Logging
     /// </summary>
     public interface ILoggsRecorder: ILoggingService
     {
+        /// <summary>
+        /// method for getting the logs recorded
+        /// </summary>
+        /// <returns>the recorded logs</returns>
         List<MessageRecievedEventArgs> GetLoggsRecord();
     }
 }

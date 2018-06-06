@@ -1,5 +1,4 @@
-﻿using ImageService.Communication;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using ImageService.Infrastructure.Enums;
@@ -7,16 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using ImageService.Infrustracture.ToFile;
 using System.IO;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using System.Threading;
+using ImageService.Communication;
 
 namespace ImageServiceGUI.Models
 {
-    public class SettingsModel: INotifyPropertyChanged
+    /// <summary>
+    /// model for the settings MVVM
+    /// </summary>
+    public class SettingsModel: ISettingsModel, INotifyPropertyChanged
     {
+        //communiation channel
         private TcpClientChannel commChannel;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,6 +33,9 @@ namespace ImageServiceGUI.Models
         private string sourceName;
         private string logName;
         private string thumbnailSize;
+        /// <summary>
+        /// collection od the directoryHandlers directory paths
+        /// </summary>
         private ObservableCollection<string> directoryHandlerPaths;
 
         public string OutputDirectory
@@ -96,6 +102,9 @@ namespace ImageServiceGUI.Models
             }
         }
 
+        /// <summary>
+        /// collection od the directoryHandlers directory paths Property
+        /// </summary>
         public ObservableCollection<string> DirectoryHandlerPaths
         {
             get
@@ -112,23 +121,32 @@ namespace ImageServiceGUI.Models
             }
         }
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public SettingsModel()
         {
             commChannel = TcpClientChannel.GetInstance();
             commChannel.MessageReceived += ReadRecivedMessage;
 
-            //LoggerToFile.Logm("In GUI asking config");
             this.GetConfig();
-            //LoggerToFile.Logm("In GUI asked config");
-            Thread.Sleep(1000); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            Thread.Sleep(1000);
         }
 
+        /// <summary>
+        /// method to request the config values
+        /// </summary>
         public void GetConfig()
         {
             ServerClientCommunicationCommand commCommand = new ServerClientCommunicationCommand(CommandEnum.GetConfigCommand, null);
             this.commChannel.Write(commCommand.ToJson());
         }
 
+        /// <summary>
+        /// method to handle received message
+        /// </summary>
+        /// <param name="sender">the sender of the message</param>
+        /// <param name="messageArgs">the arguments of the message</param>
         private void ReadRecivedMessage(object sender, MessageCommunicationEventArgs messageArgs)
         {
             string message = messageArgs.Message;
@@ -136,7 +154,6 @@ namespace ImageServiceGUI.Models
             switch (commCommand.CommId)
             {
                 case CommandEnum.GetConfigCommand:
-                    //LoggerToFile.Logm("In GUI got config");
                     this.InitializeConfigData(commCommand.Args[0]);
                     break;
                 case CommandEnum.CloseCommand:
@@ -147,6 +164,10 @@ namespace ImageServiceGUI.Models
             }
         }
 
+        /// <summary>
+        /// method to initialize config data
+        /// </summary>
+        /// <param name="jsonData">the data in json form</param>
         private void InitializeConfigData(string jsonData)
         {
             JObject appConfigData = JObject.Parse(jsonData);
@@ -159,10 +180,14 @@ namespace ImageServiceGUI.Models
 
         }
 
+        /// <summary>
+        /// method to remove the path of the removed directoryHandler
+        /// </summary>
+        /// <param name="directoryPath"></param>
         private void ExecuteRemoveDirectoryPath(string directoryPath)
         {
             if (this.DirectoryHandlerPaths.Contains(directoryPath))
-                try //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                try
                 {
                     //moving the action to be handled in the UI thread
                     App.Current.Dispatcher.Invoke((Action)delegate
@@ -175,7 +200,10 @@ namespace ImageServiceGUI.Models
                     string msg = exc.Message;
                 } 
         }
-
+        /// <summary>
+        /// method to send request of removing a directory handler based on a directory path
+        /// </summary>
+        /// <param name="path">the path of the directory that the handler listens to</param>
         public void SendRequestRemoveDirectoryPath(string path)
         {
             string[] args = new string[1];
@@ -184,8 +212,5 @@ namespace ImageServiceGUI.Models
             this.commChannel.Write(commCommand.ToJson());
         }
 
-
-
-        // delegate command of erasing a directory handlers after choosing path and clicking button !!!!!!!!!!!!!!!!!
     }
 }

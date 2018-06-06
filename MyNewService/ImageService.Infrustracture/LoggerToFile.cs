@@ -10,10 +10,10 @@ namespace ImageService.Infrustracture.ToFile
     public class LoggerToFile
     {
         /// <summary>
-        /// private method for debugging purposes. Adjust the path for the txt file to be written to 
+        /// method for debugging purposes. Adjust the path for the txt file to be written to 
         /// </summary>
         /// <param name="msg">msg to be written</param>
-        public static void Logm(string msg) // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! erase !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public static void Logm(string msg)
         {
             //File.AppendAllText(@"D:\Users\seanz\Desktop\log1.txt", msg + Environment.NewLine);
         }

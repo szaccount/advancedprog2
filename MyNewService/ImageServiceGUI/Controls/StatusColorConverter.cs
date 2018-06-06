@@ -10,32 +10,32 @@ using System.Windows.Media;
 
 namespace ImageServiceGUI.Controls
 {
+    /// <summary>
+    /// calss containing converter from strings to brushe objects
+    /// </summary>
     public class StatusColorConverter : IValueConverter
     {
         /// <summary>
-        /// Function converts the value from string to an object of Brushes. !!!!!!!!!!!!!!!!!!!!!!!!!!! change !!!!!!!!!!!!!!!!!!!!!!!!!
+        /// a converter for values from string to an object of type Brushe
         /// </summary>
-        /// <param name="value">The object to convert.</param>
-        /// <param name="targetType">The type to convert.</param>
-        /// <param name="parameter">Not critical for now.</param>
-        /// <param name="culture">Not critical for now.</param>
-        /// <returns></returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <param name="obj">object to convert</param>
+        /// <param name="type">type to convert</param>
+        /// <returns>object of type Brush</returns>
+        public object Convert(object obj, Type type, object parameter, CultureInfo culture)
         {
-            if (targetType.Name != "Brush")
+            if (type.Name != "Brush")
                 throw new Exception("Converting only Brush!");
 
-            if (value.ToString() == MessageTypeEnum.INFO.ToString())
+            if (obj.ToString() == MessageTypeEnum.INFO.ToString())
                 return Brushes.LightGreen;
-            if ((value.ToString() == MessageTypeEnum.WARNING.ToString()))
+            if ((obj.ToString() == MessageTypeEnum.WARNING.ToString()))
                 return Brushes.Yellow;
-            if ((value.ToString() == MessageTypeEnum.FAIL.ToString()))
+            if ((obj.ToString() == MessageTypeEnum.FAIL.ToString()))
                 return Brushes.Red;
 
             return Brushes.Transparent;
         }
 
-        //implemented only to statisfy the interface, not used
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

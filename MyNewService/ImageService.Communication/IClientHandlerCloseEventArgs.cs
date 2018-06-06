@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace ImageService.Communication
 {
-    /// <summary>
-    /// class for the communication message eventargs 
-    /// </summary>
-    public class MessageCommunicationEventArgs : EventArgs
+    public class IClientHandlerCloseEventArgs: EventArgs
     {
         /// <summary>
-        /// the message
+        /// closing message from the IClientHandler object
         /// </summary>
         public string Message { get; set; }
     }

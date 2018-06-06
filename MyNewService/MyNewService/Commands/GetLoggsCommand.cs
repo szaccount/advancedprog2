@@ -15,11 +15,21 @@ namespace ImageService.Commands
     {
         private ILoggsRecorder m_logsRecorder;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="logsRecorder">log recording object</param>
         public GetLoggsCommand(ILoggsRecorder logsRecorder)
         {
             this.m_logsRecorder = logsRecorder;
         }
 
+        /// <summary>
+        /// executing the command
+        /// </summary>
+        /// <param name="args"><command arguments/param>
+        /// <param name="result">indicating if action was successful</param>
+        /// <returns>a list of the loggs in the system in json form</returns>
         public string Execute(string[] args, out bool result)
         {
             try

@@ -1,29 +1,16 @@
-﻿Installing assembly 'C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
-Affected parameters are:
-   logtoconsole = 
-   logfile = C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
-   assemblypath = C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Installing service ImageService...
-Service ImageService has been successfully installed.
-Creating EventLog source ImageService in log Application...
-Committing assembly 'C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
-Affected parameters are:
-   logtoconsole = 
-   logfile = C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
-   assemblypath = C:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Installing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
+﻿Installing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
 Affected parameters are:
    logtoconsole = 
    logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
    assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
 Installing service ImageService...
-Service ImageService has been successfully installed.
 Creating EventLog source ImageService in log Application...
-Committing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
+Rolling back assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
 Affected parameters are:
    logtoconsole = 
    logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
    assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
+Restoring event log to previous state for source ImageService.
 Uninstalling assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
 Affected parameters are:
    logtoconsole = 
@@ -53,6 +40,7 @@ Affected parameters are:
 Removing EventLog source ImageService.
 Service ImageService is being removed from the system...
 Service ImageService was successfully removed from the system.
+Attempt to stop service ImageService.
 Installing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
 Affected parameters are:
    logtoconsole = 
@@ -66,69 +54,19 @@ Affected parameters are:
    logtoconsole = 
    logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
    assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Uninstalling assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
-Affected parameters are:
-   logtoconsole = 
-   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
-   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Removing EventLog source ImageService.
-Service ImageService is being removed from the system...
-Service ImageService was successfully removed from the system.
 Installing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
 Affected parameters are:
    logtoconsole = 
    logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
    assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
 Installing service ImageService...
-Service ImageService has been successfully installed.
 Creating EventLog source ImageService in log Application...
-Committing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
+Rolling back assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
 Affected parameters are:
    logtoconsole = 
    logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
    assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Uninstalling assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
-Affected parameters are:
-   logtoconsole = 
-   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
-   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Removing EventLog source ImageService.
-Service ImageService is being removed from the system...
-Service ImageService was successfully removed from the system.
-Installing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
-Affected parameters are:
-   logtoconsole = 
-   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
-   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Installing service ImageService...
-Service ImageService has been successfully installed.
-Creating EventLog source ImageService in log Application...
-Committing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
-Affected parameters are:
-   logtoconsole = 
-   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
-   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Uninstalling assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
-Affected parameters are:
-   logtoconsole = 
-   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
-   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Removing EventLog source ImageService.
-Service ImageService is being removed from the system...
-Service ImageService was successfully removed from the system.
-Installing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
-Affected parameters are:
-   logtoconsole = 
-   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
-   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
-Installing service ImageService...
-Service ImageService has been successfully installed.
-Creating EventLog source ImageService in log Application...
-Committing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
-Affected parameters are:
-   logtoconsole = 
-   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
-   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
+Restoring event log to previous state for source ImageService.
 Uninstalling assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
 Affected parameters are:
    logtoconsole = 
@@ -184,6 +122,27 @@ Affected parameters are:
    logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
    assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
 Restoring event log to previous state for source ImageService.
+Uninstalling assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
+   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
+Removing EventLog source ImageService.
+Service ImageService is being removed from the system...
+Service ImageService was successfully removed from the system.
+Installing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
+   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
+Installing service ImageService...
+Service ImageService has been successfully installed.
+Creating EventLog source ImageService in log Application...
+Committing assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
+   assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
 Uninstalling assembly 'D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe'.
 Affected parameters are:
    logtoconsole = 

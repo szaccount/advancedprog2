@@ -10,10 +10,17 @@ using System.Threading.Tasks;
 
 namespace ImageServiceGUI.ViewModels
 {
+    /// <summary>
+    /// view model for the logs MVVM, implemnting INotifyPropertyChanged interface
+    /// </summary>
     public class LogsViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// property of ObservableCollection with get and set func for the log objects
+        /// those are the view model logs
+        /// </summary>
         public ObservableCollection<MessageRecievedEventArgs> VM_Logs
         {
             get
@@ -22,8 +29,11 @@ namespace ImageServiceGUI.ViewModels
             }
         }
 
-        private LogsModel model;
+        private ILogsModel model;
 
+        /// <summary>
+        /// default c'tor of the class adding a delegate of PropertyChangedEventArgs.
+        /// </summary>
         public LogsViewModel()
         {
             this.model = new LogsModel();
@@ -32,13 +42,12 @@ namespace ImageServiceGUI.ViewModels
                 {
                     NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
-
-            /*VM_Logs = new List<MessageRecievedEventArgs>();
-            VM_Logs.Add(new MessageRecievedEventArgs { Status = MessageTypeEnum.INFO, Message = "hellofdnjsdjfn"});
-            VM_Logs.Add(new MessageRecievedEventArgs { Status = MessageTypeEnum.WARNING, Message = "jbdnbfjkdsfn" }); !!!!!!!!!!!!!!!!!!!!*/
-
         }
 
+        /// <summary>
+        /// notify of a property change
+        /// </summary>
+        /// <param name="propertyName">the name of the property</param>
         public void NotifyPropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

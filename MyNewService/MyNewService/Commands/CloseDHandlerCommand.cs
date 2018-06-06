@@ -11,20 +11,31 @@ namespace ImageService.Commands
     {
         private IDirectoryHandlersManager directoryHandlersManager;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="manager">directoryHandlers manager</param>
         public CloseDHandlerCommand(IDirectoryHandlersManager manager)
         {
             this.directoryHandlersManager = manager;
         }
 
-        //assums the path to the directory is the first string in args
-        //return the path to the directory requested to be stopped
+        /// <summary>
+        /// exuting the command, assums the path to the directory is the first string in args
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="result">indicating if action successful</param>
+        /// <returns>return the path to the directory requested to be stopped</returns>
         public string Execute(string[] args, out bool result)
         {
             string directoryPath = args[0];
             result = directoryHandlersManager.StopHandelingDirectory(directoryPath);
             return directoryPath;
         }
-
+        /// <summary>
+        /// method for setting the directoryHandelrsManager of the command
+        /// </summary>
+        /// <param name="manager">directoryHandlers manager</param>
         public void SetDirectoryHandlersManager(IDirectoryHandlersManager manager)
         {
             this.directoryHandlersManager = manager;

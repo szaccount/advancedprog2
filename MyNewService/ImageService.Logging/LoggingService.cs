@@ -45,6 +45,10 @@ namespace ImageService.Logging
             this.m_receivedLoggsList.Add(messageRecord);
         }
 
+        /// <summary>
+        /// method for getting the logs recorded
+        /// </summary>
+        /// <returns>the recorded logs</returns>
         public List<MessageRecievedEventArgs> GetLoggsRecord()
         {
             return new List<MessageRecievedEventArgs>(this.m_receivedLoggsList);

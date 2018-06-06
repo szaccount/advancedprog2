@@ -17,7 +17,6 @@ using ImageService.Server;
 using System.Configuration;
 using ImageService.Communication;
 using ImageService.Infrastructure;
-using ImageService.Infrustracture.ToFile;
 
 namespace ImageService
 {
@@ -107,6 +106,7 @@ namespace ImageService
 
             //creating the modal with app config paramaters
             logger.Log("In ImageService starting to create the Modal, Controller and Server", MessageTypeEnum.INFO);
+            logger.Log("Here is a warning message1", MessageTypeEnum.WARNING);
             var appSettings = ConfigurationManager.AppSettings;
             string outputDir = appSettings["OutputDir"];
             string[] dirsToBeHandled = appSettings["Handler"].Split(';');
@@ -119,15 +119,15 @@ namespace ImageService
             IController controller = new Controller.Controller(modal, logger);
 
             IServerChannel serverChannel = new TcpServerChannel(8080);
-            //LoggerToFile.Logm("In ImageService between creation and activation of tcpServerChannel"); !!!!!!!!!!!!!!!!!!!!!!
             serverChannel.Start();
-            //!!!!!!!!!!!!!!!!!!!! subscribing to the: new log notifying event, so that the server can be notified of new logs !!!!!!!!!!!!!!!!!!!!!!!! also possible to connect the event to the imageServer or to the clientHandler, think whats better !!!!!!!!!!!!!!!!!!!!!!!!!!
             server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);
             logger.MessageRecieved += serverChannel.NotifyServerOfMessage;
-            //server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);
             controller.SetDHManager(server);
-            logger.Log("ImageService!!!!!!!!!!!!!!!!!!!!!!", MessageTypeEnum.WARNING);
+            logger.Log("Here is a warning message2", MessageTypeEnum.WARNING);
             logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);
+            logger.Log("Here is a fail message, for display only", MessageTypeEnum.FAIL);
+            logger.Log("Another fail message, for display only", MessageTypeEnum.FAIL);
+
         }
 
         protected override void OnStop()
