@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2015
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "MyNewService\ImageService.csproj", "{981D250B-750B-4CC8-9E9A-67A2969C7724}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Communication", "ImageService.Communication\ImageService.Communication.csproj", "{FF225EF0-E3E6-464B-9CB4-D461413CFBC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService.Infrustracture", "ImageService.Infrustracture\ImageService.Infrustracture.csproj", "{E95C4B0A-682B-4BB9-B151-85D2196782B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2.1", "WebApplication2\WebApplication2\WebApplication2.1.csproj", "{DF8A4E08-06D8-4E5D-8F37-A4AB82B39562}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{E95C4B0A-682B-4BB9-B151-85D2196782B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E95C4B0A-682B-4BB9-B151-85D2196782B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E95C4B0A-682B-4BB9-B151-85D2196782B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF8A4E08-06D8-4E5D-8F37-A4AB82B39562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF8A4E08-06D8-4E5D-8F37-A4AB82B39562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF8A4E08-06D8-4E5D-8F37-A4AB82B39562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF8A4E08-06D8-4E5D-8F37-A4AB82B39562}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

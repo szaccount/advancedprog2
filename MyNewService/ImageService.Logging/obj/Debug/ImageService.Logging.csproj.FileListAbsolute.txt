@@ -6,3 +6,10 @@ D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Debug\ImageSer
 D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Debug\ImageService.Logging.csproj.CopyComplete
 D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Debug\ImageService.Logging.dll
 D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Debug\ImageService.Logging.pdb
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\ImageService.Logging\bin\Debug\ImageService.Logging.dll
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\ImageService.Logging\bin\Debug\ImageService.Logging.pdb
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\ImageService.Logging\bin\Debug\Newtonsoft.Json.dll
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\ImageService.Logging\bin\Debug\Newtonsoft.Json.xml
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\ImageService.Logging\obj\Debug\ImageService.Logging.dll
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\ImageService.Logging\obj\Debug\ImageService.Logging.pdb
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\ImageService.Logging\obj\Debug\ImageService.Logging.csprojResolveAssemblyReference.cache

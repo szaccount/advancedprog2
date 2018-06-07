@@ -161,7 +161,8 @@ namespace ImageService.Server
                 case CommandEnum.GetConfigCommand:
                     //asking for logs list
                 case CommandEnum.LogCommand:
-                    string result = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag1);
+                    bool flag1;
+                    string result = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out flag1);
                     string[] responseArr1 = new string[1];
                     responseArr1[0] = result;
                     ServerClientCommunicationCommand responseCommand = new ServerClientCommunicationCommand(commCommand.CommId, responseArr1);
@@ -171,7 +172,8 @@ namespace ImageService.Server
                     break;
                     //closing a directory handler request
                 case CommandEnum.CloseCommand:
-                    string pathRemoved = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag2);
+                    bool flag2;
+                    string pathRemoved = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out flag2);
                     //writing to all of the connected clients the path of directory which's handler closed
                     string[] responseArr2 = new string[1];
                     responseArr2[0] = pathRemoved;

@@ -17,3 +17,20 @@ D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.csp
 D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.csproj.CopyComplete
 D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.exe
 D:\Users\seanz\source\repos\MyNewService\MyNewService\obj\Debug\ImageService.pdb
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\ImageService.exe.config
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\obj\Debug\ImageService.exe
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\obj\Debug\ImageService.pdb
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\obj\Debug\ImageService.ImageService.resources
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\obj\Debug\ImageService.ProjectInstaller.resources
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\obj\Debug\ImageService.csproj.GenerateResource.Cache
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\ImageService.exe
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\ImageService.pdb
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\ImageService.Communication.dll
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\ImageService.Infrustracture.dll
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\ImageService.Logging.dll
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\Newtonsoft.Json.dll
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\ImageService.Communication.pdb
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\ImageService.Infrustracture.pdb
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\ImageService.Logging.pdb
+D:\User\Documents\Visual Studio 2015\Projects\advancedProg2Update\MyNewService\MyNewService\bin\Debug\Newtonsoft.Json.xml
