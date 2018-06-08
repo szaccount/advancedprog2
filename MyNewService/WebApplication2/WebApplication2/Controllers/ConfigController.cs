@@ -1,29 +1,27 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
     public class ConfigController : Controller
     {
+        private Config model;
         // GET: Config
         public ActionResult Index()
         {
-            return View();
+            return View(model);
         }
-        
-        /*private void InitializeConfigData() {
-            JObject appConfigData = JObject.Parse(jsonData);
-            OutputDirectory = (string)appConfigData["OutputDir"];
-            SourceName = (string)appConfigData["SourceName"];
-            LogName = (string)appConfigData["LogName"];
-            ThumbnailSize = (string)appConfigData["ThumbnailSize"];
-            string dirPathsListString = (string)appConfigData["dirPathsToManageListString"];
-            DirectoryHandlerPaths = new ObservableCollection<string>(JsonConvert.DeserializeObject<List<string>>(dirPathsListString));
 
-        }*/
+        private ActionResult removePathFromLidt(string path)
+        {
+            this.model.delete(path);
+            return RedirectToAction("Config");
+        }
     }
 }

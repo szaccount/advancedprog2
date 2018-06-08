@@ -152,6 +152,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Config.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -190,6 +191,10 @@
     <ProjectReference Include="..\..\ImageService.Communication\ImageService.Communication.csproj">
       <Project>{ff225ef0-e3e6-464b-9cb4-d461413cfbc5}</Project>
       <Name>ImageService.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ImageService.Infrustracture\ImageService.Infrustracture.csproj">
+      <Project>{e95c4b0a-682b-4bb9-b151-85d2196782b0}</Project>
+      <Name>ImageService.Infrustracture</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ImageServiceGUI\ImageServiceGUI.csproj">
       <Project>{eb4df3eb-4bd2-4f64-b984-97d3aed8cce8}</Project>
