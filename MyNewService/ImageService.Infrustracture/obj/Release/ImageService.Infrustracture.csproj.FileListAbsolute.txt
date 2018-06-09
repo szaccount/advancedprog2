@@ -6,3 +6,4 @@ D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Release
 D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Release\ImageService.Infrustracture.csproj.CopyComplete
 D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Release\ImageService.Infrustracture.dll
 D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Release\ImageService.Infrustracture.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Release\ImageService.Infrustracture.csprojResolveAssemblyReference.cache

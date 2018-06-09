@@ -6,3 +6,4 @@ D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Release\ImageS
 D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Release\ImageService.Logging.csproj.CopyComplete
 D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Release\ImageService.Logging.dll
 D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Release\ImageService.Logging.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Logging\obj\Release\ImageService.Logging.csprojResolveAssemblyReference.cache
