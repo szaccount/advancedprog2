@@ -160,7 +160,7 @@ namespace ImageService.Modal
                     }
                     image = Image.FromFile(newRenamedFilePath ?? newFilePath);
                     thumb = image.GetThumbnailImage(thumbnailSize, thumbnailSize, () => false, IntPtr.Zero);
-                    thumb.Save(Path.ChangeExtension(newRenamedFileThumbnailPath ?? newFilePathThumbnail, "thumb")); // !!!#@!#!@#@!# maybe leave the same extension? 15.4 #!@#@!$@#!@@!@!#!#!!
+                    thumb.Save(Path.ChangeExtension(newRenamedFileThumbnailPath ?? newFilePathThumbnail, Path.GetExtension(imagePath))); // !!!#@!#!@#@!# maybe leave the same extension? 15.4 #!@#@!$@#!@@!@!#!#!!
                     this.logger.Log("In ImageModal, thumbnail creation finished succefully", MessageTypeEnum.INFO);
                     return "success";
                 }

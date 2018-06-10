@@ -4,17 +4,48 @@
     ViewBag.Title = "Logs";
 }
 
-<h2>Photos</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+    </tr>
 
-<div class="row">
-    <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-            <img src="..." alt="...">
-            <div class="caption">
-                <h3>Thumbnail label</h3>
-                <p>...</p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-            </div>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<!--<div class="form-horizontal">
+    <h4>Enter status type of messages to display</h4>
+    <hr />
+    <div class="form-group">
+        <label>Status: </label>
+       <div class="col-md-10">
+           <input type="text" class="form-control" id="statusTypeIn">
+       </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input value="Create" class="btn btn-default" />
         </div>
     </div>
-</div>
+</div>-->
+
+<form action="Index">
+    Status: <input type="text" name="statusToFilter" value=""><br>
+    <input type="submit" value="Filter">
+</form>

@@ -122,6 +122,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Ids.txt" />
+    <Content Include="App_Data\Names.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -148,7 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\FirstController.cs" />
-    <Compile Include="Controllers\ImageServiceController.cs" />
+    <Compile Include="Controllers\ImageWebController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -156,7 +158,12 @@
     </Compile>
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\ImageWebData.cs" />
+    <Compile Include="Models\ImageWebModel.cs" />
     <Compile Include="Models\LogMessage.cs" />
+    <Compile Include="Models\LogsModel.cs" />
+    <Compile Include="Models\PhotoData.cs" />
+    <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +186,7 @@
     <Content Include="scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Views\Logs\Index.cshtml" />
     <Content Include="Views\Photo\Index.cshtml" />
+    <Content Include="Views\ImageWeb\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -187,7 +195,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="PhotosDirectories\Gallery\" />
     <Folder Include="PhotosDirectories\listening1\" />
     <Folder Include="PhotosDirectories\listening2\" />

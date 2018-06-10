@@ -151,3 +151,7 @@ D:\User\Desktop\WebApplication2\WebApplication2\bin\ImageServiceGUI.pdb
 D:\User\Desktop\WebApplication2\WebApplication2\bin\ImageService.pdb
 D:\User\Desktop\WebApplication2\WebApplication2\bin\ImageService.Logging.pdb
 D:\User\Desktop\WebApplication2\WebApplication2\bin\ImageService.Infrustracture.pdb
+D:\Users\seanz\source\repos\MyNewService\WebApplication2\obj\Debug\WebApplication2.csprojResolveAssemblyReference.cache
+D:\Users\seanz\source\repos\MyNewService\WebApplication2\obj\Debug\WebApplication2.csproj.CoreCompileInputs.cache
+D:\Users\seanz\source\repos\MyNewService\WebApplication2\obj\Debug\WebApplication2.dll
+D:\Users\seanz\source\repos\MyNewService\WebApplication2\obj\Debug\WebApplication2.pdb

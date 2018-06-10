@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Image Service";
+}
+
+@model WebApplication2.Models.ImageWebData
+
+@{
+    ViewBag.Title = "ImageWeb";
+}
+
+<br/>
+<br/>
+<label>Status:</label>
+@if (Model.IsConnected)
+{
+    <label>Connected</label>
+}
+else
+{
+    <label>Unconnected</label>
+} <br/>
+<label>Number of pictures: @((int)Model.NumberOfPics/2)</label>
+<br/>
+<table class="table">
+    <tr>
+        <th>
+            <label>Id</label>
+        </th>
+        <th>
+            <label>Name</label>
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <label>@Model.IDs[0]</label>
+        </td>
+        <td>
+            <label>@Model.Names[0]</label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>@Model.IDs[1]</label>
+        </td>
+        <td>
+            <label>@Model.Names[1]</label>
+        </td>
+    </tr>
+</table>
