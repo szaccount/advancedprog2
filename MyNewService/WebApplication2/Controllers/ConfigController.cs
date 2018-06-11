@@ -11,17 +11,29 @@ namespace WebApplication2.Controllers
 {
     public class ConfigController : Controller
     {
-        private Config model;
+        private ConfigModel model;
+
+        public ConfigController()
+        {
+            model = new ConfigModel();
+        }
+        
         // GET: Config
         public ActionResult Index()
         {
-            return View(model);
+            return View(model.GetConfig());
         }
 
-        private ActionResult removePathFromLidt(string path)
+        public ActionResult MessageRemoveHandler(string path)
         {
-            this.model.delete(path);
-            return RedirectToAction("Config");
+            return View(new PathData() { Path = path});
         }
+
+        public bool RemoveHandler(string path)
+        {
+            this.model.DeleteHandler(path);
+            return true;
+        }
+
     }
 }

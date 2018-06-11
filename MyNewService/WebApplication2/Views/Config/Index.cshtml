@@ -1,0 +1,33 @@
+﻿@model WebApplication2.Models.ConfigData
+@{
+    ViewBag.Title = "Config data";
+}
+
+<h2>Config data</h2>
+
+<br />
+<br />
+<label>Output Directpry: @Model.OutputDirectory</label>
+<br />
+<label>Source Name: @Model.SourceName</label>
+<br />
+<label>Log Name: @Model.LogName</label>
+<br />
+<label>Thumbnail Size: @Model.ThumbnailSize</label>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            <label>Handler Paths</label>
+        </th>
+    </tr>
+    @foreach (var entry in Model.DirectoryHandlerPaths)
+    {   <tr>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("MessageRemoveHandler", "Config", new { path = entry})">@entry</a>
+            </td>
+        </tr>
+    }
+</table>
+
+

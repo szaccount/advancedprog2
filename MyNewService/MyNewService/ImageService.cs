@@ -121,7 +121,7 @@ namespace ImageService
             IServerChannel serverChannel = new TcpServerChannel(8080);
             serverChannel.Start();
             server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);
-            logger.MessageRecieved += serverChannel.NotifyServerOfMessage;
+            //logger.MessageRecieved += serverChannel.NotifyServerOfMessage; !!!!!!!!!!! changed for web project to be comment 11.6.18 !!!!!!!!!!!!!
             controller.SetDHManager(server);
             logger.Log("Here is a warning message2", MessageTypeEnum.WARNING);
             logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);

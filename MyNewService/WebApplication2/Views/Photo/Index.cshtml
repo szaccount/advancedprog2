@@ -31,15 +31,16 @@
         {
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="@{ViewBag.RootPath + "/" + photoData.Year + "/" + photoData.Month + "/" + photoData.Name;}" alt="photo">
+                <img src="@(ViewBag.RootPath + "/" + photoData.Year + "/" + photoData.Month + "/" + photoData.Name)" class="img-circle" alt="photo">
                 <div class="caption">
                     <h3>@photoData.Name</h3>
-                    <p>@{photoData.Month + "/" + photoData.Year;}</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                    <p>@(photoData.Month + "/" + photoData.Year)</p>
+
+                    <a class="btn btn-default" href="@Url.Action("PhotoView", "Photo", new { photoName = photoData.Name, year = photoData.Year, month = photoData.Month })">View</a><a class="btn btn-primary" href="@Url.Action("PreviewBeforeDelete", "Photo", new { photoName = photoData.Name, year = photoData.Year, month = photoData.Month})">Delete</a>
                 </div>
             </div>
         </div>
-        }
+           }
     </div>
     }
 </div>

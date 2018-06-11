@@ -1,0 +1,50 @@
+﻿@model WebApplication2.Models.PathData
+@{
+    ViewBag.Title = "Message Remove Handler";
+}
+
+<h2>Remove Handler</h2>
+<div class="container">
+    <label>Path to stop handeling: @Model.Path</label>
+    <br/>
+    <br/>
+    <label>Are you sure you want to stop this handler?</label>
+    <a class="btn btn-default" href="@Url.Action("Index", "Config")" id="cancelButton">Cancel</a><button class="btn btn-primary" value="Ok" id="okButton">Ok</button>
+</div>
+
+<script>
+    $("#okButton").click(function () {
+        alert("congrats");
+        document.getElementById("cancelButton").disabled = true;
+        document.getElementById("okButton").disabled = true;
+
+        alert("1");
+        //send();
+        alert("2");
+        //$.getJSON("@Url.Action("RemoveHandler")", @Model.Path, function (answer) {
+        //    window.location.href = "@Url.Action("Index")";
+        //});
+    });
+
+    function send()
+    {
+        alert("meesage");
+    }
+
+    function sendToServer1()
+    {
+        $.ajax({
+            url: "@Url.Action("RemoveHandler")",
+            type: 'GET',
+            data: @Model.Path,
+            contentType: false,
+            processData: false,
+            success: function (d) {
+                alert("yey");
+            },
+            error: function () {
+                alert('Failed! Could not send files, please try again.');
+            }
+        });
+    }
+</script>

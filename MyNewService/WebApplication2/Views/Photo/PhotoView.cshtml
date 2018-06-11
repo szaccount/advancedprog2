@@ -1,0 +1,29 @@
+﻿@model WebApplication2.Models.PhotoData
+
+@{
+    ViewBag.Title = "PhotoView";
+}
+
+<h2>PhotoView</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div>
+                <img src="@(ViewBag.RootPath + "/" + Model.Year + "/" + Model.Month + "/" + Model.Name)" class="class="img-rounded" alt="photo">
+                <div class="caption">
+                    <form action="DeletePhoto">
+                        <input type="text" name="name" value="@Model.Name" disabled />
+                        <div>
+                            <input type="text" name="month" value="@(Model.Month)" disabled />/<input type="text" name="year" value="@(Model.Year)" disabled />
+                        </div>
+                        <a class="btn btn-default" href="@Url.Action("Index", "Photo")">Go Back</a>
+                        <a class="btn btn-default" href="@Url.Action("PreviewBeforeDelete", "Photo", new { photoName = Model.Name, year = Model.Year, month = Model.Month })">Delete</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

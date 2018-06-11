@@ -1,6 +1,13 @@
-﻿using System;
+﻿using ImageService.Communication;
+using ImageService.Infrastructure.Enums;
+using ImageService.Logging.Modal;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Web;
 
 namespace WebApplication2.Models
@@ -10,23 +17,52 @@ namespace WebApplication2.Models
 
         public IEnumerable<LogMessage> GetLogs(string filterBy)
         {
+            SynchTcpClientHandler commChannel = new SynchTcpClientHandler();
+
+            bool filter = true;
+            if (filterBy ==null || filterBy == "")
+                filter = false;
+            List<LogMessage> logs = new List<LogMessage>();
+            Logm("here1");
             filterBy = filterBy?.ToLower();
-            if (filterBy == "")
-                return new List<LogMessage>()
+            Logm("here2");
+
+            ServerClientCommunicationCommand commCommand = new ServerClientCommunicationCommand(CommandEnum.LogCommand, null);
+            Logm("here3");
+            string receivedMessage = commChannel.Send(commCommand.ToJson());
+            Logm("here4");
+            ServerClientCommunicationCommand logsCommCommand = ServerClientCommunicationCommand.FromJson(receivedMessage);
+            Logm("here5");
+            if (logsCommCommand.CommId == CommandEnum.LogCommand)
             {
-                new LogMessage { Status = ImageService.Logging.Modal.MessageTypeEnum.INFO, Message = "info log message"},
-                new LogMessage { Status = ImageService.Logging.Modal.MessageTypeEnum.WARNING, Message = "warning log message"},
-                new LogMessage { Status = ImageService.Logging.Modal.MessageTypeEnum.FAIL, Message = "fail log message"}
-            };
+                Logm("here6");
+
+                string jsonLogs = logsCommCommand.Args[0];
+                Logm("here7");
+                List<MessageRecievedEventArgs> tmpList = JsonConvert.DeserializeObject<List<MessageRecievedEventArgs>>(jsonLogs);
+                Logm("here8");
+                foreach (MessageRecievedEventArgs entry in tmpList)
+                {
+                    if(!filter)
+                        logs.Add(new LogMessage() { Message = entry.Message, Status = entry.Status });
+                    else 
+                        if (entry.Status.ToString().ToLower() == filterBy)
+                            logs.Add(new LogMessage() { Message = entry.Message, Status = entry.Status });
+                }
+                Logm("here9");
+                return logs;
+            }
             else
-                if (filterBy == "info")
-                return new List<LogMessage>() { new LogMessage { Status = ImageService.Logging.Modal.MessageTypeEnum.INFO, Message = "yey" } };
-            return new List<LogMessage>()
             {
-                new LogMessage { Status = ImageService.Logging.Modal.MessageTypeEnum.INFO, Message = "info log message"},
-                new LogMessage { Status = ImageService.Logging.Modal.MessageTypeEnum.WARNING, Message = "warning log message"},
-                new LogMessage { Status = ImageService.Logging.Modal.MessageTypeEnum.FAIL, Message = "fail log message"}
-            };
+                Logm("here bad");
+                return new List<LogMessage>();
+            }
+
+        }
+
+        private static void Logm(string msg)
+        {
+            File.AppendAllText(@"D:\Users\seanz\Desktop\msglog.txt", msg + Environment.NewLine);
         }
     }
 }

@@ -18,9 +18,10 @@ namespace WebApplication2.Models
 
                 foreach (string yearDir in dirsYear)
                 {
-                    if (int.TryParse(yearDir, out int result))
+                    int result;
+                    string yearName = Path.GetFileName(yearDir);
+                    if (int.TryParse(yearName, out result))
                     {
-                        string yearName = Path.GetFileName(yearDir);
                         string pathYear = pathRoot + "/" + yearName;
 
                         string[] dirsMonth = Directory.GetDirectories(HttpContext.Current.Server.MapPath(pathYear));
@@ -49,9 +50,33 @@ namespace WebApplication2.Models
             
         }
 
-        public bool DeletePhoto(PhotoData data)
+        public bool DeletePhoto(PhotoData data, string pathRoot)
         {
-            return true;
+            string absolutePathRoot = HttpContext.Current.Server.MapPath(pathRoot);
+            string thumbPath = absolutePathRoot + "/Thumbnail";
+            absolutePathRoot = absolutePathRoot + "/" + data.Year;
+            thumbPath = thumbPath + "/" + data.Year;
+            absolutePathRoot = absolutePathRoot + "/" + data.Month;
+            thumbPath = thumbPath + "/" + data.Month;
+            absolutePathRoot = absolutePathRoot + "/" + data.Name;
+            thumbPath = thumbPath + "/" + data.Name;
+            if (File.Exists(absolutePathRoot))
+            {
+                try
+                {
+                    File.Delete(absolutePathRoot);
+                    File.Delete(thumbPath);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

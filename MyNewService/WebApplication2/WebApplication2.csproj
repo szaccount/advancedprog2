@@ -124,6 +124,7 @@
   <ItemGroup>
     <Content Include="App_Data\Ids.txt" />
     <Content Include="App_Data\Names.txt" />
+    <Content Include="App_Data\NetworkData.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -156,12 +157,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Config.cs" />
+    <Compile Include="Models\ConfigData.cs" />
+    <Compile Include="Models\ConfigModel.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\ImageWebData.cs" />
     <Compile Include="Models\ImageWebModel.cs" />
     <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\LogsModel.cs" />
+    <Compile Include="Models\PathData.cs" />
     <Compile Include="Models\PhotoData.cs" />
     <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -187,6 +190,10 @@
     <Content Include="Views\Logs\Index.cshtml" />
     <Content Include="Views\Photo\Index.cshtml" />
     <Content Include="Views\ImageWeb\Index.cshtml" />
+    <Content Include="Views\Photo\PreviewBeforeDelete.cshtml" />
+    <Content Include="Views\Photo\PhotoView.cshtml" />
+    <Content Include="Views\Config\Index.cshtml" />
+    <Content Include="Views\Config\MessageRemoveHandler.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

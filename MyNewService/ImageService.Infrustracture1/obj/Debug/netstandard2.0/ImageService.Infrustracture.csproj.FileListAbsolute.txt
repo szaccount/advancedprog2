@@ -1,0 +1,8 @@
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\bin\Debug\netstandard2.0\ImageService.Infrustracture.deps.json
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\bin\Debug\netstandard2.0\ImageService.Infrustracture.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\bin\Debug\netstandard2.0\ImageService.Infrustracture.pdb
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Debug\netstandard2.0\ImageService.Infrustracture.csproj.CoreCompileInputs.cache
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Debug\netstandard2.0\ImageService.Infrustracture.AssemblyInfoInputs.cache
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Debug\netstandard2.0\ImageService.Infrustracture.AssemblyInfo.cs
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Debug\netstandard2.0\ImageService.Infrustracture.dll
+D:\Users\seanz\source\repos\MyNewService\ImageService.Infrustracture\obj\Debug\netstandard2.0\ImageService.Infrustracture.pdb
