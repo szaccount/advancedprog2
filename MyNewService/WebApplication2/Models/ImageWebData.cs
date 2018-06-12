@@ -6,6 +6,9 @@ using System.Web;
 
 namespace WebApplication2.Models
 {
+    /// <summary>
+    /// object that holds the data of imageWeb page
+    /// </summary>
     public class ImageWebData
     {
         [Required]

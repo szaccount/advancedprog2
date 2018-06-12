@@ -9,8 +9,16 @@ using System.Net.Sockets;
 using System.Web;
 namespace WebApplication2.Models
 {
+    /// <summary>
+    /// the model for the ImageWeb controller
+    /// </summary>
     public class ImageWebModel
     {
+        /// <summary>
+        /// method returns the ImageWeb data
+        /// </summary>
+        /// <param name="pathToGallery">path to the gallery</param>
+        /// <returns>ImageWeb data</returns>
         public ImageWebData GetImageWebData(string pathToGallery)
         {
             SynchTcpClientHandler commChannel = new SynchTcpClientHandler();
@@ -21,7 +29,7 @@ namespace WebApplication2.Models
             {
                 try
                 {
-                    numberOfPics = Directory.GetFiles(/*HttpContext.Current.Server.MapPath("/PhotosDirectories/Gallery")*/pathToGallery, "*.*", SearchOption.AllDirectories).Length;
+                    numberOfPics = Directory.GetFiles(pathToGallery, "*.*", SearchOption.AllDirectories).Length;
                 }
                 catch
                 {
@@ -41,11 +49,6 @@ namespace WebApplication2.Models
             commChannel.Close();
 
             return webData;
-        }
-
-        private static void Logm(string msg)
-        {
-            File.AppendAllText(@"D:\Users\seanz\Desktop\msglog.txt", msg + Environment.NewLine);
         }
     }
 }

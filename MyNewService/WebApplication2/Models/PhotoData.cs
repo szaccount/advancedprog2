@@ -5,6 +5,9 @@ using System.Web;
 
 namespace WebApplication2.Models
 {
+    /// <summary>
+    /// object containing photo data
+    /// </summary>
     public class PhotoData
     {
         public string Name { get; set; }

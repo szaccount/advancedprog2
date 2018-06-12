@@ -6,15 +6,23 @@ using System.Web;
 
 namespace WebApplication2.Models
 {
+    /// <summary>
+    /// model for the photo controller
+    /// </summary>
     public class PhotoModel
     {
+        /// <summary>
+        /// method returns list of photo data (photos)
+        /// </summary>
+        /// <param name="pathToGallery">path to the gallery</param>
+        /// <returns>list of photo data</returns>
         public List<PhotoData> GetPhotos(string pathToGallery)
         {
             List<PhotoData> list = new List<PhotoData>();
             try
             {
                 string pathRoot = pathToGallery;
-                string[] dirsYear = Directory.GetDirectories(/*HttpContext.Current.Server.MapPath(*/pathRoot/*)*/);
+                string[] dirsYear = Directory.GetDirectories(pathRoot);
 
                 foreach (string yearDir in dirsYear)
                 {
@@ -24,14 +32,14 @@ namespace WebApplication2.Models
                     {
                         string pathYear = pathRoot + "/" + yearName;
 
-                        string[] dirsMonth = Directory.GetDirectories(/*HttpContext.Current.Server.MapPath(*/pathYear/*)*/);
+                        string[] dirsMonth = Directory.GetDirectories(pathYear);
 
                         foreach (string monthDir in dirsMonth)
                         {
                             string monthName = Path.GetFileName(monthDir);
                             string pathMonth = pathYear + "/" + monthName;
 
-                            string[] filePaths = Directory.GetFiles(/*HttpContext.Current.Server.MapPath(*/pathMonth/*)*/);
+                            string[] filePaths = Directory.GetFiles(pathMonth);
 
                             foreach (string filePath in filePaths)
                             {
@@ -50,9 +58,15 @@ namespace WebApplication2.Models
             
         }
 
+        /// <summary>
+        /// method deletes received photo by the root gallery path received
+        /// </summary>
+        /// <param name="data">the photo to delete</param>
+        /// <param name="pathRoot">path to gallery</param>
+        /// <returns>true if completed, false otherwise</returns>
         public bool DeletePhoto(PhotoData data, string pathRoot)
         {
-            string absolutePathRoot = /*HttpContext.Current.Server.MapPath(*/pathRoot/*)*/;
+            string absolutePathRoot = pathRoot;
             string thumbPath = absolutePathRoot + "/Thumbnail";
             absolutePathRoot = absolutePathRoot + "/" + data.Year;
             thumbPath = thumbPath + "/" + data.Year;

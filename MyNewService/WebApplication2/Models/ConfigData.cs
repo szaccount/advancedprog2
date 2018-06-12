@@ -6,6 +6,9 @@ using System.Web;
 
 namespace WebApplication2.Models
 {
+    /// <summary>
+    /// object containing data of config file
+    /// </summary>
     public class ConfigData
     {
         [Required]

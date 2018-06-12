@@ -20,19 +20,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Image Service", "Index", "First", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Image Web", "Index", "ImageWeb", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <!--first is display name then method name then controller-->
-                    <li>@Html.ActionLink("Home", "Index", "First")</li>
-                    <li>@Html.ActionLink("Create", "Create", "First")</li>
-                    <li>@Html.ActionLink("Details", "Details", "First")</li>
-                    <li>@Html.ActionLink("AjaxView", "AjaxView", "First")</li>
-                    <li>@Html.ActionLink("Logs", "Index", "Logs")</li>
-                    <li>@Html.ActionLink("Image Web", "Index", "ImageWeb")</li>
-                    <li>@Html.ActionLink("Photos", "Index", "Photo")</li>
                     <li>@Html.ActionLink("Config", "Index", "Config")</li>
+                    <li>@Html.ActionLink("Photos", "Index", "Photo")</li>
+                    <li>@Html.ActionLink("Logs", "Index", "Logs")</li>
                 </ul>
             </div>
         </div>

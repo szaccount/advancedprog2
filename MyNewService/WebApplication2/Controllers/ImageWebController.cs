@@ -12,6 +12,9 @@ using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
 {
+    /// <summary>
+    ///  The controller for the ImageWeb based web pages
+    /// </summary>
     public class ImageWebController : Controller
     {
 
@@ -22,7 +25,7 @@ namespace WebApplication2.Controllers
         /// <summary>
         /// fanction return an object with the status, number of Image in directory , and students name.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>view of the main page of the controller</returns>
         public ActionResult Index()
         {
             ConfigData config = configModel.GetConfig();

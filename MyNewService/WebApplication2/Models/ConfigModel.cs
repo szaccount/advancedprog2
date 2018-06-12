@@ -10,10 +10,17 @@ using ImageServiceGUI;
 
 namespace WebApplication2.Models
 {
+    /// <summary>
+    /// model for the config controller
+    /// </summary>
     public class ConfigModel
     {
         ServerClientCommunicationCommand commConfigCommand;
 
+        /// <summary>
+        /// method that returns the config data from the service
+        /// </summary>
+        /// <returns>config data</returns>
         public ConfigData GetConfig()
         {
             try
@@ -51,7 +58,10 @@ namespace WebApplication2.Models
 
         }
 
-
+        /// <summary>
+        /// method to delete a handler (through the service)
+        /// </summary>
+        /// <param name="path">path to the handler</param>
         public void DeleteHandler(string path)
         {
             SynchTcpClientHandler commChannel = new SynchTcpClientHandler();

@@ -12,9 +12,17 @@ using System.Web;
 
 namespace WebApplication2.Models
 {
+    /// <summary>
+    /// model for the logs controller
+    /// </summary>
     public class LogsModel
     {
 
+        /// <summary>
+        /// method returns the logs from the service
+        /// </summary>
+        /// <param name="filterBy">string representing status to filter by</param>
+        /// <returns>list of filtered logs</returns>
         public IEnumerable<LogMessage> GetLogs(string filterBy)
         {
             try
@@ -25,24 +33,15 @@ namespace WebApplication2.Models
                 if (filterBy == null || filterBy == "")
                     filter = false;
                 List<LogMessage> logs = new List<LogMessage>();
-                Logm("here1");
                 filterBy = filterBy?.ToLower();
-                Logm("here2");
 
                 ServerClientCommunicationCommand commCommand = new ServerClientCommunicationCommand(CommandEnum.LogCommand, null);
-                Logm("here3");
                 string receivedMessage = commChannel.Send(commCommand.ToJson());
-                Logm("here4");
                 ServerClientCommunicationCommand logsCommCommand = ServerClientCommunicationCommand.FromJson(receivedMessage);
-                Logm("here5");
                 if (logsCommCommand.CommId == CommandEnum.LogCommand)
                 {
-                    Logm("here6");
-
                     string jsonLogs = logsCommCommand.Args[0];
-                    Logm("here7");
                     List<MessageRecievedEventArgs> tmpList = JsonConvert.DeserializeObject<List<MessageRecievedEventArgs>>(jsonLogs);
-                    Logm("here8");
                     foreach (MessageRecievedEventArgs entry in tmpList)
                     {
                         if (!filter)
@@ -51,12 +50,10 @@ namespace WebApplication2.Models
                             if (entry.Status.ToString().ToLower() == filterBy)
                             logs.Add(new LogMessage() { Message = entry.Message, Status = entry.Status });
                     }
-                    Logm("here9");
                     return logs;
                 }
                 else
                 {
-                    Logm("here bad");
                     return new List<LogMessage>();
                 }
             }
@@ -64,11 +61,6 @@ namespace WebApplication2.Models
             {
                 return new List<LogMessage>();
             }
-        }
-
-        private static void Logm(string msg)
-        {
-            File.AppendAllText(@"D:\Users\seanz\Desktop\msglog.txt", msg + Environment.NewLine);
         }
     }
 }

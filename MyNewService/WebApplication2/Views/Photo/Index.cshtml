@@ -37,7 +37,7 @@
                         <div class="thumbnail">
                             <img src="@(ViewBag.relativeRootPath + "/" + photoData.Year + "/" + photoData.Month + "/" + photoData.Name)" class="img-circle" alt="photo">
                             <div class="caption">
-                                <h3>@photoData.Name</h3>
+                                <h4>@photoData.Name</h4>
                                 <p>@(photoData.Month + "/" + photoData.Year)</p>
 
                                 <a class="btn btn-default" href="@Url.Action("PhotoView", "Photo", new { photoName = photoData.Name, year = photoData.Year, month = photoData.Month })">View</a> <a class="btn btn-primary" href="@Url.Action("PreviewBeforeDelete", "Photo", new { photoName = photoData.Name, year = photoData.Year, month = photoData.Month })">Delete</a>
