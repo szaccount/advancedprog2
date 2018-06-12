@@ -1,3 +1,11 @@
+D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\Logs.g.cs
+D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\Settings.g.cs
+D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\UserControl1.g.cs
+D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Views\MainWindow.g.cs
+D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\App.g.cs
+D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\ImageServiceGUI_MarkupCompile.cache
+D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\ImageServiceGUI_MarkupCompile.lref
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\bin\Debug\ImageServiceGUI.exe.config
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\bin\Debug\ImageServiceGUI.exe
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\bin\Debug\ImageServiceGUI.pdb
@@ -10,14 +18,6 @@ D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\bin\Debug\ImageService.
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\bin\Debug\ImageService.Logging.pdb
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\bin\Debug\Newtonsoft.Json.xml
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\ImageServiceGUI.csprojResolveAssemblyReference.cache
-D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\Logs.g.cs
-D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\Settings.g.cs
-D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\UserControl1.g.cs
-D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Views\MainWindow.g.cs
-D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\App.g.cs
-D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\GeneratedInternalTypeHelper.g.cs
-D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\ImageServiceGUI_MarkupCompile.cache
-D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\ImageServiceGUI_MarkupCompile.lref
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\Logs.baml
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\Settings.baml
 D:\Users\seanz\source\repos\MyNewService\ImageServiceGUI\obj\Debug\Controls\UserControl1.baml

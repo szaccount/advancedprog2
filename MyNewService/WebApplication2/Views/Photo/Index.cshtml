@@ -5,8 +5,9 @@
 }
 
 <h2>Photos</h2>
-
 @{
+    ViewBag.relativeRootPath = (ViewBag.RootPath).Replace(Request.ServerVariables["APPL_PHYSICAL_PATH"], "/");
+
     List<List<WebApplication2.Models.PhotoData>> photoLists = new List<List<WebApplication2.Models.PhotoData>>();
     var photoCounterInRow = 0;
     List<WebApplication2.Models.PhotoData> photosRow = new List<WebApplication2.Models.PhotoData>();
@@ -14,7 +15,7 @@
     {
         photosRow.Add(photo);
         photoCounterInRow++;
-        if (photoCounterInRow >= 4)
+        if (photoCounterInRow >= 3)
         {
             photoLists.Add(photosRow);
             photosRow = new List<WebApplication2.Models.PhotoData>();
@@ -23,25 +24,34 @@
     }
     photoLists.Add(photosRow);
 }
-<div class="container">
-    @foreach (var listPhotoData in photoLists)
-    {
-    <div class="row">
-        @foreach (var photoData in listPhotoData)
+@if (ViewBag.RootPathValid)
+{
+    <div class="container">
+        @foreach (var listPhotoData in photoLists)
         {
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="@(ViewBag.RootPath + "/" + photoData.Year + "/" + photoData.Month + "/" + photoData.Name)" class="img-circle" alt="photo">
-                <div class="caption">
-                    <h3>@photoData.Name</h3>
-                    <p>@(photoData.Month + "/" + photoData.Year)</p>
+            <div class="row">
+                <br />
+                @foreach (var photoData in listPhotoData)
+                {
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="@(ViewBag.relativeRootPath + "/" + photoData.Year + "/" + photoData.Month + "/" + photoData.Name)" class="img-circle" alt="photo">
+                            <div class="caption">
+                                <h3>@photoData.Name</h3>
+                                <p>@(photoData.Month + "/" + photoData.Year)</p>
 
-                    <a class="btn btn-default" href="@Url.Action("PhotoView", "Photo", new { photoName = photoData.Name, year = photoData.Year, month = photoData.Month })">View</a><a class="btn btn-primary" href="@Url.Action("PreviewBeforeDelete", "Photo", new { photoName = photoData.Name, year = photoData.Year, month = photoData.Month})">Delete</a>
-                </div>
+                                <a class="btn btn-default" href="@Url.Action("PhotoView", "Photo", new { photoName = photoData.Name, year = photoData.Year, month = photoData.Month })">View</a> <a class="btn btn-primary" href="@Url.Action("PreviewBeforeDelete", "Photo", new { photoName = photoData.Name, year = photoData.Year, month = photoData.Month })">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-        </div>
-           }
+        }
     </div>
-    }
-</div>
+}
+else
+{
+    <br />
+    <p>root path to gallery invalid, no connection to service</p>
+}
 

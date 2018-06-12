@@ -11,12 +11,9 @@ namespace WebApplication2.Controllers
 {
     public class ConfigController : Controller
     {
-        private ConfigModel model;
+        private static string handlerToDelete = "";
 
-        public ConfigController()
-        {
-            model = new ConfigModel();
-        }
+        private ConfigModel model = new ConfigModel();
         
         // GET: Config
         public ActionResult Index()
@@ -26,13 +23,14 @@ namespace WebApplication2.Controllers
 
         public ActionResult MessageRemoveHandler(string path)
         {
+            handlerToDelete = path;
             return View(new PathData() { Path = path});
         }
 
-        public bool RemoveHandler(string path)
+        public ActionResult RemoveHandler()
         {
-            this.model.DeleteHandler(path);
-            return true;
+            this.model.DeleteHandler(handlerToDelete);
+            return RedirectToAction("Index");
         }
 
     }

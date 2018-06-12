@@ -9,42 +9,14 @@
     <br/>
     <br/>
     <label>Are you sure you want to stop this handler?</label>
-    <a class="btn btn-default" href="@Url.Action("Index", "Config")" id="cancelButton">Cancel</a><button class="btn btn-primary" value="Ok" id="okButton">Ok</button>
+    <button class="btn btn-default" id="cancelButton" onclick="window.location.href='@Url.Action("Index", "Config")'">Cancel</button>
+    <button class="btn btn-primary" value="Ok" id="okButton">Ok</button>
 </div>
 
-<script>
+<script type="text/javascript">
     $("#okButton").click(function () {
-        alert("congrats");
         document.getElementById("cancelButton").disabled = true;
         document.getElementById("okButton").disabled = true;
-
-        alert("1");
-        //send();
-        alert("2");
-        //$.getJSON("@Url.Action("RemoveHandler")", @Model.Path, function (answer) {
-        //    window.location.href = "@Url.Action("Index")";
-        //});
+        location.href = "RemoveHandler";
     });
-
-    function send()
-    {
-        alert("meesage");
-    }
-
-    function sendToServer1()
-    {
-        $.ajax({
-            url: "@Url.Action("RemoveHandler")",
-            type: 'GET',
-            data: @Model.Path,
-            contentType: false,
-            processData: false,
-            success: function (d) {
-                alert("yey");
-            },
-            error: function () {
-                alert('Failed! Could not send files, please try again.');
-            }
-        });
-    }
 </script>

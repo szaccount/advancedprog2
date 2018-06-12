@@ -16,6 +16,7 @@ namespace WebApplication2.Controllers
     {
 
         static ImageWebModel model = new ImageWebModel();
+        static ConfigModel configModel = new ConfigModel();
 
         // GET: ImageService
         /// <summary>
@@ -24,7 +25,8 @@ namespace WebApplication2.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            ImageWebData data = model.GetImageWebData();
+            ConfigData config = configModel.GetConfig();
+            ImageWebData data = model.GetImageWebData(config.OutputDirectory);
             return View(data);
         }
 

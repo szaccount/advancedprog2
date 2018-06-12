@@ -11,13 +11,27 @@ namespace WebApplication2.Models
 {
     public class ImageWebModel
     {
-        public ImageWebData GetImageWebData()
+        public ImageWebData GetImageWebData(string pathToGallery)
         {
             SynchTcpClientHandler commChannel = new SynchTcpClientHandler();
             ImageWebData webData;
             bool isConnected = commChannel.IsConnected;
-
-            int numberOfPics = Directory.GetFiles(HttpContext.Current.Server.MapPath("/PhotosDirectories/Gallery"), "*.*", SearchOption.AllDirectories).Length;
+            int numberOfPics;
+            if (pathToGallery != null && pathToGallery != "")
+            {
+                try
+                {
+                    numberOfPics = Directory.GetFiles(/*HttpContext.Current.Server.MapPath("/PhotosDirectories/Gallery")*/pathToGallery, "*.*", SearchOption.AllDirectories).Length;
+                }
+                catch
+                {
+                    numberOfPics = 0;
+                }
+            }
+            else
+            {
+                numberOfPics = 0;
+            }
             string[] nameStrings = File.ReadAllLines(HttpContext.Current.Server.MapPath("/App_Data/Names.txt"));
             string[] idStrings = File.ReadAllLines(HttpContext.Current.Server.MapPath("/App_Data/Ids.txt"));
             List<string> names = nameStrings.ToList<String>();

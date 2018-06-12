@@ -202,9 +202,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PhotosDirectories\Gallery\" />
-    <Folder Include="PhotosDirectories\listening1\" />
-    <Folder Include="PhotosDirectories\listening2\" />
+    <Folder Include="PhotosDirectories1\Gallery1\" />
+    <Folder Include="PhotosDirectories1\listening11\" />
+    <Folder Include="PhotosDirectories1\listening21\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImageService.Communication\ImageService.Communication.csproj">
