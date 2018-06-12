@@ -31,16 +31,11 @@ namespace ImageService.Communication
                 string ip = networkData[0];
                 int port = int.Parse(networkData[1]);
                 IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
-                Logm("10");
                 m_client = new TcpClient();
                 m_client.Connect(ep);
-                Logm("11");
                 m_stream = m_client.GetStream();
-                Logm("12");
                 m_reader = new BinaryReader(m_stream);
-                Logm("13");
                 m_writer = new BinaryWriter(m_stream);
-                Logm("14");
                 IsConnected = true;
             }
             catch
@@ -57,19 +52,14 @@ namespace ImageService.Communication
 
         public string Send(string data)
         {
-            Logm("synch 1");
             try
             {
-                Logm("synch 2");
                 m_writer.Write(data);           // Writing the Data to the Client
-                Logm("synch 3");
                 m_writer.Flush();                   // Sending the Line
-                Logm("synch 4");
                 return m_reader.ReadString();      // Getting the string from the client;                 // return the Length of the Length
             }
             catch (Exception e)
             {
-                Logm("synch bad");
                 IsConnected = false;
                 DisposeHandler();               // Closing the Handler
                 return "";
@@ -94,9 +84,9 @@ namespace ImageService.Communication
             }
         }
 
-        private static void Logm(string msg)
+        /*private static void Logm(string msg)
         {
             File.AppendAllText(@"D:\Users\seanz\Desktop\msglog.txt", msg + Environment.NewLine);
-        }
+        }*/
     }
 }
