@@ -12,6 +12,7 @@ using ImageService.Modal.Event;
 using ImageService.Logging.Modal;
 using ImageService.Communication;
 using ImageService.Infrastructure;
+using ImageService.Infrastructure.IDirecoryHandlersManager;
 
 namespace ImageService.Server
 {
@@ -30,6 +31,7 @@ namespace ImageService.Server
 
         //the server itself
         private IServerChannel m_serverChannel;
+        private IServerChannel m_photoChannel;
         //map between directory paths and the handlers handeling them
         private Dictionary<string, IDirectoryHandler> m_deirectoryPathsToHandlers;
         #endregion
@@ -45,11 +47,14 @@ namespace ImageService.Server
         /// <param name="controller">object implementing the IController interface</param>
         /// <param name="logger">object implementing the ILoggingService interface (logger service)</param>
         /// <param name="pathsToWatch">strings describing the paths of directories needed to be monitored by the system</param>
-        public ImageServer(IController controller, ILoggingService logger, IServerChannel serverChannel, string[] pathsToWatch)
+        public ImageServer(IController controller, ILoggingService logger, IServerChannel serverChannel, IServerChannel photoServerChannel, string[] pathsToWatch)
         {
             this.running = true;
             this.m_deirectoryPathsToHandlers = new Dictionary<string, IDirectoryHandler>();
             this.m_serverChannel = serverChannel;
+            this.m_photoChannel = photoServerChannel;
+            this.m_photoChannel.Start();
+            this.m_photoChannel.MessageReceived += this.HandleMessageFromServer;
             this.m_serverChannel.Start();
             this.m_serverChannel.MessageReceived += this.HandleMessageFromServer;
             this.m_controller = controller;
@@ -150,6 +155,8 @@ namespace ImageService.Server
         {
             this.m_logging.Log("closing server finally", MessageTypeEnum.INFO);
             this.m_serverChannel.Stop();
+            this.m_photoChannel.Stop();
+
         }
 
         private void HandleMessageFromServer(object sender, MessageCommunicationEventArgs message)
@@ -161,7 +168,8 @@ namespace ImageService.Server
                 case CommandEnum.GetConfigCommand:
                     //asking for logs list
                 case CommandEnum.LogCommand:
-                    string result = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag1);
+                    bool flag1;
+                    string result = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out flag1);
                     string[] responseArr1 = new string[1];
                     responseArr1[0] = result;
                     ServerClientCommunicationCommand responseCommand = new ServerClientCommunicationCommand(commCommand.CommId, responseArr1);
@@ -171,11 +179,16 @@ namespace ImageService.Server
                     break;
                     //closing a directory handler request
                 case CommandEnum.CloseCommand:
-                    string pathRemoved = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out bool flag2);
+                    bool flag2;
+                    string pathRemoved = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out flag2);
                     //writing to all of the connected clients the path of directory which's handler closed
                     string[] responseArr2 = new string[1];
                     responseArr2[0] = pathRemoved;
                     this.m_serverChannel.BroadcastToClients(new ServerClientCommunicationCommand(CommandEnum.CloseCommand, responseArr2));
+                    break;
+                case CommandEnum.PhotoTransferCommand:
+                    bool flag3;
+                    string temp = this.m_controller.ExecuteCommand(commCommand.CommId, commCommand.Args, out flag3);
                     break;
                 default:
                     clientHandler?.WriteMessage("Invalid command Id");

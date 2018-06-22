@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Controller.Handlers;
+using ImageService.Infrastructure;
+using ImageService.Infrastructure.IDirecoryHandlersManager;
 
 namespace ImageService.Commands
 {

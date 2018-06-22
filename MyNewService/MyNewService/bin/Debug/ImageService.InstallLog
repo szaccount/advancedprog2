@@ -227,3 +227,29 @@ Affected parameters are:
    logtoconsole = 
    logfile = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.InstallLog
    assemblypath = D:\Users\seanz\source\repos\MyNewService\MyNewService\bin\Debug\ImageService.exe
+Installing assembly 'D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.InstallLog
+   assemblypath = D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.exe
+Installing service ImageService...
+Creating EventLog source ImageService in log Application...
+Rolling back assembly 'D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.InstallLog
+   assemblypath = D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.exe
+Restoring event log to previous state for source ImageService.
+Installing assembly 'D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.InstallLog
+   assemblypath = D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.exe
+Installing service ImageService...
+Service ImageService has been successfully installed.
+Creating EventLog source ImageService in log Application...
+Committing assembly 'D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.InstallLog
+   assemblypath = D:\Users\seanz\source\repos\MyNewServiceCurrent\MyNewService\bin\Debug\ImageService.exe

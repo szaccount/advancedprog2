@@ -11,3 +11,16 @@ D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\Im
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\ImageService.Communication.csproj.CopyComplete
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\ImageService.Communication.dll
 D:\Users\seanz\source\repos\MyNewService\ImageService.Communication\obj\Debug\ImageService.Communication.pdb
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\obj\Debug\ImageService.Communication.csprojResolveAssemblyReference.cache
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\obj\Debug\ImageService.Communication.csproj.CoreCompileInputs.cache
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\obj\Debug\ImageService.Communication.dll
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\obj\Debug\ImageService.Communication.pdb
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\bin\Debug\ImageService.Communication.dll
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\bin\Debug\ImageService.Communication.pdb
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\bin\Debug\ImageService.Infrustracture.dll
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\bin\Debug\ImageService.Logging.dll
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\bin\Debug\Newtonsoft.Json.dll
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\bin\Debug\ImageService.Infrustracture.pdb
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\bin\Debug\ImageService.Logging.pdb
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\bin\Debug\Newtonsoft.Json.xml
+D:\Users\seanz\source\repos\MyNewServiceCurrent\ImageService.Communication\obj\Debug\ImageService.Communication.csproj.CopyComplete

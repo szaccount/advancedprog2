@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ImageService.Infrastructure.Enums;
 using ImageService.Infrastructure;
 using ImageService.Controller.Handlers;
+using ImageService.Infrastructure.IDirecoryHandlersManager;
 
 namespace ImageService.Controller
 {

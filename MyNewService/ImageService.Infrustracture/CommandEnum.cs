@@ -16,6 +16,7 @@ namespace ImageService.Infrastructure.Enums
         CloseCommand,
         CloseGuiClient,
         LogCommand,
-        GetConfigCommand
+        GetConfigCommand,
+        PhotoTransferCommand
     }
 }

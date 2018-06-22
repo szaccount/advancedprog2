@@ -26,12 +26,12 @@ namespace ImageService
         private int eventId = 1;
         //the server created by this service. saved for notifying the system of service shutdown
         private ImageServer server = null;
-        
+
         /// <summary>
         /// ImageService constructor
         /// </summary>
         /// <param name="args">arguments to the service</param>
-        public ImageService(string[]args)
+        public ImageService(string[] args)
         {
             InitializeComponent();
 
@@ -40,7 +40,7 @@ namespace ImageService
             //after ?? are the default values if there is no reference for them in the app config file
             string eventSourceName = appSettings["SourceName"] ?? "MySource";
             string logName = appSettings["LogName"] ?? "MyNewLoggger";
- 
+
             eventLog1 = new System.Diagnostics.EventLog();
             if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
             {
@@ -119,9 +119,10 @@ namespace ImageService
             IController controller = new Controller.Controller(modal, logger);
 
             IServerChannel serverChannel = new TcpServerChannel(8080);
+            IServerChannel photoServerChannel = new TcpPhotoChannel(8000);
             serverChannel.Start();
-            server = new ImageServer(controller, logger, serverChannel, dirsToBeHandled);
-            //logger.MessageRecieved += serverChannel.NotifyServerOfMessage; !!!!!!!!!!! changed for web project to be comment 11.6.18 !!!!!!!!!!!!!
+            server = new ImageServer(controller, logger, serverChannel, photoServerChannel, dirsToBeHandled);
+            logger.MessageRecieved += serverChannel.NotifyServerOfMessage;
             controller.SetDHManager(server);
             logger.Log("Here is a warning message2", MessageTypeEnum.WARNING);
             logger.Log("In ImageService finished creating the Modal, Controller and Server", MessageTypeEnum.INFO);

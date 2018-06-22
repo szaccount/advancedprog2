@@ -9,6 +9,11 @@ using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using ImageService.Logging.Modal;
 using ImageService.Controller.Handlers;
+using ImageService.Infrastructure;
+using ImageService.Infrastructure.PhotoTransfer;
+using ImageService.Infrastructure.IDirecoryHandlersManager;
+
+
 
 namespace ImageService.Controller
 {
@@ -37,6 +42,7 @@ namespace ImageService.Controller
             commands[CommandEnum.LogCommand] = new GetLoggsCommand(this.logger);
             commands[CommandEnum.CloseCommand] = new CloseDHandlerCommand(this.directoryHandlersManager);
             commands[CommandEnum.GetConfigCommand] = new GetConfigCommand(this.directoryHandlersManager);
+            commands[CommandEnum.PhotoTransferCommand] = new PhotoTransferCommand(this.directoryHandlersManager);
             logger.Log("In Controller, finished constructor", MessageTypeEnum.INFO);
         }
 
@@ -72,6 +78,17 @@ namespace ImageService.Controller
             command1?.SetDirectoryHandlersManager(this.directoryHandlersManager);
             GetConfigCommand command2 = this.commands[CommandEnum.GetConfigCommand] as GetConfigCommand;
             command2?.SetDirectoryHandlersManager(this.directoryHandlersManager);
+            PhotoTransferCommand command3 = this.commands[CommandEnum.PhotoTransferCommand] as PhotoTransferCommand;
+            command3?.SetDirectoryHandlersManager(this.directoryHandlersManager);
+        }
+
+        private List<string> GetDirectoryHandlersPathsFromDHManger()
+        {
+            if (this.directoryHandlersManager != null)
+            {
+                return this.directoryHandlersManager.GetDirectoryHandlersPaths();
+            }
+            return new List<string>();
         }
     }
 }

@@ -7,6 +7,8 @@ using ImageService.Logging;
 using ImageService.Logging.Modal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ImageService.Infrastructure;
+
 
 namespace ImageService.Commands
 {

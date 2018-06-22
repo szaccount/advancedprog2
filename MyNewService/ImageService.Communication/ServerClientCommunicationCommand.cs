@@ -16,12 +16,14 @@ namespace ImageService.Communication
         private CommandEnum commId;
         private string[] args;
 
-        public CommandEnum CommId {
+        public CommandEnum CommId
+        {
             set { commId = value; }
             get { return commId; }
         }
 
-        public string[] Args {
+        public string[] Args
+        {
             set { args = value; }
             get { return args; }
         }
@@ -33,7 +35,7 @@ namespace ImageService.Communication
         }
 
         //empty constructor for the from json method
-        private ServerClientCommunicationCommand()
+        public ServerClientCommunicationCommand()
         {
 
         }
@@ -44,7 +46,7 @@ namespace ImageService.Communication
         /// <returns>the json representation of the instance</returns>
         public string ToJson()
         {
-            
+
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
@@ -71,7 +73,7 @@ namespace ImageService.Communication
             {
                 return null;
             }
-            
+
         }
     }
 }
