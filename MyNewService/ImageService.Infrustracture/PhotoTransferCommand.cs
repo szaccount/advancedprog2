@@ -12,6 +12,9 @@ using ImageService.Infrastructure.IDirecoryHandlersManager;
 
 namespace ImageService.Infrastructure.PhotoTransfer
 {
+    /// <summary>
+    /// calss for handeling the photo backup transfer logic
+    /// </summary>
     public class PhotoTransferCommand: ICommand
     {
         private IDirectoryHandlersManager directoryHandlersManager;

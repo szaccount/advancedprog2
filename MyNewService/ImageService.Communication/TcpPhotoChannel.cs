@@ -11,6 +11,9 @@ using Newtonsoft.Json;
 
 namespace ImageService.Communication
 {
+    /// <summary>
+    /// communication channel for the photos transferring clients
+    /// </summary>
     public class TcpPhotoChannel:IServerChannel
     {
         private List<IClientHandler> clients;

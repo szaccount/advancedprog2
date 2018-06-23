@@ -9,6 +9,9 @@ using ImageService.Infrastructure.Enums;
 
 namespace ImageService.Communication
 {
+    /// <summary>
+    /// client handler object for the photos transferring clients
+    /// </summary>
     class ClientHandlerPhoto: IClientHandler
     {
         private bool running;

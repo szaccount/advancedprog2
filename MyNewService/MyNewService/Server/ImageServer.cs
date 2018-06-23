@@ -158,7 +158,11 @@ namespace ImageService.Server
             this.m_photoChannel.Stop();
 
         }
-
+        /// <summary>
+        /// method for handeling message from communication channel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"> received message</param>
         private void HandleMessageFromServer(object sender, MessageCommunicationEventArgs message)
         {
             IClientHandler clientHandler = sender as IClientHandler;

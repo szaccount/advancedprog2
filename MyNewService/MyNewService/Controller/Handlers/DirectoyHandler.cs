@@ -17,7 +17,8 @@ namespace ImageService.Controller.Handlers
     /// <summary>
     /// class implementing the IDirectoryHandler interface
     /// </summary>
-    public class DirectoyHandler : IDirectoryHandler
+    public class 
+        DirectoyHandler : IDirectoryHandler
     {
         #region Members
         private IController m_controller;    // The Image Processing Controller
